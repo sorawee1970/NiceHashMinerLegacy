@@ -135,6 +135,13 @@ namespace NiceHashMiner.Devices.Algorithms
                     new Algorithm(MinerBaseType.Prospector, AlgorithmType.Skunk, "sigt"),
                     new Algorithm(MinerBaseType.Prospector, AlgorithmType.Sia, "sia")
                 }
+            },
+            {
+                MinerBaseType.mkxminer,
+                new List<Algorithm>
+                {
+                    new Algorithm(MinerBaseType.mkxminer, AlgorithmType.Lyra2REv2, "")
+                }
             }
         }.ConcatDictList(All, Gpu);
 

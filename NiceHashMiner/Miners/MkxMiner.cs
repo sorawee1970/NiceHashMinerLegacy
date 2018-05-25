@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NiceHashMiner.Enums;
+using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMiner.Miners.Parsing;
+using NiceHashMiner.Algorithms;
 
 namespace NiceHashMiner.Miners
 {
