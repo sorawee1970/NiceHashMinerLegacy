@@ -1,35 +1,40 @@
-﻿using NiceHashMiner.Enums;
+﻿using ManagedCuda.Nvml;
 using NVIDIA.NVAPI;
+using System;
+using NiceHashMiner.Devices.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Devices
 {
     internal class CudaComputeDevice : ComputeDevice
     {
         private readonly NvPhysicalGpuHandle _nvHandle; // For NVAPI
+        private readonly nvmlDevice _nvmlDevice; // For NVML
         private const int GpuCorePState = 0; // memcontroller = 1, videng = 2
+        
+        protected int SMMajor;
+        protected int SMMinor;
 
         public override float Load
         {
             get
             {
-                var load = 0;
-                var pStates = new NvPStates
+                var load = -1;
+
+                try
                 {
-                    Version = NVAPI.GPU_PSTATES_VER,
-                    PStates = new NvPState[NVAPI.MAX_PSTATES_PER_GPU]
-                };
-                if (NVAPI.NvAPI_GPU_GetPStates != null)
-                {
-                    var result = NVAPI.NvAPI_GPU_GetPStates(_nvHandle, ref pStates);
-                    if (result != NvStatus.OK)
-                    {
-                        Helpers.ConsolePrint("NVAPI", "Load get failed with status: " + result);
-                    }
-                    else if (pStates.PStates[GpuCorePState].Present)
-                    {
-                        load = pStates.PStates[GpuCorePState].Percentage;
-                    }
+                    var rates = new nvmlUtilization();
+                    var ret = NvmlNativeMethods.nvmlDeviceGetUtilizationRates(_nvmlDevice, ref rates);
+                    if (ret != nvmlReturn.Success)
+                        throw new Exception($"NVML get load failed with code: {ret}");
+
+                    load = (int) rates.gpu;
                 }
+                catch (Exception e)
+                {
+                    Helpers.ConsolePrint("NVML", e.ToString());
+                }
+
                 return load;
             }
         }
@@ -38,56 +43,70 @@ namespace NiceHashMiner.Devices
         {
             get
             {
-                uint temp = 0;
-                if (NVAPI.NvAPI_GPU_GetThermalSettings != null)
+                var temp = -1f;
+
+                try
                 {
-                    var settings = new NvGPUThermalSettings
-                    {
-                        Version = NVAPI.GPU_THERMAL_SETTINGS_VER,
-                        Count = NVAPI.MAX_THERMAL_SENSORS_PER_GPU,
-                        Sensor = new NvSensor[NVAPI.MAX_THERMAL_SENSORS_PER_GPU]
-                    };
-                    var result = NVAPI.NvAPI_GPU_GetThermalSettings(_nvHandle, (int) NvThermalTarget.ALL, ref settings);
-                    if (result != NvStatus.OK)
-                    {
-                        Helpers.ConsolePrint("NVAPI", "Temp get failed with status: " + result);
-                    }
-                    else
-                    {
-                        foreach (var sensor in settings.Sensor)
-                        {
-                            if (sensor.Target == NvThermalTarget.GPU)
-                            {
-                                temp = sensor.CurrentTemp;
-                                break;
-                            }
-                        }
-                    }
+                    var utemp = 0u;
+                    var ret = NvmlNativeMethods.nvmlDeviceGetTemperature(_nvmlDevice, nvmlTemperatureSensors.Gpu,
+                        ref utemp);
+                    if (ret != nvmlReturn.Success)
+                        throw new Exception($"NVML get temp failed with code: {ret}");
+
+                    temp = utemp;
                 }
+                catch (Exception e)
+                {
+                    Helpers.ConsolePrint("NVML", e.ToString());
+                }
+
                 return temp;
             }
         }
 
-        public override uint FanSpeed
+        public override int FanSpeed
         {
             get
             {
-                var fanSpeed = 0;
+                var fanSpeed = -1;
                 if (NVAPI.NvAPI_GPU_GetTachReading != null)
                 {
                     var result = NVAPI.NvAPI_GPU_GetTachReading(_nvHandle, out fanSpeed);
                     if (result != NvStatus.OK && result != NvStatus.NOT_SUPPORTED)
                     {
-                        // GPUs without fans are not uncommon, so don't treat as error and just return 0
+                        // GPUs without fans are not uncommon, so don't treat as error and just return -1
                         Helpers.ConsolePrint("NVAPI", "Tach get failed with status: " + result);
+                        return -1;
                     }
                 }
-                return (uint) fanSpeed;
+                return fanSpeed;
+            }
+        }
+
+        public override double PowerUsage
+        {
+            get
+            {
+                try
+                {
+                    var power = 0u;
+                    var ret = NvmlNativeMethods.nvmlDeviceGetPowerUsage(_nvmlDevice, ref power);
+                    if (ret != nvmlReturn.Success)
+                        throw new Exception($"NVML power get failed with status: {ret}");
+
+                    return power * 0.001;
+                }
+                catch (Exception e)
+                {
+                    Helpers.ConsolePrint("NVML", e.ToString());
+                }
+
+                return -1;
             }
         }
 
         public CudaComputeDevice(CudaDevice cudaDevice, DeviceGroupType group, int gpuCount,
-            NvPhysicalGpuHandle nvHandle)
+            NvPhysicalGpuHandle nvHandle, nvmlDevice nvmlHandle)
             : base((int) cudaDevice.DeviceID,
                 cudaDevice.GetName(),
                 true,
@@ -102,9 +121,10 @@ namespace NiceHashMiner.Devices
             SMMinor = cudaDevice.SM_minor;
             Uuid = cudaDevice.UUID;
             AlgorithmSettings = GroupAlgorithms.CreateForDeviceList(this);
-            Index = ID + ComputeDeviceManager.Avaliable.AvailCpus; // increment by CPU count
+            Index = ID + ComputeDeviceManager.Available.AvailCpus; // increment by CPU count
 
             _nvHandle = nvHandle;
+            _nvmlDevice = nvmlHandle;
         }
     }
 }

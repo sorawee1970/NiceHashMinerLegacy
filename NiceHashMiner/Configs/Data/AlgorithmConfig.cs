@@ -1,5 +1,5 @@
-﻿using NiceHashMiner.Enums;
-using System;
+﻿using System;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Configs.Data
 {
@@ -16,5 +16,6 @@ namespace NiceHashMiner.Configs.Data
         public string ExtraLaunchParameters = "";
         public bool Enabled = true;
         public int LessThreads = 0;
+        public double PowerUsage = 0;
     }
 }

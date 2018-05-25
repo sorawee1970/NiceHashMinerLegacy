@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {
@@ -66,7 +67,7 @@ namespace NiceHashMiner.Miners
             _benchmarkTime = Math.Max(time, 60);
 
             return GetStartCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim()) +
-                   " --logfile=benchmark_log.txt";
+                   $" --logfile={GetLogFileName()}";
         }
 
         protected override void BenchmarkThreadRoutine(object commandLine)

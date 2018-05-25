@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Interfaces;
 using NiceHashMiner.Miners;
 using NiceHashMiner.Miners.Grouping;
@@ -17,6 +16,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Timers.Timer;
 
 namespace NiceHashMiner
@@ -28,33 +29,16 @@ namespace NiceHashMiner
         public string AlgorithmName;
         public double Speed;
         public double SecondarySpeed;
+        public double PowerUsage;
 
         public ApiData(AlgorithmType algorithmID, AlgorithmType secondaryAlgorithmID = AlgorithmType.NONE)
         {
             AlgorithmID = algorithmID;
             SecondaryAlgorithmID = secondaryAlgorithmID;
-            AlgorithmName = AlgorithmNiceHashNames.GetName(DualAlgorithmID());
+            AlgorithmName = AlgorithmNiceHashNames.GetName(Helpers.DualAlgoFromAlgos(algorithmID, secondaryAlgorithmID));
             Speed = 0.0;
             SecondarySpeed = 0.0;
-        }
-
-        public AlgorithmType DualAlgorithmID()
-        {
-            if (AlgorithmID == AlgorithmType.DaggerHashimoto)
-            {
-                switch (SecondaryAlgorithmID)
-                {
-                    case AlgorithmType.Decred:
-                        return AlgorithmType.DaggerDecred;
-                    case AlgorithmType.Lbry:
-                        return AlgorithmType.DaggerLbry;
-                    case AlgorithmType.Pascal:
-                        return AlgorithmType.DaggerPascal;
-                    case AlgorithmType.Sia:
-                        return AlgorithmType.DaggerSia;
-                }
-            }
-            return AlgorithmID;
+            PowerUsage = 0.0;
         }
     }
 
@@ -89,7 +73,7 @@ namespace NiceHashMiner
         // mining algorithm stuff
         protected bool IsInit { get; private set; }
 
-        protected MiningSetup MiningSetup { get; set; }
+        public MiningSetup MiningSetup { get; protected set; }
 
         // sgminer/zcash claymore workaround
         protected bool IsKillAllUsedMinerProcs { get; set; }
@@ -129,6 +113,8 @@ namespace NiceHashMiner
         private string _benchmarkLogPath = "";
         protected List<string> BenchLines;
 
+        protected bool TimeoutStandard;
+
 
         // TODO maybe set for individual miner cooldown/retries logic variables
         // this replaces MinerAPIGraceSeconds(AMD)
@@ -152,6 +138,8 @@ namespace NiceHashMiner
 
         protected const string HttpHeaderDelimiter = "\r\n\r\n";
 
+        protected bool IsMultiType;
+
         protected Miner(string minerDeviceName)
         {
             ConectionType = NhmConectionType.STRATUM_TCP;
@@ -170,7 +158,8 @@ namespace NiceHashMiner
 
             IsApiReadException = false;
             // Only set minimize if hide is false (specific miners will override true after)
-            IsNeverHideMiningWindow = ConfigManager.GeneralConfig.MinimizeMiningWindows && !ConfigManager.GeneralConfig.HideMiningWindows;
+            IsNeverHideMiningWindow = ConfigManager.GeneralConfig.MinimizeMiningWindows &&
+                                      !ConfigManager.GeneralConfig.HideMiningWindows;
             IsKillAllUsedMinerProcs = false;
             _maxCooldownTimeInMilliseconds = GetMaxCooldownTimeInMilliseconds();
             // 
@@ -213,6 +202,7 @@ namespace NiceHashMiner
                         break;
                     }
                 }
+
                 if (ApiPort == -1)
                 {
                     ApiPort = MinersApiPortsManager.GetAvaliablePort();
@@ -248,10 +238,12 @@ namespace NiceHashMiner
                 {
                     return string.Format(mask, MinerDeviceName, MinerID, "NOT_SET");
                 }
+
                 // contains ids
                 var ids = MiningSetup.MiningPairs.Select(cdevs => cdevs.Device.ID.ToString()).ToList();
                 _minerTag = string.Format(mask, MinerDeviceName, MinerID, string.Join(",", ids));
             }
+
             return _minerTag;
         }
 
@@ -285,7 +277,8 @@ namespace NiceHashMiner
                         }
                         catch (Exception e)
                         {
-                            Helpers.ConsolePrint(MinerTag(), $"Exception killing {ProcessTag(pidData)}, exMsg {e.Message}");
+                            Helpers.ConsolePrint(MinerTag(),
+                                $"Exception killing {ProcessTag(pidData)}, exMsg {e.Message}");
                         }
                     }
                 }
@@ -295,6 +288,7 @@ namespace NiceHashMiner
                     Helpers.ConsolePrint(MinerTag(), $"Nothing to kill {ProcessTag(pidData)}, exMsg {e.Message}");
                 }
             }
+
             _allPidData.RemoveAll(x => toRemovePidData.Contains(x));
         }
 
@@ -306,6 +300,7 @@ namespace NiceHashMiner
             {
                 return btcAdress + "." + worker;
             }
+
             return btcAdress;
         }
 
@@ -331,10 +326,12 @@ namespace NiceHashMiner
             {
                 Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Shutting down miner");
             }
+
             if (ProcessHandle != null)
             {
                 try { ProcessHandle.Kill(); }
                 catch { }
+
                 //try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
                 ProcessHandle.Close();
                 ProcessHandle = null;
@@ -367,14 +364,17 @@ namespace NiceHashMiner
 
         public int BenchmarkTimeoutInSeconds(int timeInSeconds)
         {
+            if (TimeoutStandard) return timeInSeconds;
             if (BenchmarkAlgorithm.NiceHashID == AlgorithmType.DaggerHashimoto)
             {
                 return 5 * 60 + 120; // 5 minutes plus two minutes
             }
+
             if (BenchmarkAlgorithm.NiceHashID == AlgorithmType.CryptoNight)
             {
                 return 5 * 60 + 120; // 5 minutes plus two minutes
             }
+
             return timeInSeconds + 120; // wait time plus two minutes
         }
 
@@ -403,6 +403,7 @@ namespace NiceHashMiner
                 }
             }
             catch { }
+
             BenchLines = new List<string>();
             _benchmarkLogPath =
                 $"{Logger.LogPath}Log_{MiningSetup.MiningPairs[0].Device.Uuid}_{MiningSetup.MiningPairs[0].Algorithm.AlgorithmStringID}";
@@ -439,6 +440,7 @@ namespace NiceHashMiner
                 Helpers.ConsolePrint(MinerTag(), "Using miner: " + benchmarkHandle.StartInfo.FileName);
                 benchmarkHandle.StartInfo.WorkingDirectory = WorkingDirectory;
             }
+
             // set sys variables
             if (MinersSettingsManager.MinerSystemVariables.ContainsKey(Path))
             {
@@ -483,7 +485,8 @@ namespace NiceHashMiner
                 _benchmarkTimeOutStopWatch = new Stopwatch();
                 _benchmarkTimeOutStopWatch.Start();
             }
-            else if (_benchmarkTimeOutStopWatch.Elapsed.TotalSeconds > BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds))
+            else if (_benchmarkTimeOutStopWatch.Elapsed.TotalSeconds >
+                     BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds))
             {
                 _benchmarkTimeOutStopWatch.Stop();
                 BenchmarkSignalTimedout = true;
@@ -494,6 +497,7 @@ namespace NiceHashMiner
             {
                 BenchmarkOutputErrorDataReceivedImpl(outdata);
             }
+
             // terminate process situations
             if (BenchmarkSignalQuit
                 || BenchmarkSignalFinnished
@@ -501,9 +505,13 @@ namespace NiceHashMiner
                 || BenchmarkSignalTimedout
                 || BenchmarkException != null)
             {
+                FinishUpBenchmark();
                 EndBenchmarkProcces();
             }
         }
+
+        protected virtual void FinishUpBenchmark()
+        { }
 
         protected abstract void BenchmarkOutputErrorDataReceivedImpl(string outdata);
 
@@ -527,6 +535,9 @@ namespace NiceHashMiner
             // Ethminer
             if (outdata.Contains("No GPU device with sufficient memory was found"))
                 BenchmarkException = new Exception("[daggerhashimoto] No GPU device with sufficient memory was found.");
+            // xmr-stak
+            if (outdata.Contains("Press any key to exit"))
+                BenchmarkException = new Exception("Xmr-Stak erred, check its logs");
 
             // lastly parse data
             if (BenchmarkParseLine(outdata))
@@ -561,6 +572,7 @@ namespace NiceHashMiner
                         break;
                     }
                 }
+
                 if (b >= 0)
                 {
                     var speedStr = hashspeed.Substring(0, b);
@@ -575,6 +587,7 @@ namespace NiceHashMiner
                     return spd;
                 }
             }
+
             return 0.0d;
         }
 
@@ -625,29 +638,50 @@ namespace NiceHashMiner
 
         protected virtual string GetFinalBenchmarkString()
         {
-            return BenchmarkSignalTimedout ? International.GetText("Benchmark_Timedout") : International.GetText("Benchmark_Terminated");
+            return BenchmarkSignalTimedout && !TimeoutStandard
+                ? International.GetText("Benchmark_Timedout")
+                : International.GetText("Benchmark_Terminated");
         }
 
         protected void BenchmarkThreadRoutineFinish()
         {
             var status = BenchmarkProcessStatus.Finished;
 
-            if (BenchmarkAlgorithm.BenchmarkSpeed > 0)
+            if (!BenchmarkAlgorithm.BenchmarkNeeded)
             {
                 status = BenchmarkProcessStatus.Success;
             }
 
-            using (var sw = File.AppendText(_benchmarkLogPath))
+            try
             {
-                foreach (var line in BenchLines)
+                using (StreamWriter sw = File.AppendText(_benchmarkLogPath))
                 {
-                    sw.WriteLine(line);
+                    foreach (var line in BenchLines)
+                    {
+                        sw.WriteLine(line);
+                    }
                 }
             }
+            catch { }
+
             BenchmarkProcessStatus = status;
-            Helpers.ConsolePrint("BENCHMARK",
-                "Final Speed: " + Helpers.FormatDualSpeedOutput(BenchmarkAlgorithm.NiceHashID, BenchmarkAlgorithm.BenchmarkSpeed,
-                    BenchmarkAlgorithm.SecondaryBenchmarkSpeed));
+            if (BenchmarkAlgorithm is DualAlgorithm dualAlg)
+            {
+                if (!dualAlg.TuningEnabled)
+                {
+                    // Tuning will report speed
+                    Helpers.ConsolePrint("BENCHMARK",
+                        "Final Speed: " + Helpers.FormatDualSpeedOutput(dualAlg.BenchmarkSpeed,
+                            dualAlg.SecondaryBenchmarkSpeed, dualAlg.DualNiceHashID));
+                }
+            }
+            else
+            {
+                Helpers.ConsolePrint("BENCHMARK",
+                    "Final Speed: " + Helpers.FormatDualSpeedOutput(BenchmarkAlgorithm.BenchmarkSpeed, 0,
+                        BenchmarkAlgorithm.NiceHashID));
+            }
+
             Helpers.ConsolePrint("BENCHMARK", "Benchmark ends");
             if (BenchmarkComunicator != null && !OnBenchmarkCompleteCalled)
             {
@@ -661,12 +695,12 @@ namespace NiceHashMiner
 
         protected virtual void BenchmarkThreadRoutine(object commandLine)
         {
-            Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
-
             BenchmarkSignalQuit = false;
             BenchmarkSignalHanged = false;
             BenchmarkSignalFinnished = false;
             BenchmarkException = null;
+            
+            Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
 
             try
             {
@@ -679,23 +713,27 @@ namespace NiceHashMiner
                 //var exitSucces = BenchmarkHandle.WaitForExit(timeoutTime * 1000);
                 // don't use wait for it breaks everything
                 BenchmarkProcessStatus = BenchmarkProcessStatus.Running;
-                BenchmarkHandle.WaitForExit();
-                if (BenchmarkSignalTimedout)
+                var exited = BenchmarkHandle.WaitForExit((BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds) + 20) * 1000);
+                if (BenchmarkSignalTimedout && !TimeoutStandard)
                 {
                     throw new Exception("Benchmark timedout");
                 }
+
                 if (BenchmarkException != null)
                 {
                     throw BenchmarkException;
                 }
+
                 if (BenchmarkSignalQuit)
                 {
                     throw new Exception("Termined by user request");
                 }
-                if (BenchmarkSignalHanged)
+
+                if (BenchmarkSignalHanged || !exited)
                 {
-                    throw new Exception("SGMiner is not responding");
+                    throw new Exception("Miner is not responding");
                 }
+
                 if (BenchmarkSignalFinnished)
                 {
                     //break;
@@ -718,14 +756,14 @@ namespace NiceHashMiner
         /// <param name="benchmarkTimeWait"></param>
         protected void BenchmarkThreadRoutineAlternate(object commandLine, int benchmarkTimeWait)
         {
-            CleanAllOldLogs();
-
-            Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
+            CleanOldLogs();
 
             BenchmarkSignalQuit = false;
             BenchmarkSignalHanged = false;
             BenchmarkSignalFinnished = false;
             BenchmarkException = null;
+            
+            Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
 
             try
             {
@@ -762,21 +800,26 @@ namespace NiceHashMiner
                         {
                             throw new Exception("Benchmark timedout");
                         }
+
                         if (BenchmarkException != null)
                         {
                             throw BenchmarkException;
                         }
+
                         if (BenchmarkSignalQuit)
                         {
                             throw new Exception("Termined by user request");
                         }
+
                         if (BenchmarkSignalFinnished)
                         {
                             break;
                         }
+
                         keepRunning = false;
                         break;
                     }
+
                     // wait a second reduce CPU load
                     Thread.Sleep(1000);
                 }
@@ -789,31 +832,33 @@ namespace NiceHashMiner
             {
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
                 // find latest log file
-                var latestLogFile = "";
+                string latestLogFile = "";
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
-                foreach (var file in dirInfo.GetFiles("*_log.txt"))
+                foreach (var file in dirInfo.GetFiles(GetLogFileName()))
                 {
                     latestLogFile = file.Name;
                     break;
                 }
-                BenchmarkHandle.WaitForExit(10000);
+
+                BenchmarkHandle?.WaitForExit(10000);
                 // read file log
                 if (File.Exists(WorkingDirectory + latestLogFile))
                 {
                     var lines = File.ReadAllLines(WorkingDirectory + latestLogFile);
                     ProcessBenchLinesAlternate(lines);
                 }
+
                 BenchmarkThreadRoutineFinish();
             }
         }
 
-        protected void CleanAllOldLogs()
+        protected void CleanOldLogs()
         {
             // clean old logs
             try
             {
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
-                const string deleteContains = "_log.txt";
+                var deleteContains = GetLogFileName();
                 if (dirInfo.Exists)
                 {
                     foreach (var file in dirInfo.GetFiles())
@@ -826,6 +871,26 @@ namespace NiceHashMiner
                 }
             }
             catch { }
+        }
+
+        /// <summary>
+        /// When parallel benchmarking each device needs its own log files, so this uniquely identifies for the setup
+        /// </summary>
+        protected string GetDeviceID()
+        {
+            var ids = MiningSetup.MiningPairs.Select(x => x.Device.ID);
+            var idStr = string.Join(",", ids);
+
+            if (!IsMultiType) return idStr;
+            
+            // Miners that use multiple dev types need to also discriminate based on that
+            var types = MiningSetup.MiningPairs.Select(x => (int) x.Device.DeviceType);
+            return $"{string.Join(",", types)}-{idStr}";
+        }
+
+        protected string GetLogFileName()
+        {
+            return $"{GetDeviceID()}_log.txt";
         }
 
         protected virtual void ProcessBenchLinesAlternate(string[] lines)
@@ -870,6 +935,7 @@ namespace NiceHashMiner
             {
                 P.StartInfo.WorkingDirectory = WorkingDirectory;
             }
+
             if (MinersSettingsManager.MinerSystemVariables.ContainsKey(Path))
             {
                 // Setting startinfo vars has no effect under NHProcess, so set app vars before launch
@@ -901,6 +967,7 @@ namespace NiceHashMiner
             {
                 P.StartInfo.CreateNoWindow = ConfigManager.GeneralConfig.HideMiningWindows;
             }
+
             P.StartInfo.UseShellExecute = false;
 
             try
@@ -922,6 +989,7 @@ namespace NiceHashMiner
 
                     return P;
                 }
+
                 Helpers.ConsolePrint(MinerTag(), "NOT STARTED " + ProcessTag() + " " + LastCommandLine);
                 return null;
             }
@@ -952,6 +1020,7 @@ namespace NiceHashMiner
             {
                 Helpers.ConsolePrint(MinerTag(), "Cooldown checker disabled");
             }
+
             CurrentMinerReadStatus = MinerApiReadStatus.NONE;
         }
 
@@ -963,7 +1032,9 @@ namespace NiceHashMiner
 
         protected void ScheduleRestart(int ms)
         {
-            var restartInMs = ConfigManager.GeneralConfig.MinerRestartDelayMS > ms ? ConfigManager.GeneralConfig.MinerRestartDelayMS : ms;
+            var restartInMs = ConfigManager.GeneralConfig.MinerRestartDelayMS > ms
+                ? ConfigManager.GeneralConfig.MinerRestartDelayMS
+                : ms;
             Helpers.ConsolePrint(MinerTag(), ProcessTag() + $" Miner_Exited Will restart in {restartInMs} ms");
             if (ConfigManager.GeneralConfig.CoolDownCheckEnabled)
             {
@@ -993,7 +1064,8 @@ namespace NiceHashMiner
             return false;
         }
 
-        protected async Task<string> GetApiDataAsync(int port, string dataToSend, bool exitHack = false, bool overrideLoop = false)
+        protected async Task<string> GetApiDataAsync(int port, string dataToSend, bool exitHack = false,
+            bool overrideLoop = false)
         {
             string responseFromServer = null;
             try
@@ -1015,18 +1087,21 @@ namespace NiceHashMiner
                     for (var i = offset; i < offset + r; i++)
                     {
                         if (incomingBuffer[i] == 0x7C || incomingBuffer[i] == 0x00
-                            || (i > 2 && IsApiEof(incomingBuffer[i - 2], incomingBuffer[i - 1], incomingBuffer[i]))
-                            || overrideLoop)
+                                                      || (i > 2 && IsApiEof(incomingBuffer[i - 2],
+                                                              incomingBuffer[i - 1], incomingBuffer[i]))
+                                                      || overrideLoop)
                         {
                             fin = true;
                             break;
                         }
+
                         // Not working
                         //if (IncomingBuffer[i] == 0x5d || IncomingBuffer[i] == 0x5e) {
                         //    fin = true;
                         //    break;
                         //}
                     }
+
                     offset += r;
                     if (exitHack)
                     {
@@ -1035,6 +1110,7 @@ namespace NiceHashMiner
                             fin = true;
                             break;
                         }
+
                         prevOffset = offset;
                     }
                 }
@@ -1070,6 +1146,7 @@ namespace NiceHashMiner
                     CurrentMinerReadStatus = MinerApiReadStatus.NETWORK_EXCEPTION;
                     throw new Exception("Response is empty!");
                 }
+
                 if (respStr.IndexOf("HTTP/1.1 200 OK") > -1)
                 {
                     respStr = respStr.Substring(respStr.IndexOf(HttpHeaderDelimiter) + HttpHeaderDelimiter.Length);
@@ -1090,6 +1167,7 @@ namespace NiceHashMiner
                         ad.Speed = total.Value<double>();
                         break;
                     }
+
                     if (ad.Speed == 0)
                     {
                         CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
@@ -1216,7 +1294,8 @@ namespace NiceHashMiner
             if (_currentCooldownTimeInSeconds > MinCooldownTimeInMilliseconds)
             {
                 _currentCooldownTimeInSeconds = MinCooldownTimeInMilliseconds;
-                Helpers.ConsolePrint(MinerTag(), $"{ProcessTag()} Reseting cool time = {MinCooldownTimeInMilliseconds} ms");
+                Helpers.ConsolePrint(MinerTag(),
+                    $"{ProcessTag()} Reseting cool time = {MinCooldownTimeInMilliseconds} ms");
                 CurrentMinerReadStatus = MinerApiReadStatus.NONE;
             }
         }
@@ -1227,7 +1306,8 @@ namespace NiceHashMiner
         private void CoolUp()
         {
             _currentCooldownTimeInSeconds *= 2;
-            Helpers.ConsolePrint(MinerTag(), $"{ProcessTag()} Cooling UP, cool time is {_currentCooldownTimeInSeconds} ms");
+            Helpers.ConsolePrint(MinerTag(),
+                $"{ProcessTag()} Cooling UP, cool time is {_currentCooldownTimeInSeconds} ms");
             if (_currentCooldownTimeInSeconds > _maxCooldownTimeInMilliseconds)
             {
                 CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
@@ -1243,6 +1323,7 @@ namespace NiceHashMiner
                 End();
                 return;
             }
+
             _currentCooldownTimeInSecondsLeft -= (int) _cooldownCheckTimer.Interval;
             // if times up
             if (_currentCooldownTimeInSecondsLeft > 0) return;
@@ -1268,6 +1349,7 @@ namespace NiceHashMiner
                         CoolUp();
                         break;
                 }
+
             // set new times left from the CoolUp/Down change
             _currentCooldownTimeInSecondsLeft = _currentCooldownTimeInSeconds;
         }

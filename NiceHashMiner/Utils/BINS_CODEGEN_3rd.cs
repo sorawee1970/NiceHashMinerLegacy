@@ -6,17 +6,6 @@ namespace NiceHashMiner.Utils
 
         public static string[] ALL_FILES_BINS =
         {
-            @"/claymore_cryptonight/Data1a1.bin",
-            @"/claymore_cryptonight/Data1b1.bin",
-            @"/claymore_cryptonight/Data1c1.bin",
-            @"/claymore_cryptonight/Data1d1.bin",
-            @"/claymore_cryptonight/Data1e1.bin",
-            @"/claymore_cryptonight/Data1g1.bin",
-            @"/claymore_cryptonight/Data1h1.bin",
-            @"/claymore_cryptonight/Data1i1.bin",
-            @"/claymore_cryptonight/NsGpuCNMiner.exe",
-            @"/claymore_cryptonight_old/Data.bin",
-            @"/claymore_cryptonight_old/NsGpuCNMiner.exe",
             @"/claymore_dual/Data.bin",
             @"/claymore_dual/Data1a1.bin",
             @"/claymore_dual/Data1b1.bin",
@@ -857,6 +846,15 @@ namespace NiceHashMiner.Utils
             @"/optiminer_zcash_win/bin-223600/Tonga_round8.bin",
             @"/optiminer_zcash_win/bin-223600/Tonga_round9.bin",
             @"/prospector/prospector.exe",
+            @"/claymore_cryptonight/Data1a1.bin",
+            @"/claymore_cryptonight/Data1b1.bin",
+            @"/claymore_cryptonight/Data1c1.bin",
+            @"/claymore_cryptonight/Data1d1.bin",
+            @"/claymore_cryptonight/Data1e1.bin",
+            @"/claymore_cryptonight/Data1g1.bin",
+            @"/claymore_cryptonight/Data1h1.bin",
+            @"/claymore_cryptonight/Data1i1.bin",
+            @"/claymore_cryptonight/NsGpuCNMiner.exe",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

@@ -1,12 +1,13 @@
 ﻿using Microsoft.Win32;
 using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
 using NiceHashMiner.PInvoke;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using NiceHashMiner.PInvoke;
 using System.Management;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner
 {
@@ -140,7 +141,7 @@ namespace NiceHashMiner
             return ret;
         }
 
-        public static string FormatDualSpeedOutput(AlgorithmType algorithmID, double primarySpeed, double secondarySpeed = 0)
+        public static string FormatDualSpeedOutput(double primarySpeed, double secondarySpeed=0, AlgorithmType algo = AlgorithmType.NONE) 
         {
             string ret;
             if (secondarySpeed > 0)
@@ -151,10 +152,8 @@ namespace NiceHashMiner
             {
                 ret = FormatSpeedOutput(primarySpeed);
             }
-
-            if (algorithmID == AlgorithmType.Equihash)
-                return ret + "Sols/s ";
-            return ret + "H/s ";
+            var unit = (algo == AlgorithmType.Equihash) ? "Sol/s " : "H/s ";
+            return ret + unit;
         }
 
         public static string GetMotherboardID()
@@ -372,6 +371,30 @@ namespace NiceHashMiner
             {
                 ConsolePrint("NICEHASH", "nvidiasetp0state error: " + ex.Message);
             }
+        }
+
+        public static AlgorithmType DualAlgoFromAlgos(AlgorithmType primary, AlgorithmType secondary)
+        {
+            if (primary == AlgorithmType.DaggerHashimoto)
+            {
+                switch (secondary)
+                {
+                    case AlgorithmType.Decred:
+                        return AlgorithmType.DaggerDecred;
+                    case AlgorithmType.Lbry:
+                        return AlgorithmType.DaggerLbry;
+                    case AlgorithmType.Pascal:
+                        return AlgorithmType.DaggerPascal;
+                    case AlgorithmType.Sia:
+                        return AlgorithmType.DaggerSia;
+                    case AlgorithmType.Blake2s:
+                        return AlgorithmType.DaggerBlake2s;
+                    case AlgorithmType.Keccak:
+                        return AlgorithmType.DaggerKeccak;
+                }
+            }
+
+            return primary;
         }
     }
 }
