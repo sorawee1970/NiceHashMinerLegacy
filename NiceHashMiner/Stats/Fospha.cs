@@ -85,7 +85,24 @@ namespace NiceHashMiner.Stats
 
         private static string GenChecksum(string data)
         {
-            return "";
+            const ushort largePrime = 65521;
+            const uint numShort = 65536;
+
+            ushort a = 1;
+            ushort b = 0;
+
+            foreach (var c in data)
+            unchecked
+            {
+                a += c;
+                b += a;
+            }
+
+            a %= largePrime;
+            b %= largePrime;
+
+            var chk = b * numShort + a;
+            return chk.ToString("X");
         }
     }
 }
