@@ -27,7 +27,7 @@ namespace NiceHashMiner.Stats
             var pars = new Dictionary<string, string>
             {
                 ["v"] = V,
-                ["i"] = GetIParam(id),
+                ["i"] = GetIParam(id, DateTime.Now.GetUnixTime()),
                 ["f"] = F,
                 ["d"] = GetDParam(name, id),
                 ["t"] = T
@@ -58,12 +58,10 @@ namespace NiceHashMiner.Stats
             }
         }
 
-        private static string GetIParam(string id)
+        internal static string GetIParam(string id, ulong unixTimestamp)
         {
             const int index = 1;
             const int num = 1;
-
-            var unixNow = DateTime.Now.GetUnixTime();
 
             ulong hash;
 
@@ -73,23 +71,23 @@ namespace NiceHashMiner.Stats
                 hash = (ulong) Math.Abs(Math.Floor(R.NextDouble() * Math.Pow(2, 32)));
             }
 
-            var hit = $"{unixNow}.{hash}.{id}";
+            var hit = $"{unixTimestamp}.{hash}.{id}";
 
             return $"{index}.{num}.{hit}";
         }
 
-        private static string GetDParam(string eventName, string id)
+        internal static string GetDParam(string eventName, string id)
         {
             return "";
         }
 
-        private static string GenChecksum(string data)
+        internal static string GenChecksum(string data)
         {
             const ushort largePrime = 65521;
             const uint numShort = 65536;
 
-            ushort a = 1;
-            ushort b = 0;
+            var a = 1ul;
+            var b = 0ul;
 
             foreach (var c in data)
             unchecked
@@ -102,7 +100,7 @@ namespace NiceHashMiner.Stats
             b %= largePrime;
 
             var chk = b * numShort + a;
-            return chk.ToString("X");
+            return chk.ToString("x8");
         }
     }
 }
