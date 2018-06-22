@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Switching;
@@ -206,7 +207,7 @@ namespace NiceHashMiner
         }
 
 
-        private void IdleCheck_Tick(object sender, EventArgs e)
+        private async void IdleCheck_Tick(object sender, EventArgs e)
         {
             if (!ConfigManager.GeneralConfig.StartMiningWhenIdle || _isManuallyStarted) return;
 
@@ -225,7 +226,7 @@ namespace NiceHashMiner
                 if (_benchmarkForm == null && (msIdle > (ConfigManager.GeneralConfig.MinIdleSeconds * 1000)))
                 {
                     Helpers.ConsolePrint("NICEHASH", "Entering idling state");
-                    if (StartMining(false) != StartMiningReturnType.StartMining)
+                    if (await StartMining(false) != StartMiningReturnType.StartMining)
                     {
                         StopMining();
                     }
@@ -234,7 +235,7 @@ namespace NiceHashMiner
         }
 
         // This is a single shot _benchmarkTimer
-        private void StartupTimer_Tick(object sender, EventArgs e)
+        private async void StartupTimer_Tick(object sender, EventArgs e)
         {
             _startupTimer.Stop();
             _startupTimer = null;
@@ -452,12 +453,14 @@ namespace NiceHashMiner
                 Helpers.InstallVcRedist();
             }
 
+            await Fospha.LogEvent(NiceHashMinerLegacy.Common.Enums.Events.Launch);
+
 
             if (ConfigManager.GeneralConfig.AutoStartMining)
             {
                 // well this is started manually as we want it to start at runtime
                 _isManuallyStarted = true;
-                if (StartMining(false) != StartMiningReturnType.StartMining)
+                if (await StartMining(false) != StartMiningReturnType.StartMining)
                 {
                     _isManuallyStarted = false;
                     StopMining();
@@ -895,9 +898,9 @@ namespace NiceHashMiner
         }
 
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private async void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MinersManager.StopAllMiners();
+            await MinersManager.StopAllMiners();
 
             MessageBoxManager.Unregister();
         }
@@ -949,10 +952,10 @@ namespace NiceHashMiner
             }
         }
 
-        private void ButtonStartMining_Click(object sender, EventArgs e)
+        private async void ButtonStartMining_Click(object sender, EventArgs e)
         {
             _isManuallyStarted = true;
-            if (StartMining(true) == StartMiningReturnType.ShowNoMining)
+            if (await StartMining(true) == StartMiningReturnType.ShowNoMining)
             {
                 _isManuallyStarted = false;
                 StopMining();
@@ -1058,7 +1061,7 @@ namespace NiceHashMiner
             IgnoreMsg
         }
 
-        private StartMiningReturnType StartMining(bool showWarnings)
+        private async Task<StartMiningReturnType> StartMining(bool showWarnings)
         {
             if (textBoxBTCAddress.Text.Equals(""))
             {
@@ -1182,7 +1185,7 @@ namespace NiceHashMiner
             ClearRatesAll();
 
             var btcAdress = _demoMode ? Globals.DemoUser : textBoxBTCAddress.Text.Trim();
-            var isMining = MinersManager.StartInitialize(this, Globals.MiningLocation[comboBoxLocation.SelectedIndex],
+            var isMining = await MinersManager.StartInitialize(this, Globals.MiningLocation[comboBoxLocation.SelectedIndex],
                 textBoxWorkerName.Text.Trim(), btcAdress);
 
             if (!_demoMode) ConfigManager.GeneralConfigFileCommit();

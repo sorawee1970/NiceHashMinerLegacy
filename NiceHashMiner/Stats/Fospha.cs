@@ -60,12 +60,14 @@ namespace NiceHashMiner.Stats
                 req += $"c={checksum}";
                 var finalReq = $"{Endpoint}?{req}";
 
-                var wr = (HttpWebRequest)WebRequest.Create(finalReq);
-                wr.Timeout = 30 * 1000;
-                using (var response = await wr.GetResponseAsync())
-                {
-                    Helpers.ConsolePrint("Fospha", response.ContentType);
-                }
+                Helpers.ConsolePrint("Fospha", finalReq);
+
+                //var wr = (HttpWebRequest)WebRequest.Create(finalReq);
+                //wr.Timeout = 30 * 1000;
+                //using (var response = await wr.GetResponseAsync())
+                //{
+                //    Helpers.ConsolePrint("Fospha", response.ContentType);
+                //}
             }
             catch (Exception e)
             {

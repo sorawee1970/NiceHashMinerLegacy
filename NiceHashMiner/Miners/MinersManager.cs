@@ -2,7 +2,9 @@
 using NiceHashMiner.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NiceHashMiner.Stats;
 using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {
@@ -10,8 +12,9 @@ namespace NiceHashMiner.Miners
     {
         private static MiningSession _curMiningSession;
 
-        public static void StopAllMiners()
+        public static async Task StopAllMiners()
         {
+            await Fospha.LogEvent(Events.MiningStop);
             _curMiningSession?.StopAllMiners();
             _curMiningSession = null;
         }
@@ -37,9 +40,11 @@ namespace NiceHashMiner.Miners
             return _curMiningSession?.GetTotalRate() ?? 0;
         }
 
-        public static bool StartInitialize(IMainFormRatesComunication mainFormRatesComunication,
+        public static async Task<bool> StartInitialize(IMainFormRatesComunication mainFormRatesComunication,
             string miningLocation, string worker, string btcAdress)
         {
+            await Fospha.LogStartMining(ComputeDeviceManager.Available.Devices.Count);
+
             _curMiningSession = new MiningSession(ComputeDeviceManager.Available.Devices,
                 mainFormRatesComunication, miningLocation, worker, btcAdress);
 
