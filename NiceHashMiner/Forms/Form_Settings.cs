@@ -766,11 +766,15 @@ namespace NiceHashMiner.Forms
             return startVal == Application.ExecutablePath;
         }
 
-        private void GeneralTextBoxes_Leave(object sender, EventArgs e)
+        private async void GeneralTextBoxes_Leave(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
             IsChange = true;
-            if (ConfigManager.GeneralConfig.BitcoinAddress != textBox_BitcoinAddress.Text.Trim()) _isCredChange = true;
+            if (ConfigManager.GeneralConfig.BitcoinAddress != textBox_BitcoinAddress.Text.Trim())
+            {
+                _isCredChange = true;
+                await Fospha.LogAddWallet(textBox_BitcoinAddress.Text.Trim());
+            }
             ConfigManager.GeneralConfig.BitcoinAddress = textBox_BitcoinAddress.Text.Trim();
             if (ConfigManager.GeneralConfig.WorkerName != textBox_WorkerName.Text.Trim()) _isCredChange = true;
             ConfigManager.GeneralConfig.WorkerName = textBox_WorkerName.Text.Trim();

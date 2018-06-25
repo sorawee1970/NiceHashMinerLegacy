@@ -378,6 +378,7 @@ namespace NiceHashMiner
                 // check if files are mising
                 if (!MinersExistanceChecker.IsMinersBinsInit())
                 {
+                    await Fospha.LogEvent(NiceHashMinerLegacy.Common.Enums.Events.AntiVirusRemovedMiner);
                     var result = MessageBox.Show(International.GetText("Form_Main_bins_folder_files_missing"),
                         International.GetText("Warning_with_Exclamation"),
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -420,6 +421,7 @@ namespace NiceHashMiner
                     // check if files are mising
                     if (!MinersExistanceChecker.IsMiners3rdPartyBinsInit())
                     {
+                        await Fospha.LogEvent(NiceHashMinerLegacy.Common.Enums.Events.AntiVirusRemovedMiner);
                         var result = MessageBox.Show(International.GetText("Form_Main_bins_folder_files_missing"),
                             International.GetText("Warning_with_Exclamation"),
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1012,7 +1014,7 @@ namespace NiceHashMiner
             statusStrip1.Cursor = Cursors.Default;
         }
 
-        private void TextBoxCheckBoxMain_Leave(object sender, EventArgs e)
+        private async void TextBoxCheckBoxMain_Leave(object sender, EventArgs e)
         {
             if (VerifyMiningAddress(false))
             {
@@ -1021,6 +1023,10 @@ namespace NiceHashMiner
                 {
                     // Reset credentials
                     NiceHashStats.SetCredentials(textBoxBTCAddress.Text.Trim(), textBoxWorkerName.Text.Trim());
+                    if (ConfigManager.GeneralConfig.BitcoinAddress != textBoxBTCAddress.Text.Trim())
+                    {
+                        await Fospha.LogAddWallet(textBoxBTCAddress.Text.Trim());
+                    }
                 }
                 // Commit to config.json
                 ConfigManager.GeneralConfig.BitcoinAddress = textBoxBTCAddress.Text.Trim();
