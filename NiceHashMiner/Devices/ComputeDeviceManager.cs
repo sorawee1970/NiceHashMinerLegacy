@@ -16,6 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using NiceHashMiner.Devices.Querying;
 using NiceHashMiner.Forms;
+using NiceHashMiner.Stats;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Devices
@@ -491,6 +492,7 @@ namespace NiceHashMiner.Devices
                         }
 
                         Available.CpusCount = 0;
+                        Fospha.LogEvent(Events.UnsupportedDevice).RunSynchronously();
                     }
 
                     // TODO important move this to settings
@@ -516,6 +518,10 @@ namespace NiceHashMiner.Devices
                                 );
                             }
                         }
+                    }
+                    else
+                    {
+                        Fospha.LogEvent(Events.UnsupportedDevice).RunSynchronously();
                     }
 
                     Helpers.ConsolePrint(Tag, "QueryCpus END");
@@ -613,6 +619,10 @@ namespace NiceHashMiner.Devices
                                 var isUnderSM2Major = cudaDev.SM_major < 2;
                                 var isUnderSM1Minor = cudaDev.SM_minor < 1;
                                 isUnderSM21 = isUnderSM2Major && isUnderSM1Minor;
+                            }
+                            if (isUnderSM21)
+                            {
+                                Fospha.LogEvent(Events.UnsupportedDevice).RunSynchronously();
                             }
                             //bool isOverSM6 = cudaDev.SM_major > 6;
                             var skip = isUnderSM21;
