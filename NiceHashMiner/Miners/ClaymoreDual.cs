@@ -1,5 +1,8 @@
 ﻿using System;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
@@ -87,7 +90,7 @@ namespace NiceHashMiner.Miners
 
                     if (dual != AlgorithmType.NONE)
                     {
-                        var urlSecond = Globals.GetLocationUrl(dual,
+                        var urlSecond = NHSmaData.GetLocationUrl(dual,
                             Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                             ConectionType);
                         dualModeParams = $" {coinP} -dpool {urlSecond} -dwal {username}";
@@ -97,7 +100,7 @@ namespace NiceHashMiner.Miners
             }
             else
             {
-                var urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
+                var urlSecond = NHSmaData.GetLocationUrl(SecondaryAlgorithmType,
                     Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
                 dualModeParams = $" -dcoin {SecondaryShortName()} -dpool {urlSecond} -dwal {username} -dpsw x";
             }

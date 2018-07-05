@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiceHashMiner.Algorithms;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Miners.Parsing;
 using NiceHashMiner.Miners.XmrStak.Configs;
+using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners.XmrStak
@@ -199,7 +201,7 @@ namespace NiceHashMiner.Miners.XmrStak
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
-            var url = Globals.GetLocationUrl(algorithm.NiceHashID,
+            var url = NHSmaData.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var configs = PrepareConfigFiles(url, Globals.GetBitcoinUser(),
                 ConfigManager.GeneralConfig.WorkerName.Trim(), true);

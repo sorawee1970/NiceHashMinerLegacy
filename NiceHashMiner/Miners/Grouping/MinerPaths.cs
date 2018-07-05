@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Devices.Algorithms;
+using NiceHashMinerLegacy.Common.Configs.ConfigJsonFile;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners.Grouping

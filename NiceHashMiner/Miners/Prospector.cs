@@ -13,6 +13,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
@@ -344,7 +347,7 @@ namespace NiceHashMiner.Miners
             // Prospector can take a very long time to start up
             _benchmarkTimeWait = time + 60;
             // network stub
-            var url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
+            var url = NHSmaData.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
             return GetStartupCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
         }

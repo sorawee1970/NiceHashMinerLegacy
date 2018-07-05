@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Models;
 
 namespace NiceHashMinerLegacy.Common.Configs.Data
 {
@@ -116,7 +118,7 @@ namespace NiceHashMinerLegacy.Common.Configs.Data
         // methods
         public void SetDefaults()
         {
-            ConfigFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            ConfigFileVersion = Assembly.GetCallingAssembly().GetName().Version;
             Language = LanguageType.En;
             ForceCPUExtension = CpuExtensionType.Automatic;
             BitcoinAddress = "";
@@ -173,7 +175,7 @@ namespace NiceHashMinerLegacy.Common.Configs.Data
 
         public void FixSettingBounds()
         {
-            ConfigFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            ConfigFileVersion = Assembly.GetCallingAssembly().GetName().Version;
             if (string.IsNullOrEmpty(DisplayCurrency)
                 || string.IsNullOrWhiteSpace(DisplayCurrency))
             {

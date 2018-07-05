@@ -1,17 +1,18 @@
-﻿using NiceHashMiner.Configs;
-using NiceHashMiner.Configs.Data;
-using NiceHashMiner.Miners.Grouping;
+﻿using NiceHashMiner.Miners.Grouping;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Devices.Algorithms;
+using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Common.Configs.Data;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Interfaces;
 
 namespace NiceHashMiner.Devices
 {
-    public class ComputeDevice
+    public class ComputeDevice : IDevice
     {
         public readonly int ID;
 
@@ -367,7 +368,7 @@ namespace NiceHashMiner.Devices
             return "GEN-" + hash;
         }
 
-        internal bool IsAlgorithmSettingsInitialized()
+        public bool IsAlgorithmSettingsInitialized()
         {
             return AlgorithmSettings != null;
         }

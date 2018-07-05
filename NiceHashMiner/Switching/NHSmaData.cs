@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using NiceHashMiner.Configs;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Switching
@@ -253,6 +253,37 @@ namespace NiceHashMiner.Switching
             }
 
             return dict;
+        }
+
+        public static string GetLocationUrl(AlgorithmType algorithmType, string miningLocation, NhmConectionType conectionType)
+        {
+            if (!NHSmaData.TryGetSma(algorithmType, out var sma)) return "";
+
+            var name = sma.Name;
+            var nPort = sma.Port;
+            var sslPort = 30000 + nPort;
+
+            // NHMConectionType.NONE
+            var prefix = "";
+            var port = nPort;
+            switch (conectionType)
+            {
+                case NhmConectionType.LOCKED:
+                    return miningLocation;
+                case NhmConectionType.STRATUM_TCP:
+                    prefix = "stratum+tcp://";
+                    break;
+                case NhmConectionType.STRATUM_SSL:
+                    prefix = "stratum+ssl://";
+                    port = sslPort;
+                    break;
+            }
+
+            return prefix
+                   + name
+                   + "." + miningLocation
+                   + ".nicehash.com:"
+                   + port;
         }
 
         #endregion

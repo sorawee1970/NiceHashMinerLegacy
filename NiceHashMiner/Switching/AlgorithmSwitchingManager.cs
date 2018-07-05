@@ -1,9 +1,10 @@
-﻿using NiceHashMiner.Configs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Models;
 
 namespace NiceHashMiner.Switching
 {

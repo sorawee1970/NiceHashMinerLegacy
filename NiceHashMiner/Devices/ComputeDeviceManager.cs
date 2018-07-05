@@ -1,6 +1,4 @@
-﻿using ATI.ADL;
-using Newtonsoft.Json;
-using NiceHashMiner.Configs;
+﻿using Newtonsoft.Json;
 using NiceHashMiner.Interfaces;
 using NVIDIA.NVAPI;
 using ManagedCuda.Nvml;
@@ -11,11 +9,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using NiceHashMiner.Devices.Querying;
-using NiceHashMiner.Forms;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Devices

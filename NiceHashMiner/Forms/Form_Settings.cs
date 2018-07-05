@@ -10,6 +10,8 @@ using System.Security;
 using System.Windows.Forms;
 using NiceHashMiner.Devices.Algorithms;
 using NiceHashMiner.Stats;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Forms

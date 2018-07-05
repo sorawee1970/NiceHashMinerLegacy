@@ -1,12 +1,12 @@
 ﻿using Microsoft.Win32;
-using NiceHashMiner.Configs;
 using NiceHashMiner.PInvoke;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using NiceHashMiner.PInvoke;
 using System.Management;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner
@@ -29,38 +29,14 @@ namespace NiceHashMiner
             return false;
         }
 
-        public static void ConsolePrint(string grp, string text)
-        {
-            // try will prevent an error if something tries to print an invalid character
-            try
-            {
-                // Console.WriteLine does nothing on x64 while debugging with VS, so use Debug. Console.WriteLine works when run from .exe
-#if DEBUG
-                Debug.WriteLine("[" + DateTime.Now.ToLongTimeString() + "] [" + grp + "] " + text);
-#endif
-#if !DEBUG
-            Console.WriteLine("[" +DateTime.Now.ToLongTimeString() + "] [" + grp + "] " + text);
-#endif
-
-                if (ConfigManager.GeneralConfig.LogToFile && Logger.IsInit)
-                    Logger.Log.Info("[" + grp + "] " + text);
-            }
-            catch { }  // Not gonna recursively call here in case something is seriously wrong
-        }
-
         public static void ConsolePrint(string grp, string text, params object[] arg)
         {
-            ConsolePrint(grp, string.Format(text, arg));
+            //ConsolePrint(grp, string.Format(text, arg));
         }
 
         public static void ConsolePrint(string grp, string text, object arg0)
         {
             ConsolePrint(grp, string.Format(text, arg0));
-        }
-
-        public static void ConsolePrint(string grp, string text, object arg0, object arg1)
-        {
-            ConsolePrint(grp, string.Format(text, arg0, arg1));
         }
 
         public static void ConsolePrint(string grp, string text, object arg0, object arg1, object arg2)

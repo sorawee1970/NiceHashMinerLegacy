@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
@@ -114,7 +117,7 @@ namespace NiceHashMiner.Miners
         {
             CleanOldLogs();
 
-            var server = Globals.GetLocationUrl(algorithm.NiceHashID,
+            var server = NHSmaData.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var ret = $" --log 2 --logfile {GetLogFileName()} " + GetStartCommand(server, Globals.GetBitcoinUser(),
                           ConfigManager.GeneralConfig.WorkerName.Trim());

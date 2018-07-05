@@ -11,8 +11,9 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Stats.Models;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using WebSocketSharp;
 

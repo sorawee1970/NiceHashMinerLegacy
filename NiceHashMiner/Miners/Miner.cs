@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Interfaces;
 using NiceHashMiner.Miners;
 using NiceHashMiner.Miners.Grouping;
@@ -17,6 +16,9 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Timers.Timer;
 
@@ -900,7 +902,7 @@ namespace NiceHashMiner
 
         protected string GetServiceUrl(AlgorithmType algo)
         {
-            return Globals.GetLocationUrl(algo, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
+            return NHSmaData.GetLocationUrl(algo, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
         }
 

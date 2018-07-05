@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Stats;
+using NiceHashMinerLegacy.Common.Configs;
 
 namespace NiceHashMiner.Forms
 {

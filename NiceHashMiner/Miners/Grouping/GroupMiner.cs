@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners.Grouping
@@ -84,7 +86,7 @@ namespace NiceHashMiner.Miners.Grouping
             }
             // Wait before new start
             System.Threading.Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
-            var locationUrl = Globals.GetLocationUrl(AlgorithmType, miningLocation, Miner.ConectionType);
+            var locationUrl = NHSmaData.GetLocationUrl(AlgorithmType, miningLocation, Miner.ConectionType);
             Miner.Start(locationUrl, btcAdress, worker);
         }
     }

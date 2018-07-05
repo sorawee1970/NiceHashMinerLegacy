@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Devices;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Stats.Models;
+using NiceHashMinerLegacy.Common.Configs;
 using WebSocketSharp;
 
 namespace NiceHashMinerLegacy.Tests.Stats

@@ -6,9 +6,14 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using NiceHashMiner.Devices;
 using NiceHashMiner.Stats;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Common.Interfaces;
 
 namespace NiceHashMiner
 {
@@ -49,7 +54,7 @@ namespace NiceHashMiner
             };
 
             // #1 first initialize config
-            ConfigManager.InitializeConfig();
+            ConfigManager.InitializeConfig(ComputeDeviceManager.Available.Devices.Cast<IDevice>().ToList());
 
             // #2 check if multiple instances are allowed
             var startProgram = true;

@@ -1,4 +1,7 @@
 ﻿using NiceHashMiner.Algorithms;
+using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs;
 
 namespace NiceHashMiner.Miners
 {
@@ -26,7 +29,7 @@ namespace NiceHashMiner.Miners
             BenchmarkTimeWait = time; // Takes longer as of v10
 
             // network workaround
-            var url = Globals.GetLocationUrl(algorithm.NiceHashID,
+            var url = NHSmaData.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
             // demo for benchmark

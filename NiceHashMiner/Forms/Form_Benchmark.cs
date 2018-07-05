@@ -8,6 +8,7 @@ using NiceHashMiner.Benchmarking;
 using NiceHashMiner.Devices;
 using NiceHashMiner.Interfaces;
 using NiceHashMiner.Properties;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Windows.Forms.Timer;
 

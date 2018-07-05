@@ -1,13 +1,10 @@
-﻿using NiceHashMiner.Configs.ConfigJsonFile;
-using NiceHashMiner.Configs.Data;
-using NiceHashMiner.Devices;
-using System.Collections.Generic;
-using NiceHashMiner.Utils;
-using NiceHashMinerLegacy.Common;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using NiceHashMinerLegacy.Common.Configs.ConfigJsonFile;
 using NiceHashMinerLegacy.Common.Configs.Data;
+using NiceHashMinerLegacy.Common.Interfaces;
 
-namespace NiceHashMiner.Configs
+namespace NiceHashMinerLegacy.Common.Configs
 {
     public static class ConfigManager
     {
@@ -31,11 +28,14 @@ namespace NiceHashMiner.Configs
         private static Dictionary<string, DeviceBenchmarkConfig> _benchmarkConfigsBackup =
             new Dictionary<string, DeviceBenchmarkConfig>();
 
-        public static void InitializeConfig()
+        private static IList<IDevice> Devices;
+
+        public static void InitializeConfig(IList<IDevice> devices)
         {
+            Devices = devices;
             // init defaults
             GeneralConfig.SetDefaults();
-            GeneralConfig.hwid = Helpers.GetCpuID();
+            //GeneralConfig.hwid = Helpers.GetCpuID();
             // if exists load file
             GeneralConfig fromFile = null;
             if (GeneralConfigFile.IsFileExists())
@@ -49,7 +49,7 @@ namespace NiceHashMiner.Configs
                 _isGeneralConfigFileInit = true;
                 GeneralConfig = fromFile;
                 if (GeneralConfig.ConfigFileVersion == null
-                    || GeneralConfig.ConfigFileVersion.CompareTo(System.Reflection.Assembly.GetExecutingAssembly()
+                    || GeneralConfig.ConfigFileVersion.CompareTo(Assembly.GetCallingAssembly()
                         .GetName().Version) != 0)
                 {
                     if (GeneralConfig.ConfigFileVersion == null)
@@ -78,7 +78,7 @@ namespace NiceHashMiner.Configs
         {
             _generalConfigBackup = MemoryHelper.DeepClone(GeneralConfig);
             _benchmarkConfigsBackup = new Dictionary<string, DeviceBenchmarkConfig>();
-            foreach (var cDev in ComputeDeviceManager.Available.Devices)
+            foreach (var cDev in Devices)
             {
                 _benchmarkConfigsBackup[cDev.Uuid] = cDev.GetAlgorithmDeviceConfig();
             }
@@ -90,7 +90,7 @@ namespace NiceHashMiner.Configs
             GeneralConfig = _generalConfigBackup;
             if (GeneralConfig.LastDevicesSettup != null)
             {
-                foreach (var cDev in ComputeDeviceManager.Available.Devices)
+                foreach (var cDev in Devices)
                 {
                     foreach (var conf in GeneralConfig.LastDevicesSettup)
                     {
@@ -99,7 +99,7 @@ namespace NiceHashMiner.Configs
                 }
             }
             // restore benchmarks
-            foreach (var cDev in ComputeDeviceManager.Available.Devices)
+            foreach (var cDev in Devices)
             {
                 if (_benchmarkConfigsBackup != null && _benchmarkConfigsBackup.ContainsKey(cDev.Uuid))
                 {
@@ -123,7 +123,7 @@ namespace NiceHashMiner.Configs
         public static void GeneralConfigFileCommit()
         {
             GeneralConfig.LastDevicesSettup.Clear();
-            foreach (var cDev in ComputeDeviceManager.Available.Devices)
+            foreach (var cDev in Devices)
             {
                 GeneralConfig.LastDevicesSettup.Add(cDev.GetComputeDeviceConfig());
             }
@@ -132,7 +132,7 @@ namespace NiceHashMiner.Configs
 
         public static void CommitBenchmarks()
         {
-            foreach (var cDev in ComputeDeviceManager.Available.Devices)
+            foreach (var cDev in Devices)
             {
                 var devUuid = cDev.Uuid;
                 if (BenchmarkConfigFiles.ContainsKey(devUuid))
@@ -151,8 +151,8 @@ namespace NiceHashMiner.Configs
         {
             // extra check (probably will never happen but just in case)
             {
-                var invalidDevices = new List<ComputeDevice>();
-                foreach (var cDev in ComputeDeviceManager.Available.Devices)
+                var invalidDevices = new List<IDevice>();
+                foreach (var cDev in Devices)
                 {
                     if (cDev.IsAlgorithmSettingsInitialized() == false)
                     {
@@ -164,11 +164,11 @@ namespace NiceHashMiner.Configs
                 // remove invalids
                 foreach (var invalid in invalidDevices)
                 {
-                    ComputeDeviceManager.Available.Devices.Remove(invalid);
+                    Devices.Remove(invalid);
                 }
             }
-            // set enabled/disabled devs
-            foreach (var cDev in ComputeDeviceManager.Available.Devices)
+            // set enabled/disabled Devices
+            foreach (var cDev in Devices)
             {
                 foreach (var devConf in GeneralConfig.LastDevicesSettup)
                 {
@@ -176,7 +176,7 @@ namespace NiceHashMiner.Configs
                 }
             }
             // create/init device benchmark configs files and configs
-            foreach (var cDev in ComputeDeviceManager.Available.Devices)
+            foreach (var cDev in Devices)
             {
                 var keyUuid = cDev.Uuid;
                 BenchmarkConfigFiles[keyUuid] = new DeviceBenchmarkConfigFile(keyUuid);

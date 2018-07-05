@@ -2,6 +2,7 @@
 using NiceHashMiner.Miners.Parsing;
 using System.Collections.Generic;
 using NiceHashMiner.Devices.Algorithms;
+using NiceHashMinerLegacy.Common.Configs.ConfigJsonFile;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners

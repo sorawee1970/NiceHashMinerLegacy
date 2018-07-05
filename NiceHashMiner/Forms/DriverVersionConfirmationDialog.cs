@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using NiceHashMinerLegacy.Common.Configs;
 
 namespace NiceHashMiner.Forms
 {

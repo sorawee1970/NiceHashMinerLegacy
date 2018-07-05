@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using ATI.ADL;
 using NiceHashMiner.Forms;
+using NiceHashMinerLegacy.Common.Configs;
 
 namespace NiceHashMiner.Devices.Querying
 {

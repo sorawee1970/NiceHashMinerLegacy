@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NiceHashMiner.Configs;
-using NiceHashMiner.Configs.Data;
 using NiceHashMiner.Stats;
 using System;
 using System.Collections.Generic;
+using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Common.Configs.Data;
 
 namespace NiceHashMinerLegacy.Tests.Stats
 {

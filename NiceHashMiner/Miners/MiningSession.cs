@@ -10,6 +10,7 @@ using System.Timers;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Timers.Timer;
 
