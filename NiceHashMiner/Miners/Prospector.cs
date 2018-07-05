@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Devices;
 using SQLite.Net;
 using SQLite.Net.Attributes;

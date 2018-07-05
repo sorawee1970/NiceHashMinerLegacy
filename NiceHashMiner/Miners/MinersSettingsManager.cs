@@ -1,6 +1,4 @@
-﻿using NiceHashMiner.Configs.ConfigJsonFile;
-using NiceHashMiner.Devices;
-using NiceHashMiner.Miners.Grouping;
+﻿using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System.Collections.Generic;
 using NiceHashMiner.Devices.Algorithms;

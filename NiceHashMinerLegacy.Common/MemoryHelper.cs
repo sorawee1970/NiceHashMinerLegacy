@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace NiceHashMiner.Utils
+namespace NiceHashMinerLegacy.Common
 {
     internal static class MemoryHelper
     {

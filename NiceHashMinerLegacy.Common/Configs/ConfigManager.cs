@@ -2,6 +2,10 @@
 using NiceHashMiner.Configs.Data;
 using NiceHashMiner.Devices;
 using System.Collections.Generic;
+using NiceHashMiner.Utils;
+using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Configs.ConfigJsonFile;
+using NiceHashMinerLegacy.Common.Configs.Data;
 
 namespace NiceHashMiner.Configs
 {

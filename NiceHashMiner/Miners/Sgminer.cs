@@ -1,6 +1,4 @@
-﻿using NiceHashMiner.Configs;
-using NiceHashMiner.Devices;
-using NiceHashMiner.Miners.Grouping;
+﻿using NiceHashMiner.Devices;
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Diagnostics;

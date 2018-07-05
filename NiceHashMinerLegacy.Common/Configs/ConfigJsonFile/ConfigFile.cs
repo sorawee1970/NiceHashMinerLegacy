@@ -1,9 +1,8 @@
-using Newtonsoft.Json;
 using System;
 using System.IO;
-using NiceHashMinerLegacy.Common;
+using Newtonsoft.Json;
 
-namespace NiceHashMiner.Configs.ConfigJsonFile
+namespace NiceHashMinerLegacy.Common.Configs.ConfigJsonFile
 {
     public abstract class ConfigFile<T> where T : class
     {

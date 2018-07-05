@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Configs.ConfigJsonFile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using NiceHashMinerLegacy.Common.Enums;
 

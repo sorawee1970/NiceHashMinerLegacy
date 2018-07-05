@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using NiceHashMiner.Algorithms;
-using NiceHashMiner.Configs;
-using NiceHashMiner.Miners.Parsing;
+﻿using NiceHashMiner.Algorithms;
 
 namespace NiceHashMiner.Miners
 {

@@ -110,7 +110,6 @@
     <Compile Include="Devices\Querying\OpenCLJsonData.cs" />
     <Compile Include="Devices\Querying\VideoControllerData.cs" />
     <Compile Include="IFTTT.cs" />
-    <Compile Include="Configs\Data\DualAlgorithmConfig.cs" />
     <Compile Include="Forms\Form_DcriValues.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,17 +139,6 @@
     <Compile Include="Switching\Models.cs" />
     <Compile Include="Switching\Interval.cs" />
     <Compile Include="Utils\AlgorithmNiceHashNames.cs" />
-    <Compile Include="Configs\ConfigJsonFile\FOLDERS.cs" />
-    <Compile Include="Configs\ConfigManager.cs" />
-    <Compile Include="Configs\Data\AlgorithmConfig.cs" />
-    <Compile Include="Configs\Data\DeviceBenchmarkConfig.cs" />
-    <Compile Include="Configs\ConfigJsonFile\ConfigFile.cs" />
-    <Compile Include="Configs\Data\ComputeDeviceConfig.cs" />
-    <Compile Include="Configs\Data\GeneralConfig.cs" />
-    <Compile Include="Configs\Data\BenchmarkTimeLimitsConfig.cs" />
-    <Compile Include="Configs\Data\DeviceDetectionConfig.cs" />
-    <Compile Include="Configs\ConfigJsonFile\DeviceBenchmarkConfigFile.cs" />
-    <Compile Include="Configs\ConfigJsonFile\GeneralConfigFile.cs" />
     <Compile Include="Devices\AmdGpuDevice.cs" />
     <Compile Include="Devices\ComputeDevice\ComputeDevice.cs" />
     <Compile Include="Devices\ComputeDeviceManager.cs" />
@@ -236,7 +224,6 @@
     <Compile Include="International.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\Links.cs" />
-    <Compile Include="Utils\MemoryHelper.cs" />
     <Compile Include="Miners\ClaymoreBaseMiner.cs" />
     <Compile Include="Miners\ClaymoreCryptoNightMiner.cs" />
     <Compile Include="Miners\Equihash\ClaymoreZcashMiner.cs" />

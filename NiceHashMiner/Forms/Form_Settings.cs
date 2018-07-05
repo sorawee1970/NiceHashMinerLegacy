@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Devices;
 using NiceHashMiner.Miners;
 using NiceHashMiner.Miners.Grouping;

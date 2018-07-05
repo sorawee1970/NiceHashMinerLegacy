@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Configs;
-using NiceHashMiner.Devices;
+﻿using NiceHashMiner.Devices;
 using NiceHashMiner.Forms;
 using NiceHashMiner.Forms.Components;
 using NiceHashMiner.Interfaces;

@@ -1,7 +1,5 @@
 ﻿using ATI.ADL;
 using System;
-using System.Linq;
-using System.Runtime.InteropServices;
 using NiceHashMiner.Devices.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 

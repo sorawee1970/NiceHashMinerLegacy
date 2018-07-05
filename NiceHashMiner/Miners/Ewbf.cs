@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NiceHashMiner.Configs;
-using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Collections.Generic;

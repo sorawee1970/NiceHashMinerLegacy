@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Forms;
 using NiceHashMiner.PInvoke;
 using NiceHashMiner.Utils;

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ATI.ADL;
-using NiceHashMiner.Configs;
 using NiceHashMiner.Forms;
 
 namespace NiceHashMiner.Devices.Querying

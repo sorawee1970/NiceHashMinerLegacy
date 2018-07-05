@@ -1,7 +1,7 @@
 ﻿using System;
 using NiceHashMinerLegacy.Common.Enums;
 
-namespace NiceHashMiner.Configs.Data
+namespace NiceHashMinerLegacy.Common.Configs.Data
 {
     /// <summary>
     /// BenchmarkTimeLimitsConfig is used to set the time limits for benchmarking.

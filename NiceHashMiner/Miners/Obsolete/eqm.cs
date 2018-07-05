@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NiceHashMiner.Miners.Grouping;
-using NiceHashMiner.Miners.Parsing;
+﻿using NiceHashMiner.Miners.Parsing;
 using NiceHashMinerLegacy.Common.Enums;
 
 // Resharper disable All

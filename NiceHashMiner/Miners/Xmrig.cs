@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Configs;
-using NiceHashMiner.Miners.Parsing;
+﻿using NiceHashMiner.Miners.Parsing;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;

@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Configs.ConfigJsonFile;
-using NiceHashMiner.Devices;
+﻿using NiceHashMiner.Devices;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

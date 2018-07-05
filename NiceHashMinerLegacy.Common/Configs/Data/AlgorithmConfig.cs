@@ -1,7 +1,7 @@
 ﻿using System;
 using NiceHashMinerLegacy.Common.Enums;
 
-namespace NiceHashMiner.Configs.Data
+namespace NiceHashMinerLegacy.Common.Configs.Data
 {
     [Serializable]
     public class AlgorithmConfig

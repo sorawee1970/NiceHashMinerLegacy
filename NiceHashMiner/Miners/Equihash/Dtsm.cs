@@ -2,11 +2,9 @@
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
-using NiceHashMiner.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
