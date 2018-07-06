@@ -4,9 +4,9 @@ using System.Threading;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Utils;
 
-namespace NiceHashMiner.Stats
+namespace NiceHashMinerLegacy.Web.Stats
 {
-    internal static class ExchangeRateApi
+    public static class ExchangeRateApi
     {
         private const string ApiUrl = "https://api.nicehash.com/api?method=nicehash.service.info";
 

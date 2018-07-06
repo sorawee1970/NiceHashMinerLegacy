@@ -1,28 +1,28 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NiceHashMiner.Devices;
-using NiceHashMiner.Miners;
-using NiceHashMiner.Switching;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using NiceHashMiner.Stats.Models;
-using NiceHashMinerLegacy.Common;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Stats.Models;
+using NiceHashMinerLegacy.Web.Switching;
 using WebSocketSharp;
 
-namespace NiceHashMiner.Stats
+[assembly:InternalsVisibleTo("NiceHashMinerLegacy.Web.Tests")]
+
+namespace NiceHashMinerLegacy.Web.Stats
 {
     public class SocketEventArgs : EventArgs
     {
         public readonly string Message;
+        public bool Enabled;
 
         public SocketEventArgs(string message)
         {
@@ -70,16 +70,21 @@ namespace NiceHashMiner.Stats
         public static event EventHandler OnConnectionEstablished;
         public static event EventHandler<SocketEventArgs> OnVersionBurn;
         public static event EventHandler OnExchangeUpdate;
+        public static event EventHandler<SocketEventArgs> OnSetDeviceEnabled;
 
         private static NiceHashSocket _socket;
         
         private static System.Threading.Timer _deviceUpdateTimer;
 
-        public static void StartConnection(string address)
+        private static Func<List<JArray>> _devStatus;
+
+        public static void StartConnection(string address, string ver, Func<List<JArray>> devStatus)
         {
+            _devStatus = devStatus;
+
             if (_socket == null)
             {
-                _socket = new NiceHashSocket(address);
+                _socket = new NiceHashSocket(address, ver);
                 _socket.OnConnectionEstablished += SocketOnOnConnectionEstablished;
                 _socket.OnDataReceived += SocketOnOnDataReceived;
                 _socket.OnConnectionLost += SocketOnOnConnectionLost;
@@ -278,19 +283,12 @@ namespace NiceHashMiner.Stats
 
         private static void SetDevicesEnabled(string devs, bool enabled)
         {
-            var found = false;
-            if (!ComputeDeviceManager.Available.Devices.Any())
-                throw new RpcException("No devices to set", 1);
-
-            foreach (var dev in ComputeDeviceManager.Available.Devices)
+            var args = new SocketEventArgs(devs)
             {
-                if (devs != "*" && dev.B64Uuid != devs) continue;
-                found = true;
-                dev.Enabled = enabled;
-            }
+                Enabled = enabled
+            };
+            OnSetDeviceEnabled?.Invoke(null, args);
 
-            if (!found)
-                throw new RpcException("Device not found", 1);
         }
 
         #endregion
@@ -315,31 +313,10 @@ namespace NiceHashMiner.Stats
 
         private static void DeviceStatus_Tick(object state)
         {
-            var devices = ComputeDeviceManager.Available.Devices;
-            var deviceList = new List<JArray>();
-            var activeIDs = MinersManager.GetActiveMinersIndexes();
-            foreach (var device in devices)
-            {
-                try
-                {
-                    var array = new JArray
-                    {
-                        device.Index,
-                        device.Name
-                    };
-                    var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int) device.DeviceType + 1) * 2;
-                    array.Add(status);
-                    array.Add((int) Math.Round(device.Load));
-                    array.Add((int) Math.Round(device.Temp));
-                    array.Add(device.FanSpeed);
 
-                    deviceList.Add(array);
-                }
-                catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
-            }
             var data = new NicehashDeviceStatus
             {
-                devices = deviceList
+                devices = _devStatus()
             };
             var sendData = JsonConvert.SerializeObject(data);
             // This function is run every minute and sends data every run which has two auxiliary effects
@@ -360,13 +337,13 @@ namespace NiceHashMiner.Stats
             var responseFromServer = "";
             try
             {
-                var activeMinersGroup = MinersManager.GetActiveMinersGroup();
+                //var activeMinersGroup = MinersManager.GetActiveMinersGroup();
 
                 var wr = (HttpWebRequest) WebRequest.Create(url);
-                wr.UserAgent = "NiceHashMiner/" + Application.ProductVersion;
+                //wr.UserAgent = "NiceHashMiner/" + Application.ProductVersion;
                 if (worker.Length > 64) worker = worker.Substring(0, 64);
                 wr.Headers.Add("NiceHash-Worker-ID", worker);
-                wr.Headers.Add("NHM-Active-Miners-Group", activeMinersGroup);
+                //wr.Headers.Add("NHM-Active-Miners-Group", activeMinersGroup);
                 wr.Timeout = 30 * 1000;
                 var response = wr.GetResponse();
                 var ss = response.GetResponseStream();

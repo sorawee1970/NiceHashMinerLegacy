@@ -12,13 +12,13 @@ using System.Linq;
 using System.Management;
 using System.Threading;
 using System.Windows.Forms;
-using NiceHashMiner.Stats;
-using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Stats;
+using NiceHashMinerLegacy.Web.Switching;
 using SystemTimer = System.Timers.Timer;
 using Timer = System.Windows.Forms.Timer;
 
@@ -319,7 +319,7 @@ namespace NiceHashMiner
             NiceHashStats.OnConnectionEstablished += ConnectionEstablishedCallback;
             NiceHashStats.OnVersionBurn += VersionBurnCallback;
             NiceHashStats.OnExchangeUpdate += ExchangeCallback;
-            NiceHashStats.StartConnection(Links.NhmSocketAddress);
+            NiceHashStats.StartConnection(Links.NhmSocketAddress, Application.ProductVersion, ComputeDeviceManager.GetDeviceStatus);
 
             // increase timeout
             if (Globals.IsFirstNetworkCheckTimeout)

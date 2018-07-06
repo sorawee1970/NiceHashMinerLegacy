@@ -3,11 +3,8 @@ using NiceHashMiner.PInvoke;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Management;
 using NiceHashMinerLegacy.Common;
-using NiceHashMinerLegacy.Common.Configs;
-using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner

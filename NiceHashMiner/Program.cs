@@ -6,15 +6,12 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using NiceHashMiner.Devices;
-using NiceHashMiner.Stats;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
-using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Stats;
 
 namespace NiceHashMiner
 {

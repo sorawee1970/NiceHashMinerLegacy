@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Web.Switching;
 
 namespace NiceHashMiner.Miners.Grouping
 {

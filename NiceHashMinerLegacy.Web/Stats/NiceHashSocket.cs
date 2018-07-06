@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using NiceHashMiner.Switching;
-using System;
+﻿using System;
 using System.Threading;
-using System.Windows.Forms;
+using Newtonsoft.Json;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Switching;
 using WebSocketSharp;
 
-namespace NiceHashMiner.Stats
+namespace NiceHashMinerLegacy.Web.Stats
 {
     public class NiceHashSocket
     {
@@ -30,14 +29,16 @@ namespace NiceHashMiner.Stats
         private bool _connectionEstablished;
         private readonly Random _random = new Random();
         private readonly string _address;
+        private readonly string _currentVersion;
         
         public event EventHandler OnConnectionEstablished;
         public event EventHandler<MessageEventArgs> OnDataReceived;
         public event EventHandler OnConnectionLost;
 
-        public NiceHashSocket(string address)
+        public NiceHashSocket(string address, string ver)
         {
             _address = address;
+            _currentVersion = ver;
         }
 
         public void StartConnection()
@@ -73,7 +74,7 @@ namespace NiceHashMiner.Stats
             try
             {
                 //send login
-                var version = "NHML/" + Application.ProductVersion;
+                var version = "NHML/" + _currentVersion;
                 var login = new NicehashLogin
                 {
                     version = version

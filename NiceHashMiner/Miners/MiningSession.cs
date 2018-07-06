@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using NiceHashMiner.Algorithms;
-using NiceHashMiner.Stats;
-using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Stats;
+using NiceHashMinerLegacy.Web.Switching;
 using Timer = System.Timers.Timer;
 
 namespace NiceHashMiner.Miners

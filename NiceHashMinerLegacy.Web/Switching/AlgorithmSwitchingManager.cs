@@ -7,7 +7,7 @@ using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 
-namespace NiceHashMiner.Switching
+namespace NiceHashMinerLegacy.Web.Switching
 {
     /// <summary>
     /// Handles profit switching within a mining session

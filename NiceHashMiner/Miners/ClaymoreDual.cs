@@ -1,9 +1,9 @@
 ﻿using System;
 using NiceHashMiner.Algorithms;
-using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Web.Switching;
 
 namespace NiceHashMiner.Miners
 {

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NiceHashMiner.Stats.Models;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NiceHashMinerLegacy.Web.Stats.Models;
 
-namespace NiceHashMinerLegacy.Tests.Stats.Models
+namespace NiceHashMinerLegacy.Web.Tests.Stats.Models
 {
     [TestClass]
     public class ExecutedCallTest

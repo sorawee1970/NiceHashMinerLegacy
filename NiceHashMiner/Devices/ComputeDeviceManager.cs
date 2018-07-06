@@ -11,12 +11,15 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 using NiceHashMiner.Devices.Querying;
+using NiceHashMiner.Miners;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
-using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Stats;
+using NiceHashMinerLegacy.Web.Stats.Models;
 
 namespace NiceHashMiner.Devices
 {
@@ -1021,6 +1024,51 @@ namespace NiceHashMiner.Devices
             {
                 Available.Add(new ComputeDevice(r.Next()));
             }
+        }
+
+        public static void OnSetDeviceEnabled(object sender, SocketEventArgs e)
+        {
+            var found = false;
+            if (!Available.Devices.Any())
+                throw new RpcException("No devices to set", 1);
+
+            foreach (var dev in Available.Devices)
+            {
+                if (e.Message != "*" && dev.B64Uuid != e.Message) continue;
+                found = true;
+                dev.Enabled = e.Enabled;
+            }
+
+            if (!found)
+                throw new RpcException("Device not found", 1);
+        }
+
+        public static List<JArray> GetDeviceStatus()
+        {
+            var devices = Available.Devices;
+            var deviceList = new List<JArray>();
+            var activeIDs = MinersManager.GetActiveMinersIndexes();
+            foreach (var device in devices)
+            {
+                try
+                {
+                    var array = new JArray
+                    {
+                        device.Index,
+                        device.Name
+                    };
+                    var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int)device.DeviceType + 1) * 2;
+                    array.Add(status);
+                    array.Add((int)Math.Round(device.Load));
+                    array.Add((int)Math.Round(device.Temp));
+                    array.Add(device.FanSpeed);
+
+                    deviceList.Add(array);
+                }
+                catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
+            }
+
+            return deviceList;
         }
     }
 }

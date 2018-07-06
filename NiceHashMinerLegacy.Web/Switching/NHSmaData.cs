@@ -8,7 +8,7 @@ using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 
-namespace NiceHashMiner.Switching
+namespace NiceHashMinerLegacy.Web.Switching
 {
     /// <summary>
     /// Maintains global registry of NH SMA

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Stats;
-using NiceHashMiner.Stats.Models;
 using NiceHashMinerLegacy.Common.Configs;
-using WebSocketSharp;
+using NiceHashMinerLegacy.Web.Stats;
+using NiceHashMinerLegacy.Web.Stats.Models;
 
-namespace NiceHashMinerLegacy.Tests.Stats
+namespace NiceHashMinerLegacy.Web.Tests.Stats
 {
     [TestClass]
     public class NiceHashStatsTest

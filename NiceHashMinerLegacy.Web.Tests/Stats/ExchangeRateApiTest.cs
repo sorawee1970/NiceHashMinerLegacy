@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NiceHashMiner.Stats;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Configs.Data;
+using NiceHashMinerLegacy.Web.Stats;
 
-namespace NiceHashMinerLegacy.Tests.Stats
+namespace NiceHashMinerLegacy.Web.Tests.Stats
 {
     [TestClass]
     public class ExchangeRateApiTest

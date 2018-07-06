@@ -10,11 +10,11 @@ using Newtonsoft.Json.Linq;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Miners.Parsing;
 using NiceHashMiner.Miners.XmrStak.Configs;
-using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Switching;
 
 namespace NiceHashMiner.Miners.XmrStak
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NiceHashMiner.Stats.Models
+namespace NiceHashMinerLegacy.Web.Stats.Models
 {
-    internal class RpcException : Exception
+    public class RpcException : Exception
     {
         public int Code = 0;
 

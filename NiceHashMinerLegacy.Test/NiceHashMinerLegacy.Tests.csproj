@@ -51,12 +51,6 @@
   <ItemGroup>
     <Compile Include="Algorithms\AlgorithmTest.cs" />
     <Compile Include="Devices\Algorithms\DefaultAlgorithmsTest.cs" />
-    <Compile Include="Stats\ExchangeRateApiTest.cs" />
-    <Compile Include="Stats\Models\ExecutedCallTest.cs" />
-    <Compile Include="Stats\NiceHashStatsTest.cs" />
-    <Compile Include="Stats\TestSocketCalls.cs" />
-    <Compile Include="Switching\AlgorithmSwitchingManagerTest.cs" />
-    <Compile Include="Switching\NHSmaDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +64,14 @@
     <ProjectReference Include="..\NiceHashMinerLegacy.Common\NiceHashMinerLegacy.Common.csproj">
       <Project>{279a5b29-3799-43fa-9734-e462e046ba81}</Project>
       <Name>NiceHashMinerLegacy.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NiceHashMinerLegacy.Web.Tests\NiceHashMinerLegacy.Web.Tests.csproj">
+      <Project>{1acce43d-d509-41f7-b04c-b3d39721cee4}</Project>
+      <Name>NiceHashMinerLegacy.Web.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NiceHashMinerLegacy.Web\NiceHashMinerLegacy.Web.csproj">
+      <Project>{ab495249-faf7-4283-bfec-738bb2d6116b}</Project>
+      <Name>NiceHashMinerLegacy.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\NiceHashMiner\NiceHashMinerLegacy.csproj">
       <Project>{a70b0aee-15c4-49e1-9dc9-b936a1ebc2b5}</Project>

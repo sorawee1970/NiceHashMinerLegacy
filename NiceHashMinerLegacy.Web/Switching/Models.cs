@@ -1,4 +1,4 @@
-﻿namespace NiceHashMiner.Switching
+﻿namespace NiceHashMinerLegacy.Web.Switching
 {
     public class NiceHashSma
     {

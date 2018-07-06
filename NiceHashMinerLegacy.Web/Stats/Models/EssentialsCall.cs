@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace NiceHashMiner.Stats.Models
+namespace NiceHashMinerLegacy.Web.Stats.Models
 {
     public class EssentialsCall
     {

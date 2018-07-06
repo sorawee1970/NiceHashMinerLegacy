@@ -121,7 +121,6 @@
     <Compile Include="Miners\XmrStak\Configs\XmrStakConfigGpu.cs" />
     <Compile Include="Miners\XmrStak\Configs\XmrStakConfigPool.cs" />
     <Compile Include="Eula.cs" />
-    <Compile Include="Stats\ExchangeRateAPI.cs" />
     <Compile Include="Miners\ClaymoreDual.cs" />
     <Compile Include="Miners\Equihash\Dtsm.cs" />
     <Compile Include="Miners\Ewbf.cs" />
@@ -129,14 +128,6 @@
     <Compile Include="Miners\XmrStak\XmrStak.cs" />
     <Compile Include="Miners\XmrStak\Configs\XmrStakConfig.cs" />
     <Compile Include="Miners\Xmrig.cs" />
-    <Compile Include="Stats\Models\EssentialsCall.cs" />
-    <Compile Include="Stats\Models\ExecutedCall.cs" />
-    <Compile Include="Stats\Models\RpcException.cs" />
-    <Compile Include="Stats\NiceHashSocket.cs" />
-    <Compile Include="Stats\NiceHashStats.cs" />
-    <Compile Include="Switching\AlgorithmHistory.cs" />
-    <Compile Include="Switching\AlgorithmSwitchingManager.cs" />
-    <Compile Include="Switching\Models.cs" />
     <Compile Include="Utils\AlgorithmNiceHashNames.cs" />
     <Compile Include="Devices\AmdGpuDevice.cs" />
     <Compile Include="Devices\ComputeDeviceManager.cs" />
@@ -280,7 +271,6 @@
       <DependentUpon>MinerFileNotFoundDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="PInvoke\PInvokeHelpers.cs" />
-    <Compile Include="Switching\NHSmaData.cs" />
     <Compile Include="Utils\ProfitabilityCalculator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -450,6 +440,10 @@
     <ProjectReference Include="..\NiceHashMinerLegacy.Extensions\NiceHashMinerLegacy.Extensions.csproj">
       <Project>{200498ff-f28e-4c9c-9c6f-535feee099db}</Project>
       <Name>NiceHashMinerLegacy.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NiceHashMinerLegacy.Web\NiceHashMinerLegacy.Web.csproj">
+      <Project>{AB495249-FAF7-4283-BFEC-738BB2D6116B}</Project>
+      <Name>NiceHashMinerLegacy.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

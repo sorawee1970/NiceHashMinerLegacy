@@ -16,11 +16,11 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
-using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Web.Switching;
 using Timer = System.Timers.Timer;
 
 namespace NiceHashMiner

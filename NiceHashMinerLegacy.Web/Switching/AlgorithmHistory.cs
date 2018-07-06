@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace NiceHashMiner.Switching
+namespace NiceHashMinerLegacy.Web.Switching
 {
     /// <inheritdoc />
     /// <summary>

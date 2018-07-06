@@ -11,7 +11,6 @@
 
 using System;
 using System.Runtime.InteropServices;
-using NiceHashMiner;
 using NiceHashMinerLegacy.Common.Utils;
 
 // ReSharper disable All

@@ -46,7 +46,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceHashMinerLegacy.Extensi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{0DC12891-793A-412A-B0B9-81193C782923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceHashMinerLegacy.Common", "NiceHashMinerLegacy.Common\NiceHashMinerLegacy.Common.csproj", "{279A5B29-3799-43FA-9734-E462E046BA81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceHashMinerLegacy.Common", "NiceHashMinerLegacy.Common\NiceHashMinerLegacy.Common.csproj", "{279A5B29-3799-43FA-9734-E462E046BA81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceHashMinerLegacy.Web", "NiceHashMinerLegacy.Web\NiceHashMinerLegacy.Web.csproj", "{AB495249-FAF7-4283-BFEC-738BB2D6116B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceHashMinerLegacy.Web.Tests", "NiceHashMinerLegacy.Web.Tests\NiceHashMinerLegacy.Web.Tests.csproj", "{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -489,6 +493,70 @@ Global
 		{279A5B29-3799-43FA-9734-E462E046BA81}.Release|Win32.Build.0 = Release|Any CPU
 		{279A5B29-3799-43FA-9734-E462E046BA81}.Release|x64.ActiveCfg = Release|Any CPU
 		{279A5B29-3799-43FA-9734-E462E046BA81}.Release|x64.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|Any CPU.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|Win32.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|Win32.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|x64.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug_Ubuntu|x64.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|Win32.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Debug|x64.Build.0 = Debug|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|Any CPU.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|Any CPU.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|Mixed Platforms.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|Win32.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|Win32.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|x64.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release_Ubuntu|x64.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|Win32.Build.0 = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|x64.ActiveCfg = Release|Any CPU
+		{AB495249-FAF7-4283-BFEC-738BB2D6116B}.Release|x64.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|Any CPU.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|Win32.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|Win32.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|x64.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug_Ubuntu|x64.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|Win32.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Debug|x64.Build.0 = Debug|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|Any CPU.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|Mixed Platforms.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|Win32.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|Win32.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|x64.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release_Ubuntu|x64.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|Win32.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|Win32.Build.0 = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|x64.ActiveCfg = Release|Any CPU
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -508,6 +576,7 @@ Global
 		{666913D5-EF69-4E86-960B-AB1E9D0C720B} = {A1439575-6634-4B04-A802-93E1729D932C}
 		{71DDA2F7-3DEC-454A-BB85-0960E0225177} = {A1439575-6634-4B04-A802-93E1729D932C}
 		{1DA67DF2-BEDB-4E91-8291-17D7D6EA40DB} = {36B5E0D8-66A4-4E14-970E-08F35D5A35DD}
+		{1ACCE43D-D509-41F7-B04C-B3D39721CEE4} = {36B5E0D8-66A4-4E14-970E-08F35D5A35DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E8897DC-99C6-4585-A2BA-CB194F3B1AB7}

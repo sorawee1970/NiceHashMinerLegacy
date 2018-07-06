@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NiceHashMiner.Algorithms;
-using NiceHashMiner.Stats;
 using NiceHashMinerLegacy.Common.Enums;
-using NiceHashMinerLegacy.Tests.Stats;
+using NiceHashMinerLegacy.Web.Stats;
+using NiceHashMinerLegacy.Web.Tests.Stats;
 
 namespace NiceHashMinerLegacy.Tests.Algorithms
 {
