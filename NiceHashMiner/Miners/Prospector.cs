@@ -17,6 +17,7 @@ using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners
 {
@@ -85,7 +86,7 @@ namespace NiceHashMiner.Miners
                 }
                 catch (Exception e)
                 {
-                    WinHelpers.ConsolePrint("PROSPECTORSQL", e.ToString());
+                    Helpers.ConsolePrint("PROSPECTORSQL", e.ToString());
                     return 0;
                 }
             }
@@ -98,7 +99,7 @@ namespace NiceHashMiner.Miners
                 } 
                 catch (Exception e) 
                 {
-                    WinHelpers.ConsolePrint("PROSPECTORSQL", e.ToString());
+                    Helpers.ConsolePrint("PROSPECTORSQL", e.ToString());
                     return new List<hashrates>();
                 }
             }
@@ -111,7 +112,7 @@ namespace NiceHashMiner.Miners
                 }
                 catch (Exception e)
                 {
-                    WinHelpers.ConsolePrint("PROSPECTORSQL", e.ToString());
+                    Helpers.ConsolePrint("PROSPECTORSQL", e.ToString());
                     return new sessions();
                 }
             }
@@ -149,7 +150,7 @@ namespace NiceHashMiner.Miners
             else
             {
                 // fallback
-                WinHelpers.ConsolePrint(MinerTag(), "Failed to get platforms, falling back");
+                Helpers.ConsolePrint(MinerTag(), "Failed to get platforms, falling back");
                 if (ComputeDeviceManager.Available.HasNvidia && type != DeviceType.NVIDIA)
                     platform = 1;
             }
@@ -234,13 +235,13 @@ namespace NiceHashMiner.Miners
                             if (!int.TryParse(plat, out var platIndex)) continue;
                             if (lineLowered.Contains("nvidia"))
                             {
-                                WinHelpers.ConsolePrint(MinerTag(), "Setting nvidia platform: " + platIndex);
+                                Helpers.ConsolePrint(MinerTag(), "Setting nvidia platform: " + platIndex);
                                 ProspectorPlatforms.NVPlatform = platIndex;
                                 if (ProspectorPlatforms.AmdPlatform >= 0) break;
                             }
                             else if (lineLowered.Contains("amd"))
                             {
-                                WinHelpers.ConsolePrint(MinerTag(), "Setting amd platform: " + platIndex);
+                                Helpers.ConsolePrint(MinerTag(), "Setting amd platform: " + platIndex);
                                 ProspectorPlatforms.AmdPlatform = platIndex;
                                 if (ProspectorPlatforms.NVPlatform >= 0) break;
                             }
@@ -249,7 +250,7 @@ namespace NiceHashMiner.Miners
                 }
                 catch (Exception e)
                 {
-                    WinHelpers.ConsolePrint(MinerTag(), e.ToString());
+                    Helpers.ConsolePrint(MinerTag(), e.ToString());
                 }
 
                 return ProspectorPlatforms.IsInit;
@@ -298,7 +299,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint(MinerTag(), "GetSummary exception: " + ex.Message);
+                Helpers.ConsolePrint(MinerTag(), "GetSummary exception: " + ex.Message);
             }
 
             if (resp != null)
@@ -325,7 +326,7 @@ namespace NiceHashMiner.Miners
         {
             if (!IsInit)
             {
-                WinHelpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
+                Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
             LastCommandLine = GetStartupCommand(url, btcAdress, worker);
@@ -365,8 +366,8 @@ namespace NiceHashMiner.Miners
 
             try
             {
-                WinHelpers.ConsolePrint("BENCHMARK", "Benchmark starts");
-                WinHelpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + _benchmarkTimeWait + " seconds");
+                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                Helpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + _benchmarkTimeWait + " seconds");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
                 var benchmarkTimer = new Stopwatch();
                 benchmarkTimer.Reset();
@@ -431,7 +432,7 @@ namespace NiceHashMiner.Miners
                     {
                         _database = new ProspectorDatabase(WorkingDirectory + "info.db");
                     }
-                    catch (Exception e) { WinHelpers.ConsolePrint(MinerTag(), e.ToString()); }
+                    catch (Exception e) { Helpers.ConsolePrint(MinerTag(), e.ToString()); }
                 }
                 
                 var dev = MiningSetup.MiningPairs[0].Device;
@@ -472,7 +473,7 @@ namespace NiceHashMiner.Miners
         
         protected override bool BenchmarkParseLine(string outdata) 
         {
-            WinHelpers.ConsolePrint("BENCHMARK", outdata);
+            Helpers.ConsolePrint("BENCHMARK", outdata);
             return false;
         }
 

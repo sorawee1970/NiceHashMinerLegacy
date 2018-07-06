@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Algorithms
 {
@@ -25,7 +26,7 @@ namespace NiceHashMiner.Algorithms
         /// <summary>
         /// AlgorithmType that uniquely identifies this choice of primary/secondary types
         /// </summary>
-        public override AlgorithmType DualNiceHashID => WinHelpers.DualAlgoFromAlgos(NiceHashID, SecondaryNiceHashID);
+        public override AlgorithmType DualNiceHashID => Helpers.DualAlgoFromAlgos(NiceHashID, SecondaryNiceHashID);
 
         #endregion
 
@@ -144,7 +145,7 @@ namespace NiceHashMiner.Algorithms
                     }
                     catch (Exception e)
                     {
-                        WinHelpers.ConsolePrint("CDTUNING", e.ToString());
+                        Helpers.ConsolePrint("CDTUNING", e.ToString());
                         IntensityUpToDate = false;
                         return 0;
                     }
@@ -171,7 +172,7 @@ namespace NiceHashMiner.Algorithms
                     }
                     catch (Exception e)
                     {
-                        WinHelpers.ConsolePrint("CDTUNING", e.ToString());
+                        Helpers.ConsolePrint("CDTUNING", e.ToString());
                         IntensityUpToDate = false;
                         return 0;
                     }
@@ -311,7 +312,7 @@ namespace NiceHashMiner.Algorithms
 
             if (SecondaryBenchmarkSpeed > 0)
             {
-                return WinHelpers.FormatDualSpeedOutput(SecondaryBenchmarkSpeed)
+                return Helpers.FormatDualSpeedOutput(SecondaryBenchmarkSpeed)
                        + ((TuningEnabled) ? string.Format(dcriStatus, MostProfitableIntensity) : "");
             }
 
@@ -340,7 +341,7 @@ namespace NiceHashMiner.Algorithms
         {
             IntensitySpeeds[CurrentIntensity] = speed;
             SecondaryIntensitySpeeds[CurrentIntensity] = secondarySpeed;
-            WinHelpers.ConsolePrint("CDTUNING", $"Speeds set for intensity {CurrentIntensity}: {speed} / {secondarySpeed}");
+            Helpers.ConsolePrint("CDTUNING", $"Speeds set for intensity {CurrentIntensity}: {speed} / {secondarySpeed}");
             IntensityUpToDate = false;
         }
 
@@ -445,14 +446,14 @@ namespace NiceHashMiner.Algorithms
         public string SpeedStringForIntensity(int intensity)
         {
             var speed = SpeedForIntensity(intensity);
-            if (speed > 0) return WinHelpers.FormatSpeedOutput(speed) + "H/s";
+            if (speed > 0) return Helpers.FormatSpeedOutput(speed) + "H/s";
             return International.GetText("BenchmarkSpeedStringNone");
         }
 
         public string SecondarySpeedStringForIntensity(int intensity)
         {
             var speed = SecondarySpeedForIntensity(intensity);
-            if (speed > 0) return WinHelpers.FormatSpeedOutput(speed) + "H/s";
+            if (speed > 0) return Helpers.FormatSpeedOutput(speed) + "H/s";
             return International.GetText("BenchmarkSpeedStringNone");
         }
 

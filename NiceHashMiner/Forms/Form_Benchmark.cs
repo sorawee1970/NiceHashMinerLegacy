@@ -10,6 +10,7 @@ using NiceHashMiner.Interfaces;
 using NiceHashMiner.Properties;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 using Timer = System.Windows.Forms.Timer;
 
 namespace NiceHashMiner.Forms
@@ -251,7 +252,7 @@ namespace NiceHashMiner.Forms
 
         private void CopyBenchmarks()
         {
-            WinHelpers.ConsolePrint("CopyBenchmarks", "Checking for benchmarks to copy");
+            Helpers.ConsolePrint("CopyBenchmarks", "Checking for benchmarks to copy");
             foreach (var cDev in ComputeDeviceManager.Available.Devices)
                 // check if copy
                 if (!cDev.Enabled && cDev.BenchmarkCopyUuid != null)
@@ -259,7 +260,7 @@ namespace NiceHashMiner.Forms
                     var copyCdevSettings = ComputeDeviceManager.Available.GetDeviceWithUuid(cDev.BenchmarkCopyUuid);
                     if (copyCdevSettings != null)
                     {
-                        WinHelpers.ConsolePrint("CopyBenchmarks", $"Copy from {cDev.Uuid} to {cDev.BenchmarkCopyUuid}");
+                        Helpers.ConsolePrint("CopyBenchmarks", $"Copy from {cDev.Uuid} to {cDev.BenchmarkCopyUuid}");
                         cDev.CopyBenchmarkSettingsFrom(copyCdevSettings);
                     }
                 }
@@ -347,7 +348,7 @@ namespace NiceHashMiner.Forms
         {
             _benchmarkingTimer.Stop();
             InBenchmark = false;
-            WinHelpers.ConsolePrint("FormBenchmark", "StopButonClick() benchmark routine stopped");
+            Helpers.ConsolePrint("FormBenchmark", "StopButonClick() benchmark routine stopped");
             //// copy benchmarked
             //CopyBenchmarks();
             lock (_runningBenchmarkThreads)
@@ -455,7 +456,7 @@ namespace NiceHashMiner.Forms
             {
                 _benchmarkingTimer.Stop();
                 InBenchmark = false;
-                WinHelpers.ConsolePrint("FormBenchmark", "EndBenchmark() benchmark routine finished");
+                Helpers.ConsolePrint("FormBenchmark", "EndBenchmark() benchmark routine finished");
 
                 //CopyBenchmarks();
 

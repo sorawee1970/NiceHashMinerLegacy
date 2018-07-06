@@ -5,6 +5,7 @@ using System.Timers;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Models;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Switching
 {
@@ -104,7 +105,7 @@ namespace NiceHashMiner.Switching
 
             if (_hasStarted)
             {
-                WinHelpers.ConsolePrint(Tag, sb.ToString());
+                Helpers.ConsolePrint(Tag, sb.ToString());
             }
             else
             {

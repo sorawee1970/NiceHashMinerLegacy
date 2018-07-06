@@ -8,6 +8,7 @@ using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners
 {
@@ -133,7 +134,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception e)
             {
-                WinHelpers.ConsolePrint(MinerTag(), e.Message);
+                Helpers.ConsolePrint(MinerTag(), e.Message);
             }
 
             if (resp?.result != null)

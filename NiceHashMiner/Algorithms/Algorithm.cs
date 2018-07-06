@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Algorithms
 {
@@ -202,7 +203,7 @@ namespace NiceHashMiner.Algorithms
             }
             if (BenchmarkSpeed > 0)
             {
-                return WinHelpers.FormatDualSpeedOutput(BenchmarkSpeed, 0, NiceHashID);
+                return Helpers.FormatDualSpeedOutput(BenchmarkSpeed, 0, NiceHashID);
             }
             if (!IsPendingString() && !string.IsNullOrEmpty(BenchmarkStatus))
             {

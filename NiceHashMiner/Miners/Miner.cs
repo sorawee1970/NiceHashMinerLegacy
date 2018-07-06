@@ -38,7 +38,7 @@ namespace NiceHashMiner
         {
             AlgorithmID = algorithmID;
             SecondaryAlgorithmID = secondaryAlgorithmID;
-            AlgorithmName = AlgorithmNiceHashNames.GetName(WinHelpers.DualAlgoFromAlgos(algorithmID, secondaryAlgorithmID));
+            AlgorithmName = AlgorithmNiceHashNames.GetName(Helpers.DualAlgoFromAlgos(algorithmID, secondaryAlgorithmID));
             Speed = 0.0;
             SecondarySpeed = 0.0;
             PowerUsage = 0.0;
@@ -166,14 +166,14 @@ namespace NiceHashMiner
             IsKillAllUsedMinerProcs = false;
             _maxCooldownTimeInMilliseconds = GetMaxCooldownTimeInMilliseconds();
             // 
-            WinHelpers.ConsolePrint(MinerTag(), "NEW MINER CREATED");
+            Helpers.ConsolePrint(MinerTag(), "NEW MINER CREATED");
         }
 
         ~Miner()
         {
             // free the port
             MinersApiPortsManager.RemovePort(ApiPort);
-            WinHelpers.ConsolePrint(MinerTag(), "MINER DESTROYED");
+            Helpers.ConsolePrint(MinerTag(), "MINER DESTROYED");
         }
 
         protected void SetWorkingDirAndProgName(string fullPath)
@@ -263,7 +263,7 @@ namespace NiceHashMiner
         public void KillAllUsedMinerProcesses()
         {
             var toRemovePidData = new List<MinerPidData>();
-            WinHelpers.ConsolePrint(MinerTag(), "Trying to kill all miner processes for this instance:");
+            Helpers.ConsolePrint(MinerTag(), "Trying to kill all miner processes for this instance:");
             foreach (var pidData in _allPidData)
             {
                 try
@@ -271,7 +271,7 @@ namespace NiceHashMiner
                     var process = Process.GetProcessById(pidData.Pid);
                     if (pidData.MinerBinPath.Contains(process.ProcessName))
                     {
-                        WinHelpers.ConsolePrint(MinerTag(), $"Trying to kill {ProcessTag(pidData)}");
+                        Helpers.ConsolePrint(MinerTag(), $"Trying to kill {ProcessTag(pidData)}");
                         try
                         {
                             process.Kill();
@@ -280,7 +280,7 @@ namespace NiceHashMiner
                         }
                         catch (Exception e)
                         {
-                            WinHelpers.ConsolePrint(MinerTag(),
+                            Helpers.ConsolePrint(MinerTag(),
                                 $"Exception killing {ProcessTag(pidData)}, exMsg {e.Message}");
                         }
                     }
@@ -288,7 +288,7 @@ namespace NiceHashMiner
                 catch (Exception e)
                 {
                     toRemovePidData.Add(pidData);
-                    WinHelpers.ConsolePrint(MinerTag(), $"Nothing to kill {ProcessTag(pidData)}, exMsg {e.Message}");
+                    Helpers.ConsolePrint(MinerTag(), $"Nothing to kill {ProcessTag(pidData)}, exMsg {e.Message}");
                 }
             }
 
@@ -327,7 +327,7 @@ namespace NiceHashMiner
         {
             if (IsRunning)
             {
-                WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " Shutting down miner");
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Shutting down miner");
             }
 
             if (ProcessHandle != null)
@@ -349,7 +349,7 @@ namespace NiceHashMiner
             foreach (var process in Process.GetProcessesByName(exeName))
             {
                 try { process.Kill(); }
-                catch (Exception e) { WinHelpers.ConsolePrint(MinerDeviceName, e.ToString()); }
+                catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
         }
 
@@ -420,7 +420,7 @@ namespace NiceHashMiner
         protected virtual Process BenchmarkStartProcess(string commandLine)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            WinHelpers.ConsolePrint(MinerTag(), "Starting benchmark: " + commandLine);
+            Helpers.ConsolePrint(MinerTag(), "Starting benchmark: " + commandLine);
 
             var benchmarkHandle = new Process
             {
@@ -440,7 +440,7 @@ namespace NiceHashMiner
             else
             {
                 BenchmarkProcessPath = benchmarkHandle.StartInfo.FileName;
-                WinHelpers.ConsolePrint(MinerTag(), "Using miner: " + benchmarkHandle.StartInfo.FileName);
+                Helpers.ConsolePrint(MinerTag(), "Using miner: " + benchmarkHandle.StartInfo.FileName);
                 benchmarkHandle.StartInfo.WorkingDirectory = WorkingDirectory;
             }
 
@@ -562,7 +562,7 @@ namespace NiceHashMiner
                 var i = outdata.IndexOf("Benchmark:");
                 var k = outdata.IndexOf("/s");
                 var hashspeed = outdata.Substring(i + 11, k - i - 9);
-                WinHelpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashspeed);
+                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashspeed);
 
                 // save speed
                 var b = hashspeed.IndexOf(" ");
@@ -579,7 +579,7 @@ namespace NiceHashMiner
                 if (b >= 0)
                 {
                     var speedStr = hashspeed.Substring(0, b);
-                    var spd = WinHelpers.ParseDouble(speedStr);
+                    var spd = Helpers.ParseDouble(speedStr);
                     if (hashspeed.Contains("kH/s"))
                         spd *= 1000;
                     else if (hashspeed.Contains("MH/s"))
@@ -603,7 +603,7 @@ namespace NiceHashMiner
                 BenchmarkProcessStatus = BenchmarkProcessStatus.Killing;
                 try
                 {
-                    WinHelpers.ConsolePrint("BENCHMARK",
+                    Helpers.ConsolePrint("BENCHMARK",
                         $"Trying to kill benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName}");
                     BenchmarkHandle.Kill();
                     BenchmarkHandle.Close();
@@ -613,7 +613,7 @@ namespace NiceHashMiner
                 finally
                 {
                     BenchmarkProcessStatus = BenchmarkProcessStatus.DoneKilling;
-                    WinHelpers.ConsolePrint("BENCHMARK",
+                    Helpers.ConsolePrint("BENCHMARK",
                         $"Benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName} KILLED");
                     //BenchmarkHandle = null;
                 }
@@ -631,7 +631,7 @@ namespace NiceHashMiner
         {
             BenchmarkAlgorithm.BenchmarkSpeed = 0;
 
-            WinHelpers.ConsolePrint(MinerTag(), "Benchmark Exception: " + ex.Message);
+            Helpers.ConsolePrint(MinerTag(), "Benchmark Exception: " + ex.Message);
             if (BenchmarkComunicator != null && !OnBenchmarkCompleteCalled)
             {
                 OnBenchmarkCompleteCalled = true;
@@ -673,19 +673,19 @@ namespace NiceHashMiner
                 if (!dualAlg.TuningEnabled)
                 {
                     // Tuning will report speed
-                    WinHelpers.ConsolePrint("BENCHMARK",
-                        "Final Speed: " + WinHelpers.FormatDualSpeedOutput(dualAlg.BenchmarkSpeed,
+                    Helpers.ConsolePrint("BENCHMARK",
+                        "Final Speed: " + Helpers.FormatDualSpeedOutput(dualAlg.BenchmarkSpeed,
                             dualAlg.SecondaryBenchmarkSpeed, dualAlg.DualNiceHashID));
                 }
             }
             else
             {
-                WinHelpers.ConsolePrint("BENCHMARK",
-                    "Final Speed: " + WinHelpers.FormatDualSpeedOutput(BenchmarkAlgorithm.BenchmarkSpeed, 0,
+                Helpers.ConsolePrint("BENCHMARK",
+                    "Final Speed: " + Helpers.FormatDualSpeedOutput(BenchmarkAlgorithm.BenchmarkSpeed, 0,
                         BenchmarkAlgorithm.NiceHashID));
             }
 
-            WinHelpers.ConsolePrint("BENCHMARK", "Benchmark ends");
+            Helpers.ConsolePrint("BENCHMARK", "Benchmark ends");
             if (BenchmarkComunicator != null && !OnBenchmarkCompleteCalled)
             {
                 OnBenchmarkCompleteCalled = true;
@@ -707,7 +707,7 @@ namespace NiceHashMiner
 
             try
             {
-                WinHelpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
 
                 BenchmarkThreadRoutineStartSettup();
@@ -770,8 +770,8 @@ namespace NiceHashMiner
 
             try
             {
-                WinHelpers.ConsolePrint("BENCHMARK", "Benchmark starts");
-                WinHelpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + benchmarkTimeWait + " seconds");
+                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                Helpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + benchmarkTimeWait + " seconds");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
                 BenchmarkHandle.WaitForExit(benchmarkTimeWait + 2);
                 var benchmarkTimer = new Stopwatch();
@@ -982,19 +982,19 @@ namespace NiceHashMiner
                     };
                     _allPidData.Add(_currentPidData);
 
-                    WinHelpers.ConsolePrint(MinerTag(), "Starting miner " + ProcessTag() + " " + LastCommandLine);
+                    Helpers.ConsolePrint(MinerTag(), "Starting miner " + ProcessTag() + " " + LastCommandLine);
 
                     StartCoolDownTimerChecker();
 
                     return P;
                 }
 
-                WinHelpers.ConsolePrint(MinerTag(), "NOT STARTED " + ProcessTag() + " " + LastCommandLine);
+                Helpers.ConsolePrint(MinerTag(), "NOT STARTED " + ProcessTag() + " " + LastCommandLine);
                 return null;
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " _Start: " + ex.Message);
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " _Start: " + ex.Message);
                 return null;
             }
         }
@@ -1003,7 +1003,7 @@ namespace NiceHashMiner
         {
             if (ConfigManager.GeneralConfig.CoolDownCheckEnabled)
             {
-                WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " Starting cooldown checker");
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Starting cooldown checker");
                 if (_cooldownCheckTimer != null && _cooldownCheckTimer.Enabled) _cooldownCheckTimer.Stop();
                 // cool down init
                 _cooldownCheckTimer = new Timer()
@@ -1017,7 +1017,7 @@ namespace NiceHashMiner
             }
             else
             {
-                WinHelpers.ConsolePrint(MinerTag(), "Cooldown checker disabled");
+                Helpers.ConsolePrint(MinerTag(), "Cooldown checker disabled");
             }
 
             CurrentMinerReadStatus = MinerApiReadStatus.NONE;
@@ -1034,7 +1034,7 @@ namespace NiceHashMiner
             var restartInMs = ConfigManager.GeneralConfig.MinerRestartDelayMS > ms
                 ? ConfigManager.GeneralConfig.MinerRestartDelayMS
                 : ms;
-            WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + $" Miner_Exited Will restart in {restartInMs} ms");
+            Helpers.ConsolePrint(MinerTag(), ProcessTag() + $" Miner_Exited Will restart in {restartInMs} ms");
             if (ConfigManager.GeneralConfig.CoolDownCheckEnabled)
             {
                 CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
@@ -1052,7 +1052,7 @@ namespace NiceHashMiner
         protected void Restart()
         {
             if (_isEnded) return;
-            WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " Restarting miner..");
+            Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Restarting miner..");
             Stop(MinerStopType.END); // stop miner first
             Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
             ProcessHandle = _Start(); // start with old command line
@@ -1121,7 +1121,7 @@ namespace NiceHashMiner
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " GetAPIData reason: " + ex.Message);
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " GetAPIData reason: " + ex.Message);
                 return null;
             }
 
@@ -1183,7 +1183,7 @@ namespace NiceHashMiner
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint(MinerTag(), ex.Message);
+                Helpers.ConsolePrint(MinerTag(), ex.Message);
             }
 
             return ad;
@@ -1208,7 +1208,7 @@ namespace NiceHashMiner
             var resp = await GetApiDataAsync(ApiPort, dataToSend);
             if (resp == null)
             {
-                WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " summary is null");
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " summary is null");
                 CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                 return null;
             }
@@ -1228,7 +1228,7 @@ namespace NiceHashMiner
             }
             catch
             {
-                WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from API bind port");
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from API bind port");
                 CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                 return null;
             }
@@ -1251,7 +1251,7 @@ namespace NiceHashMiner
             if (_currentCooldownTimeInSeconds > MinCooldownTimeInMilliseconds)
             {
                 _currentCooldownTimeInSeconds = MinCooldownTimeInMilliseconds;
-                WinHelpers.ConsolePrint(MinerTag(),
+                Helpers.ConsolePrint(MinerTag(),
                     $"{ProcessTag()} Reseting cool time = {MinCooldownTimeInMilliseconds} ms");
                 CurrentMinerReadStatus = MinerApiReadStatus.NONE;
             }
@@ -1263,12 +1263,12 @@ namespace NiceHashMiner
         private void CoolUp()
         {
             _currentCooldownTimeInSeconds *= 2;
-            WinHelpers.ConsolePrint(MinerTag(),
+            Helpers.ConsolePrint(MinerTag(),
                 $"{ProcessTag()} Cooling UP, cool time is {_currentCooldownTimeInSeconds} ms");
             if (_currentCooldownTimeInSeconds > _maxCooldownTimeInMilliseconds)
             {
                 CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
-                WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " MAX cool time exceeded. RESTARTING");
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " MAX cool time exceeded. RESTARTING");
                 Restart();
             }
         }
@@ -1296,7 +1296,7 @@ namespace NiceHashMiner
                         CoolDown();
                         break;
                     case MinerApiReadStatus.READ_SPEED_ZERO:
-                        WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " READ SPEED ZERO, will cool up");
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " READ SPEED ZERO, will cool up");
                         CoolUp();
                         break;
                     case MinerApiReadStatus.RESTART:

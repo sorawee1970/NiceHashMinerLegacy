@@ -6,6 +6,7 @@ using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners
 {
@@ -114,7 +115,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            WinHelpers.ConsolePrint(MinerTag(), outdata);
+            Helpers.ConsolePrint(MinerTag(), outdata);
             return false;
         }
 

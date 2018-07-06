@@ -15,14 +15,14 @@ namespace NiceHashMinerLegacy.Common.Utils
             {
                 // Console.WriteLine does nothing on x64 while debugging with VS, so use Debug. Console.WriteLine works when run from .exe
 #if DEBUG
-                Debug.WriteLine("[" + DateTime.Now.ToLongTimeString() + "] [" + grp + "] " + text);
+                Debug.WriteLine($"[{DateTime.Now.ToLongTimeString()}] [{grp}] {text}");
 #endif
 #if !DEBUG
-            Console.WriteLine("[" +DateTime.Now.ToLongTimeString() + "] [" + grp + "] " + text);
+                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] [{grp}] {text}");
 #endif
 
                 if (ConfigManager.GeneralConfig.LogToFile && Logger.IsInit)
-                    Logger.Log.Info("[" + grp + "] " + text);
+                    Logger.Log.Info($"[{grp}] {text}");
             }
             catch { }  // Not gonna recursively call here in case something is seriously wrong
         }
@@ -37,7 +37,7 @@ namespace NiceHashMinerLegacy.Common.Utils
             string ret;
 
             if (speed < 1000)
-                ret = (speed).ToString("F3", CultureInfo.InvariantCulture) + separator;
+                ret = speed.ToString("F3", CultureInfo.InvariantCulture) + separator;
             else if (speed < 100000)
                 ret = (speed * 0.001).ToString("F3", CultureInfo.InvariantCulture) + separator + "k";
             else if (speed < 100000000)
@@ -59,7 +59,7 @@ namespace NiceHashMinerLegacy.Common.Utils
             {
                 ret = FormatSpeedOutput(primarySpeed);
             }
-            var unit = (algo == AlgorithmType.Equihash) ? "Sol/s " : "H/s ";
+            var unit = algo == AlgorithmType.Equihash ? "Sol/s " : "H/s ";
             return ret + unit;
         }
 

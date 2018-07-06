@@ -16,6 +16,7 @@ using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Interfaces;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Devices
 {
@@ -127,7 +128,7 @@ namespace NiceHashMiner.Devices
                     }
                     catch (Exception ex)
                     {
-                        WinHelpers.ConsolePrint(Tag, "GetNvidiaSMIDriver Exception: " + ex.Message);
+                        Helpers.ConsolePrint(Tag, "GetNvidiaSMIDriver Exception: " + ex.Message);
                         return InvalidSmiDriver;
                     }
                 }
@@ -167,7 +168,7 @@ namespace NiceHashMiner.Devices
                 var gpusOld = _cudaDevices.Count;
                 var gpusNew = currentCudaDevices.Count;
 
-                WinHelpers.ConsolePrint("ComputeDeviceManager.CheckCount",
+                Helpers.ConsolePrint("ComputeDeviceManager.CheckCount",
                     "CUDA GPUs count: Old: " + gpusOld + " / New: " + gpusNew);
 
                 return (gpusNew < gpusOld);
@@ -186,11 +187,11 @@ namespace NiceHashMiner.Devices
                         try
                         {
                             File.Copy(nvmlPath, copyToPath, true);
-                            WinHelpers.ConsolePrint(Tag, $"Copy from {nvmlPath} to {copyToPath} done");
+                            Helpers.ConsolePrint(Tag, $"Copy from {nvmlPath} to {copyToPath} done");
                         }
                         catch (Exception e)
                         {
-                            WinHelpers.ConsolePrint(Tag, "Copy nvml.dll failed: " + e.Message);
+                            Helpers.ConsolePrint(Tag, "Copy nvml.dll failed: " + e.Message);
                         }
                     }
                 }
@@ -205,7 +206,7 @@ namespace NiceHashMiner.Devices
                 // #2 CUDA
                 if (Nvidia.IsSkipNvidia())
                 {
-                    WinHelpers.ConsolePrint(Tag, "Skipping NVIDIA device detection, settings are set to disabled");
+                    Helpers.ConsolePrint(Tag, "Skipping NVIDIA device detection, settings are set to disabled");
                 }
                 else
                 {
@@ -215,7 +216,7 @@ namespace NiceHashMiner.Devices
                 // OpenCL and AMD
                 if (ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionAMD)
                 {
-                    WinHelpers.ConsolePrint(Tag, "Skipping AMD device detection, settings set to disabled");
+                    Helpers.ConsolePrint(Tag, "Skipping AMD device detection, settings set to disabled");
                     ShowMessageAndStep(International.GetText("Compute_Device_Query_Manager_AMD_Query_Skip"));
                 }
                 else
@@ -244,16 +245,16 @@ namespace NiceHashMiner.Devices
                         }
                         else if (vidCtrl.Name.ToLower().Contains("nvidia"))
                         {
-                            WinHelpers.ConsolePrint(Tag,
+                            Helpers.ConsolePrint(Tag,
                                 "Device not supported NVIDIA/CUDA device not supported " + vidCtrl.Name);
                         }
                         amdCount += (vidCtrl.Name.ToLower().Contains("amd")) ? 1 : 0;
                     }
-                    WinHelpers.ConsolePrint(Tag,
+                    Helpers.ConsolePrint(Tag,
                         nvidiaCount == _cudaDevices.Count
                             ? "Cuda NVIDIA/CUDA device count GOOD"
                             : "Cuda NVIDIA/CUDA device count BAD!!!");
-                    WinHelpers.ConsolePrint(Tag,
+                    Helpers.ConsolePrint(Tag,
                         amdCount == AmdDevices.Count ? "AMD GPU device count GOOD" : "AMD GPU device count BAD!!!");
                 }
                 // allerts
@@ -340,14 +341,14 @@ namespace NiceHashMiner.Devices
                 // check
                 if (ConfigManager.GeneralConfig.ShowDriverVersionWarning && totalSysRam < totalGpuRam)
                 {
-                    WinHelpers.ConsolePrint(Tag, "virtual memory size BAD");
+                    Helpers.ConsolePrint(Tag, "virtual memory size BAD");
                     MessageBox.Show(International.GetText("VirtualMemorySize_BAD"),
                         International.GetText("Warning_with_Exclamation"),
                         MessageBoxButtons.OK);
                 }
                 else
                 {
-                    WinHelpers.ConsolePrint(Tag, "virtual memory size GOOD");
+                    Helpers.ConsolePrint(Tag, "virtual memory size GOOD");
                 }
 
                 // #x remove reference
@@ -421,7 +422,7 @@ namespace NiceHashMiner.Devices
 
                         avaliableVideoControllers.Add(vidController);
                     }
-                    WinHelpers.ConsolePrint(Tag, stringBuilder.ToString());
+                    Helpers.ConsolePrint(Tag, stringBuilder.ToString());
 
                     if (warningsEnabled)
                     {
@@ -455,12 +456,12 @@ namespace NiceHashMiner.Devices
             {
                 public static void QueryCpus()
                 {
-                    WinHelpers.ConsolePrint(Tag, "QueryCpus START");
+                    Helpers.ConsolePrint(Tag, "QueryCpus START");
                     // get all CPUs
                     Available.CpusCount = CpuID.GetPhysicalProcessorCount();
                     Available.IsHyperThreadingEnabled = CpuID.IsHypeThreadingEnabled();
 
-                    WinHelpers.ConsolePrint(Tag,
+                    Helpers.ConsolePrint(Tag,
                         Available.IsHyperThreadingEnabled
                             ? "HyperThreadingEnabled = TRUE"
                             : "HyperThreadingEnabled = FALSE");
@@ -517,7 +518,7 @@ namespace NiceHashMiner.Devices
                         }
                     }
 
-                    WinHelpers.ConsolePrint(Tag, "QueryCpus END");
+                    Helpers.ConsolePrint(Tag, "QueryCpus END");
                 }
             }
 
@@ -542,7 +543,7 @@ namespace NiceHashMiner.Devices
 
                 public static void QueryCudaDevices()
                 {
-                    WinHelpers.ConsolePrint(Tag, "QueryCudaDevices START");
+                    Helpers.ConsolePrint(Tag, "QueryCudaDevices START");
                     QueryCudaDevices(ref _cudaDevices);
 
                     if (_cudaDevices != null && _cudaDevices.Count != 0)
@@ -559,14 +560,14 @@ namespace NiceHashMiner.Devices
                             var handles = new NvPhysicalGpuHandle[NVAPI.MAX_PHYSICAL_GPUS];
                             if (NVAPI.NvAPI_EnumPhysicalGPUs == null)
                             {
-                                WinHelpers.ConsolePrint("NVAPI", "NvAPI_EnumPhysicalGPUs unavailable");
+                                Helpers.ConsolePrint("NVAPI", "NvAPI_EnumPhysicalGPUs unavailable");
                             }
                             else
                             {
                                 var status = NVAPI.NvAPI_EnumPhysicalGPUs(handles, out var _);
                                 if (status != NvStatus.OK)
                                 {
-                                    WinHelpers.ConsolePrint("NVAPI", "Enum physical GPUs failed with status: " + status);
+                                    Helpers.ConsolePrint("NVAPI", "Enum physical GPUs failed with status: " + status);
                                 }
                                 else
                                 {
@@ -577,12 +578,12 @@ namespace NiceHashMiner.Devices
                                         {
                                             if (idStatus != NvStatus.OK)
                                             {
-                                                WinHelpers.ConsolePrint("NVAPI",
+                                                Helpers.ConsolePrint("NVAPI",
                                                     "Bus ID get failed with status: " + idStatus);
                                             }
                                             else
                                             {
-                                                WinHelpers.ConsolePrint("NVAPI", "Found handle for busid " + id);
+                                                Helpers.ConsolePrint("NVAPI", "Found handle for busid " + id);
                                                 idHandles[id] = handle;
                                             }
                                         }
@@ -601,7 +602,7 @@ namespace NiceHashMiner.Devices
                         }
                         catch (Exception e)
                         {
-                            WinHelpers.ConsolePrint("NVML", e.ToString());
+                            Helpers.ConsolePrint("NVML", e.ToString());
                         }
 
                         foreach (var cudaDev in _cudaDevices)
@@ -666,9 +667,9 @@ namespace NiceHashMiner.Devices
                                 );
                             }
                         }
-                        WinHelpers.ConsolePrint(Tag, stringBuilder.ToString());
+                        Helpers.ConsolePrint(Tag, stringBuilder.ToString());
                     }
-                    WinHelpers.ConsolePrint(Tag, "QueryCudaDevices END");
+                    Helpers.ConsolePrint(Tag, "QueryCudaDevices END");
                 }
 
                 public static void QueryCudaDevices(ref List<CudaDevice> cudaDevices)
@@ -694,7 +695,7 @@ namespace NiceHashMiner.Devices
                     {
                         if (!cudaDevicesDetection.Start())
                         {
-                            WinHelpers.ConsolePrint(Tag, "CudaDevicesDetection process could not start");
+                            Helpers.ConsolePrint(Tag, "CudaDevicesDetection process could not start");
                         }
                         else
                         {
@@ -709,7 +710,7 @@ namespace NiceHashMiner.Devices
                     catch (Exception ex)
                     {
                         // TODO
-                        WinHelpers.ConsolePrint(Tag, "CudaDevicesDetection threw Exception: " + ex.Message);
+                        Helpers.ConsolePrint(Tag, "CudaDevicesDetection threw Exception: " + ex.Message);
                     }
                     finally
                     {
@@ -724,7 +725,7 @@ namespace NiceHashMiner.Devices
                             catch { }
 
                             if (_cudaDevices == null || _cudaDevices.Count == 0)
-                                WinHelpers.ConsolePrint(Tag,
+                                Helpers.ConsolePrint(Tag,
                                     "CudaDevicesDetection found no devices. CudaDevicesDetection returned: " +
                                     _queryCudaDevicesString);
                         }
@@ -749,7 +750,7 @@ namespace NiceHashMiner.Devices
 
                 public static void QueryOpenCLDevices()
                 {
-                    WinHelpers.ConsolePrint(Tag, "QueryOpenCLDevices START");
+                    Helpers.ConsolePrint(Tag, "QueryOpenCLDevices START");
                     var openCLDevicesDetection = new Process
                     {
                         StartInfo =
@@ -769,7 +770,7 @@ namespace NiceHashMiner.Devices
                     {
                         if (!openCLDevicesDetection.Start())
                         {
-                            WinHelpers.ConsolePrint(Tag, "AMDOpenCLDeviceDetection process could not start");
+                            Helpers.ConsolePrint(Tag, "AMDOpenCLDeviceDetection process could not start");
                         }
                         else
                         {
@@ -784,7 +785,7 @@ namespace NiceHashMiner.Devices
                     catch (Exception ex)
                     {
                         // TODO
-                        WinHelpers.ConsolePrint(Tag, "AMDOpenCLDeviceDetection threw Exception: " + ex.Message);
+                        Helpers.ConsolePrint(Tag, "AMDOpenCLDeviceDetection threw Exception: " + ex.Message);
                     }
                     finally
                     {
@@ -805,7 +806,7 @@ namespace NiceHashMiner.Devices
 
                     if (_openCLJsonData == null)
                     {
-                        WinHelpers.ConsolePrint(Tag,
+                        Helpers.ConsolePrint(Tag,
                             "AMDOpenCLDeviceDetection found no devices. AMDOpenCLDeviceDetection returned: " +
                             _queryOpenCLDevicesString);
                     }
@@ -826,9 +827,9 @@ namespace NiceHashMiner.Devices
                                 stringBuilder.AppendLine($"\t\t\tDevice TYPE {oclDev._CL_DEVICE_TYPE}");
                             }
                         }
-                        WinHelpers.ConsolePrint(Tag, stringBuilder.ToString());
+                        Helpers.ConsolePrint(Tag, stringBuilder.ToString());
                     }
-                    WinHelpers.ConsolePrint(Tag, "QueryOpenCLDevices END");
+                    Helpers.ConsolePrint(Tag, "QueryOpenCLDevices END");
                 }
             }
 
@@ -898,21 +899,21 @@ namespace NiceHashMiner.Devices
                     if (item["TotalVisibleMemorySize"] != null)
                         ulong.TryParse(item["TotalVisibleMemorySize"].ToString(), out TotalVisibleMemorySize);
                     // log
-                    WinHelpers.ConsolePrint("SystemSpecs", $"FreePhysicalMemory = {FreePhysicalMemory}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"FreeSpaceInPagingFiles = {FreeSpaceInPagingFiles}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"FreeVirtualMemory = {FreeVirtualMemory}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"LargeSystemCache = {LargeSystemCache}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"MaxNumberOfProcesses = {MaxNumberOfProcesses}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"MaxProcessMemorySize = {MaxProcessMemorySize}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"NumberOfLicensedUsers = {NumberOfLicensedUsers}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"NumberOfProcesses = {NumberOfProcesses}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"NumberOfUsers = {NumberOfUsers}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"OperatingSystemSKU = {OperatingSystemSKU}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"SizeStoredInPagingFiles = {SizeStoredInPagingFiles}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"SuiteMask = {SuiteMask}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"TotalSwapSpaceSize = {TotalSwapSpaceSize}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"TotalVirtualMemorySize = {TotalVirtualMemorySize}");
-                    WinHelpers.ConsolePrint("SystemSpecs", $"TotalVisibleMemorySize = {TotalVisibleMemorySize}");
+                    Helpers.ConsolePrint("SystemSpecs", $"FreePhysicalMemory = {FreePhysicalMemory}");
+                    Helpers.ConsolePrint("SystemSpecs", $"FreeSpaceInPagingFiles = {FreeSpaceInPagingFiles}");
+                    Helpers.ConsolePrint("SystemSpecs", $"FreeVirtualMemory = {FreeVirtualMemory}");
+                    Helpers.ConsolePrint("SystemSpecs", $"LargeSystemCache = {LargeSystemCache}");
+                    Helpers.ConsolePrint("SystemSpecs", $"MaxNumberOfProcesses = {MaxNumberOfProcesses}");
+                    Helpers.ConsolePrint("SystemSpecs", $"MaxProcessMemorySize = {MaxProcessMemorySize}");
+                    Helpers.ConsolePrint("SystemSpecs", $"NumberOfLicensedUsers = {NumberOfLicensedUsers}");
+                    Helpers.ConsolePrint("SystemSpecs", $"NumberOfProcesses = {NumberOfProcesses}");
+                    Helpers.ConsolePrint("SystemSpecs", $"NumberOfUsers = {NumberOfUsers}");
+                    Helpers.ConsolePrint("SystemSpecs", $"OperatingSystemSKU = {OperatingSystemSKU}");
+                    Helpers.ConsolePrint("SystemSpecs", $"SizeStoredInPagingFiles = {SizeStoredInPagingFiles}");
+                    Helpers.ConsolePrint("SystemSpecs", $"SuiteMask = {SuiteMask}");
+                    Helpers.ConsolePrint("SystemSpecs", $"TotalSwapSpaceSize = {TotalSwapSpaceSize}");
+                    Helpers.ConsolePrint("SystemSpecs", $"TotalVirtualMemorySize = {TotalVirtualMemorySize}");
+                    Helpers.ConsolePrint("SystemSpecs", $"TotalVisibleMemorySize = {TotalVisibleMemorySize}");
                 }
             }
         }

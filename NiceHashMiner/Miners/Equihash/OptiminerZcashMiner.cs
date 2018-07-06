@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners.Equihash
 {
@@ -104,7 +105,7 @@ namespace NiceHashMiner.Miners.Equihash
                 }
                 catch (Exception ex)
                 {
-                    WinHelpers.ConsolePrint("OptiminerZcashMiner", "GetSummary exception: " + ex.Message);
+                    Helpers.ConsolePrint("OptiminerZcashMiner", "GetSummary exception: " + ex.Message);
                 }
 
                 if (resp?.solution_rate != null)
@@ -161,7 +162,7 @@ namespace NiceHashMiner.Miners.Equihash
                 if (ar.Length >= 4)
                 {
                     // gets sols/s
-                    BenchmarkAlgorithm.BenchmarkSpeed = WinHelpers.ParseDouble(ar[2]);
+                    BenchmarkAlgorithm.BenchmarkSpeed = Helpers.ParseDouble(ar[2]);
                     return true;
                 }
             }

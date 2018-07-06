@@ -3,6 +3,7 @@ using NiceHashMiner.Switching;
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using NiceHashMinerLegacy.Common.Utils;
 using WebSocketSharp;
 
 namespace NiceHashMiner.Stats
@@ -57,13 +58,13 @@ namespace NiceHashMiner.Stats
                 _webSocket.OnError += ErrorCallback;
                 _webSocket.OnClose += CloseCallback;
                 _webSocket.Log.Level = LogLevel.Debug;
-                _webSocket.Log.Output = (data, s) => WinHelpers.ConsolePrint("SOCKET", data.ToString());
+                _webSocket.Log.Output = (data, s) => Helpers.ConsolePrint("SOCKET", data.ToString());
                 _webSocket.EnableRedirection = true;
                 _webSocket.Connect();
                 _connectionEstablished = true;
             } catch (Exception e)
             {
-                WinHelpers.ConsolePrint("SOCKET", e.ToString());
+                Helpers.ConsolePrint("SOCKET", e.ToString());
             }
         }
 
@@ -83,7 +84,7 @@ namespace NiceHashMiner.Stats
                 OnConnectionEstablished?.Invoke(null, EventArgs.Empty);
             } catch (Exception er)
             {
-                WinHelpers.ConsolePrint("SOCKET", er.ToString());
+                Helpers.ConsolePrint("SOCKET", er.ToString());
             }
         }
 
@@ -94,12 +95,12 @@ namespace NiceHashMiner.Stats
 
         private static void ErrorCallback(object sender, ErrorEventArgs e)
         {
-            WinHelpers.ConsolePrint("SOCKET", e.ToString());
+            Helpers.ConsolePrint("SOCKET", e.ToString());
         }
 
         private void CloseCallback(object sender, CloseEventArgs e)
         {
-            WinHelpers.ConsolePrint("SOCKET", $"Connection closed code {e.Code}: {e.Reason}");
+            Helpers.ConsolePrint("SOCKET", $"Connection closed code {e.Code}: {e.Reason}");
             AttemptReconnect();
         }
 
@@ -115,7 +116,7 @@ namespace NiceHashMiner.Stats
                     dynamic dataJson = JsonConvert.DeserializeObject(data);
                     if (dataJson.method == "credentials.set" || dataJson.method == "devices.status" || dataJson.method == "login")
                     {
-                        WinHelpers.ConsolePrint("SOCKET", "Sending data: " + data);
+                        Helpers.ConsolePrint("SOCKET", "Sending data: " + data);
                         _webSocket.Send(data);
                         return true;
                     }
@@ -127,22 +128,22 @@ namespace NiceHashMiner.Stats
                         SendData(data, true);
                     } else
                     {
-                        WinHelpers.ConsolePrint("SOCKET", "Socket connection unsuccessfull, will try again on next device update (1min)");
+                        Helpers.ConsolePrint("SOCKET", "Socket connection unsuccessfull, will try again on next device update (1min)");
                     }
                 } else
                 {
                     if (!_connectionAttempted)
                     {
-                        WinHelpers.ConsolePrint("SOCKET", "Data sending attempted before socket initialization");
+                        Helpers.ConsolePrint("SOCKET", "Data sending attempted before socket initialization");
                     } else
                     {
-                        WinHelpers.ConsolePrint("SOCKET", "webSocket not created, retrying");
+                        Helpers.ConsolePrint("SOCKET", "webSocket not created, retrying");
                         StartConnection();
                     }
                 }
             } catch (Exception e)
             {
-                WinHelpers.ConsolePrint("SOCKET", e.ToString());
+                Helpers.ConsolePrint("SOCKET", e.ToString());
             }
             return false;
         }
@@ -160,7 +161,7 @@ namespace NiceHashMiner.Stats
             }
             _attemptingReconnect = true;
             var sleep = _connectionEstablished ? 10 + _random.Next(0, 20) : 0;
-            WinHelpers.ConsolePrint("SOCKET", "Attempting reconnect in " + sleep + " seconds");
+            Helpers.ConsolePrint("SOCKET", "Attempting reconnect in " + sleep + " seconds");
             // More retries on first attempt
             var retries = _connectionEstablished ? 5 : 25;
             if (_connectionEstablished)
@@ -189,7 +190,7 @@ namespace NiceHashMiner.Stats
                     if (e.Message == "A series of reconnecting has failed.")
                     {
                         // Need to recreate websocket
-                        WinHelpers.ConsolePrint("SOCKET", "Recreating socket");
+                        Helpers.ConsolePrint("SOCKET", "Recreating socket");
                         _webSocket = null;
                         StartConnection();
                         break;
@@ -197,7 +198,7 @@ namespace NiceHashMiner.Stats
                 }
                 catch (Exception e)
                 {
-                    WinHelpers.ConsolePrint("SOCKET", $"Error while attempting reconnect: {e}");
+                    Helpers.ConsolePrint("SOCKET", $"Error while attempting reconnect: {e}");
                 }
                 Thread.Sleep(1000);
             }

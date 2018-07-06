@@ -85,7 +85,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint(MinerTag(), "GetSummary exception: " + ex.Message);
+                Helpers.ConsolePrint(MinerTag(), "GetSummary exception: " + ex.Message);
             }
 
             if (resp != null && resp.error == null)
@@ -142,7 +142,7 @@ namespace NiceHashMiner.Miners
                 // some clayomre miners have this issue reporting negative speeds in that case restart miner
                 if (ad.Speed < 0)
                 {
-                    WinHelpers.ConsolePrint(MinerTag(), "Reporting negative speeds will restart...");
+                    Helpers.ConsolePrint(MinerTag(), "Reporting negative speeds will restart...");
                     Restart();
                 }
             }
@@ -175,7 +175,7 @@ namespace NiceHashMiner.Miners
             var intensities = new List<string>();
 
             var amdDeviceCount = ComputeDeviceManager.Query.AmdDevices.Count;
-            WinHelpers.ConsolePrint("ClaymoreIndexing", $"Found {amdDeviceCount} AMD devices");
+            Helpers.ConsolePrint("ClaymoreIndexing", $"Found {amdDeviceCount} AMD devices");
 
             foreach (var mPair in sortedMinerPairs)
             {
@@ -183,13 +183,13 @@ namespace NiceHashMiner.Miners
                 if (id < 0)
                 {
                     // should never happen
-                    WinHelpers.ConsolePrint("ClaymoreIndexing", "ID by Bus too low: " + id + " skipping device");
+                    Helpers.ConsolePrint("ClaymoreIndexing", "ID by Bus too low: " + id + " skipping device");
                     continue;
                 }
 
                 if (mPair.Device.DeviceType == DeviceType.NVIDIA)
                 {
-                    WinHelpers.ConsolePrint("ClaymoreIndexing", "NVIDIA device increasing index by " + amdDeviceCount);
+                    Helpers.ConsolePrint("ClaymoreIndexing", "NVIDIA device increasing index by " + amdDeviceCount);
                     id += amdDeviceCount;
                 }
 
@@ -204,7 +204,7 @@ namespace NiceHashMiner.Miners
                     }
                     else
                     {
-                        WinHelpers.ConsolePrint("ClaymoreIndexing", "ID " + id + " too high, ignoring");
+                        Helpers.ConsolePrint("ClaymoreIndexing", "ID " + id + " too high, ignoring");
                     }
                 }
                 else
@@ -238,7 +238,7 @@ namespace NiceHashMiner.Miners
                                                    (dualBenchAlgo.TuningInterval)) + 1;
                 Helpers.ConsolePrint("CDTUING", "{0} tuning steps remain, should complete in {1} seconds", stepsLeft,
                     stepsLeft * BenchmarkTimeWait);
-                WinHelpers.ConsolePrint("CDTUNING",
+                Helpers.ConsolePrint("CDTUNING",
                     $"Starting benchmark for intensity {dualBenchAlgo.CurrentIntensity} out of {dualBenchAlgo.TuningEnd}");
             }
 
@@ -307,7 +307,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            WinHelpers.ConsolePrint("BENCHMARK", outdata);
+            Helpers.ConsolePrint("BENCHMARK", outdata);
             return false;
         }
 
@@ -343,7 +343,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint("GetNumber",
+                Helpers.ConsolePrint("GetNumber",
                     ex.Message + " | args => " + outdata + " | " + LOOK_FOR_END + " | " + LOOK_FOR_START);
             }
 

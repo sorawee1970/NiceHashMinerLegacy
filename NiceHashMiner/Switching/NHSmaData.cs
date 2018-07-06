@@ -6,6 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Switching
 {
@@ -47,7 +48,7 @@ namespace NiceHashMiner.Switching
             }
             catch (Exception e)
             {
-                WinHelpers.ConsolePrint(Tag, e.ToString());
+                Helpers.ConsolePrint(Tag, e.ToString());
             }
 
             // _recentPaying = new Dictionary<AlgorithmType, List<double>>();
@@ -110,7 +111,7 @@ namespace NiceHashMiner.Switching
                     }
                     catch (Exception e)
                     {
-                        WinHelpers.ConsolePrint(Tag, e.ToString());
+                        Helpers.ConsolePrint(Tag, e.ToString());
                     }
                 }
             }
@@ -170,7 +171,7 @@ namespace NiceHashMiner.Switching
             {
                 sb.AppendLine("\tNone changed");
             }
-            WinHelpers.ConsolePrint(Tag, sb.ToString());
+            Helpers.ConsolePrint(Tag, sb.ToString());
         }
 
         #endregion

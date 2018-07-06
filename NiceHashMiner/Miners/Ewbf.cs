@@ -15,6 +15,7 @@ using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners
 {
@@ -67,11 +68,11 @@ namespace NiceHashMiner.Miners
                 try
                 {
                     File.Copy(vcp, vcpPath, true);
-                    WinHelpers.ConsolePrint(MinerTag(), $"Copy from {vcp} to {vcpPath} done");
+                    Helpers.ConsolePrint(MinerTag(), $"Copy from {vcp} to {vcpPath} done");
                 }
                 catch (Exception e)
                 {
-                    WinHelpers.ConsolePrint(MinerTag(), "Copy msvcp.dll failed: " + e.Message);
+                    Helpers.ConsolePrint(MinerTag(), "Copy msvcp.dll failed: " + e.Message);
                 }
             }
 
@@ -109,7 +110,7 @@ namespace NiceHashMiner.Miners
             foreach (var process in Process.GetProcessesByName(exeName))
             {
                 try { process.Kill(); }
-                catch (Exception e) { WinHelpers.ConsolePrint(MinerDeviceName, e.ToString()); }
+                catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
         }
 
@@ -136,8 +137,8 @@ namespace NiceHashMiner.Miners
 
             try
             {
-                WinHelpers.ConsolePrint("BENCHMARK", "Benchmark starts");
-                WinHelpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + _benchmarkTimeWait + " seconds");
+                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                Helpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + _benchmarkTimeWait + " seconds");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
                 BenchmarkHandle.WaitForExit(_benchmarkTimeWait + 2);
                 var benchmarkTimer = new Stopwatch();
@@ -223,12 +224,12 @@ namespace NiceHashMiner.Miners
                             {
                                 lines = File.ReadAllLines(WorkingDirectory + latestLogFile);
                                 read = true;
-                                WinHelpers.ConsolePrint(MinerTag(),
+                                Helpers.ConsolePrint(MinerTag(),
                                     "Successfully read log after " + iteration + " iterations");
                             }
                             catch (Exception ex)
                             {
-                                WinHelpers.ConsolePrint(MinerTag(), ex.Message);
+                                Helpers.ConsolePrint(MinerTag(), ex.Message);
                                 Thread.Sleep(1000);
                             }
 
@@ -237,7 +238,7 @@ namespace NiceHashMiner.Miners
                         else
                         {
                             read = true; // Give up after 10s
-                            WinHelpers.ConsolePrint(MinerTag(), "Gave up on iteration " + iteration);
+                            Helpers.ConsolePrint(MinerTag(), "Gave up on iteration " + iteration);
                         }
                     }
 
@@ -274,7 +275,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            WinHelpers.ConsolePrint("BENCHMARK", outdata);
+            Helpers.ConsolePrint("BENCHMARK", outdata);
             return false;
         }
 
@@ -310,7 +311,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint("GetNumber",
+                Helpers.ConsolePrint("GetNumber",
                     ex.Message + " | args => " + outdata + " | " + lookForEnd + " | " + lookForStart);
             }
 
@@ -336,7 +337,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint(MinerTag(), ex.Message);
+                Helpers.ConsolePrint(MinerTag(), ex.Message);
             }
 
             if (resp != null && resp.error == null)

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners
 {
@@ -162,7 +163,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                WinHelpers.ConsolePrint("ERROR", ex.Message);
+                Helpers.ConsolePrint("ERROR", ex.Message);
             }
 
             if (resp != null && resp.error == null)

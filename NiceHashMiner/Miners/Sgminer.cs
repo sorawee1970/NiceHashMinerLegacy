@@ -10,6 +10,7 @@ using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners
 {
@@ -31,7 +32,7 @@ namespace NiceHashMiner.Miners
             foreach (var process in Process.GetProcessesByName("sgminer"))
             {
                 try { process.Kill(); }
-                catch (Exception e) { WinHelpers.ConsolePrint(MinerDeviceName, e.ToString()); }
+                catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
         }
 
@@ -42,7 +43,7 @@ namespace NiceHashMiner.Miners
                 BenchmarkProcessStatus = BenchmarkProcessStatus.Killing;
                 try
                 {
-                    WinHelpers.ConsolePrint("BENCHMARK",
+                    Helpers.ConsolePrint("BENCHMARK",
                         $"Trying to kill benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName}");
                     KillSgminer();
                 }
@@ -50,7 +51,7 @@ namespace NiceHashMiner.Miners
                 finally
                 {
                     BenchmarkProcessStatus = BenchmarkProcessStatus.DoneKilling;
-                    WinHelpers.ConsolePrint("BENCHMARK",
+                    Helpers.ConsolePrint("BENCHMARK",
                         $"Benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName} KILLED");
                     //BenchmarkHandle = null;
                 }
@@ -71,7 +72,7 @@ namespace NiceHashMiner.Miners
         {
             if (!IsInit)
             {
-                WinHelpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
+                Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
             var username = GetUsername(btcAdress, worker);
@@ -141,7 +142,7 @@ namespace NiceHashMiner.Miners
 
                 // save speed
                 var hashSpeed = outdata.Substring(i + 2, k - i + 2);
-                WinHelpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
+                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
 
                 hashSpeed = hashSpeed.Substring(0, hashSpeed.IndexOf(" "));
                 var speed = double.Parse(hashSpeed, CultureInfo.InvariantCulture);
@@ -163,7 +164,7 @@ namespace NiceHashMiner.Miners
                 // save speed
                 var hashSpeed = outdata.Substring(i + 3, k - i + 3).Trim();
                 hashSpeed = hashSpeed.Replace("(avg):", "");
-                WinHelpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
+                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
 
                 double mult = 1;
                 if (hashSpeed.Contains("K"))
@@ -194,7 +195,7 @@ namespace NiceHashMiner.Miners
 
             if (!NHSmaData.HasData)
             {
-                WinHelpers.ConsolePrint("BENCHMARK", "Skipping sgminer benchmark because there is no internet " +
+                Helpers.ConsolePrint("BENCHMARK", "Skipping sgminer benchmark because there is no internet " +
                                                   "connection. Sgminer needs internet connection to do benchmarking.");
 
                 throw new Exception("No internet connection");
@@ -203,7 +204,7 @@ namespace NiceHashMiner.Miners
             NHSmaData.TryGetPaying(nhDataIndex, out var paying);
             if (paying == 0)
             {
-                WinHelpers.ConsolePrint("BENCHMARK", "Skipping sgminer benchmark because there is no work on Nicehash.com " +
+                Helpers.ConsolePrint("BENCHMARK", "Skipping sgminer benchmark because there is no work on Nicehash.com " +
                                                   "[algo: " + BenchmarkAlgorithm.AlgorithmName + "(" + nhDataIndex + ")]");
 
                 throw new Exception("No work can be used for benchmarking");
@@ -221,7 +222,7 @@ namespace NiceHashMiner.Miners
             if (_benchmarkTimer.Elapsed.TotalSeconds >= BenchmarkTimeInSeconds)
             {
                 var resp = GetApiDataAsync(ApiPort, "quit").Result.TrimEnd((char) 0);
-                WinHelpers.ConsolePrint("BENCHMARK", "SGMiner Response: " + resp);
+                Helpers.ConsolePrint("BENCHMARK", "SGMiner Response: " + resp);
             }
             if (_benchmarkTimer.Elapsed.TotalSeconds >= BenchmarkTimeInSeconds + 2)
             {
@@ -240,7 +241,7 @@ namespace NiceHashMiner.Miners
         {
             if (BenchmarkAlgorithm.BenchmarkSpeed <= 0)
             {
-                WinHelpers.ConsolePrint("sgminer_GetFinalBenchmarkString", International.GetText("sgminer_precise_try"));
+                Helpers.ConsolePrint("sgminer_GetFinalBenchmarkString", International.GetText("sgminer_precise_try"));
                 return International.GetText("sgminer_precise_try");
             }
             return base.GetFinalBenchmarkString();
@@ -257,7 +258,7 @@ namespace NiceHashMiner.Miners
 
             try
             {
-                WinHelpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
                 BenchmarkThreadRoutineStartSettup();
                 // wait a little longer then the benchmark routine if exit false throw
@@ -356,7 +357,7 @@ namespace NiceHashMiner.Miners
                 {
                     if (checkGpuStatus[i].Contains("Enabled=Y") && !checkGpuStatus[i].Contains("Status=Alive"))
                     {
-                        WinHelpers.ConsolePrint(MinerTag(),
+                        Helpers.ConsolePrint(MinerTag(),
                             ProcessTag() + " GPU " + i + ": Sick/Dead/NoStart/Initialising/Disabled/Rejecting/Unknown");
                         CurrentMinerReadStatus = MinerApiReadStatus.WAIT;
                         return null;
@@ -379,8 +380,8 @@ namespace NiceHashMiner.Miners
 
                     if (totalMH <= PreviousTotalMH)
                     {
-                        WinHelpers.ConsolePrint(MinerTag(), ProcessTag() + " SGMiner might be stuck as no new hashes are being produced");
-                        WinHelpers.ConsolePrint(MinerTag(),
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " SGMiner might be stuck as no new hashes are being produced");
+                        Helpers.ConsolePrint(MinerTag(),
                             ProcessTag() + " Prev Total MH: " + PreviousTotalMH + " .. Current Total MH: " + totalMH);
                         CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                         return null;

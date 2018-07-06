@@ -77,8 +77,8 @@ namespace NiceHashMiner
             {
                 var totalRam = long.Parse(mo["TotalVisibleMemorySize"].ToString()) / 1024;
                 var pageFileSize = (long.Parse(mo["TotalVirtualMemorySize"].ToString()) / 1024) - totalRam;
-                WinHelpers.ConsolePrint("NICEHASH", "Total RAM: " + totalRam + "MB");
-                WinHelpers.ConsolePrint("NICEHASH", "Page File Size: " + pageFileSize + "MB");
+                Helpers.ConsolePrint("NICEHASH", "Total RAM: " + totalRam + "MB");
+                Helpers.ConsolePrint("NICEHASH", "Page File Size: " + pageFileSize + "MB");
             }
 
             R = new Random((int) DateTime.Now.Ticks);
@@ -220,14 +220,14 @@ namespace NiceHashMiner
                 if (msIdle < (ConfigManager.GeneralConfig.MinIdleSeconds * 1000))
                 {
                     StopMining();
-                    WinHelpers.ConsolePrint("NICEHASH", "Resumed from idling");
+                    Helpers.ConsolePrint("NICEHASH", "Resumed from idling");
                 }
             }
             else
             {
                 if (_benchmarkForm == null && (msIdle > (ConfigManager.GeneralConfig.MinIdleSeconds * 1000)))
                 {
-                    WinHelpers.ConsolePrint("NICEHASH", "Entering idling state");
+                    Helpers.ConsolePrint("NICEHASH", "Entering idling state");
                     if (StartMining(false) != StartMiningReturnType.StartMining)
                     {
                         StopMining();
@@ -534,7 +534,7 @@ namespace NiceHashMiner
                 }
                 catch (Exception ex)
                 {
-                    WinHelpers.ConsolePrint("NICEHASH", "OnGPUsMismatch.bat error: " + ex.Message);
+                    Helpers.ConsolePrint("NICEHASH", "OnGPUsMismatch.bat error: " + ex.Message);
                 }
             }
         }
@@ -603,7 +603,7 @@ namespace NiceHashMiner
             var apiGetExceptionString = isApiGetException ? "**" : "";
 
             var speedString =
-                WinHelpers.FormatDualSpeedOutput(iApiData.Speed, iApiData.SecondarySpeed, iApiData.AlgorithmID) +
+                Helpers.FormatDualSpeedOutput(iApiData.Speed, iApiData.SecondarySpeed, iApiData.AlgorithmID) +
                 iApiData.AlgorithmName + apiGetExceptionString;
             var rateBtcString = FormatPayingOutput(paying);
             var rateCurrencyString = ExchangeRateApi
@@ -682,7 +682,7 @@ namespace NiceHashMiner
             }
             catch (Exception e)
             {
-                WinHelpers.ConsolePrint("NiceHash", e.ToString());
+                Helpers.ConsolePrint("NiceHash", e.ToString());
             }
         }
 
@@ -717,7 +717,7 @@ namespace NiceHashMiner
 
         private void BalanceCallback(object sender, EventArgs e)
         {
-            WinHelpers.ConsolePrint("NICEHASH", "Balance update");
+            Helpers.ConsolePrint("NICEHASH", "Balance update");
             var balance = NiceHashStats.Balance;
             if (balance > 0)
             {
@@ -775,13 +775,13 @@ namespace NiceHashMiner
 
             toolTip1.SetToolTip(statusStrip1, $"1 BTC = {currencyRate} {ExchangeRateApi.ActiveDisplayCurrency}");
 
-            WinHelpers.ConsolePrint("NICEHASH",
+            Helpers.ConsolePrint("NICEHASH",
                 "Current Bitcoin rate: " + br.ToString("F2", CultureInfo.InvariantCulture));
         }
 
         private void SmaCallback(object sender, EventArgs e)
         {
-            WinHelpers.ConsolePrint("NICEHASH", "SMA Update");
+            Helpers.ConsolePrint("NICEHASH", "SMA Update");
             //_isSmaUpdated = true;
         }
 
@@ -1098,13 +1098,13 @@ namespace NiceHashMiner
                     if (hasData) break;
                     Thread.Sleep(1000);
                     hasData = NHSmaData.HasData;
-                    WinHelpers.ConsolePrint("NICEHASH", $"After {i}s has data: {hasData}");
+                    Helpers.ConsolePrint("NICEHASH", $"After {i}s has data: {hasData}");
                 }
             }
 
             if (!hasData)
             {
-                WinHelpers.ConsolePrint("NICEHASH", "No data received within timeout");
+                Helpers.ConsolePrint("NICEHASH", "No data received within timeout");
                 if (showWarnings)
                 {
                     MessageBox.Show(International.GetText("Form_Main_msgbox_NullNiceHashDataMsg"),

@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Forms.Components
 {
@@ -162,7 +163,7 @@ namespace NiceHashMiner.Forms.Components
         private void UpdateSpeedText()
         {
             var secondarySpeed = (_currentlySelectedAlgorithm is DualAlgorithm dualAlgo) ? dualAlgo.SecondaryBenchmarkSpeed : 0;
-            var speedString = WinHelpers.FormatDualSpeedOutput(_currentlySelectedAlgorithm.BenchmarkSpeed, secondarySpeed, _currentlySelectedAlgorithm.NiceHashID);
+            var speedString = Helpers.FormatDualSpeedOutput(_currentlySelectedAlgorithm.BenchmarkSpeed, secondarySpeed, _currentlySelectedAlgorithm.NiceHashID);
             // update lvi speed
             if (_currentlySelectedLvi != null)
             {
