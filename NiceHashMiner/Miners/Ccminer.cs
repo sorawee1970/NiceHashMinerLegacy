@@ -5,9 +5,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Devices.Algorithms;
 
 namespace NiceHashMiner.Miners
 {

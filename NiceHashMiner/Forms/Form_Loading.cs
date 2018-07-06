@@ -3,6 +3,7 @@ using NiceHashMiner.Utils;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using NiceHashMiner.Forms;
 
 namespace NiceHashMiner
 {
@@ -88,6 +89,13 @@ namespace NiceHashMiner
         public void SetMessageAndIncrementStep(string infoMsg) {
             IncreaseLoadCounterAndMessage(infoMsg);
         }
+
+        public void ShowWarning(string message)
+        {
+            var warningDialog = new DriverVersionConfirmationDialog();
+            warningDialog.ShowDialog();
+        }
+
         #endregion //IMessageNotifier
 
         #region IMinerUpdateIndicator

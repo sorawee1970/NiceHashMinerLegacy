@@ -1,14 +1,15 @@
-﻿using NiceHashMiner.Devices;
-using NiceHashMiner.Miners.Grouping;
+﻿using NiceHashMiner.Miners.Grouping;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Miners
 {

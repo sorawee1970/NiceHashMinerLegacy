@@ -1,7 +1,10 @@
-﻿using NiceHashMiner.Devices;
+﻿using System;
 using NiceHashMiner.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices;
 
 namespace NiceHashMiner.Miners
 {
@@ -39,7 +42,7 @@ namespace NiceHashMiner.Miners
         public static bool StartInitialize(IMainFormRatesComunication mainFormRatesComunication,
             string miningLocation, string worker, string btcAdress)
         {
-            _curMiningSession = new MiningSession(ComputeDeviceManager.Available.Devices,
+            _curMiningSession = new MiningSession(Available.Devices,
                 mainFormRatesComunication, miningLocation, worker, btcAdress);
 
             return _curMiningSession.IsMiningEnabled;
@@ -65,6 +68,34 @@ namespace NiceHashMiner.Miners
         public static async Task MinerStatsCheck()
         {
             if (_curMiningSession != null) await _curMiningSession.MinerStatsCheck();
+        }
+
+        public static List<JArray> GetDeviceStatus()
+        {
+            var devices = Available.Devices;
+            var deviceList = new List<JArray>();
+            var activeIDs = GetActiveMinersIndexes();
+            foreach (var device in devices)
+            {
+                try
+                {
+                    var array = new JArray
+                    {
+                        device.Index,
+                        device.Name
+                    };
+                    var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int)device.DeviceType + 1) * 2;
+                    array.Add(status);
+                    array.Add((int)Math.Round(device.Load));
+                    array.Add((int)Math.Round(device.Temp));
+                    array.Add(device.FanSpeed);
+
+                    deviceList.Add(array);
+                }
+                catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
+            }
+
+            return deviceList;
         }
     }
 }

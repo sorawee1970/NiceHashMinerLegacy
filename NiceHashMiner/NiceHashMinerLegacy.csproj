@@ -92,23 +92,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="3rdParty\ADL.cs" />
-    <Compile Include="3rdParty\NVAPI.cs" />
-    <Compile Include="3rdParty\PInvokeDelegateFactory.cs" />
-    <Compile Include="Algorithms\Algorithm.cs" />
-    <Compile Include="Algorithms\DualAlgorithm.cs" />
     <Compile Include="Benchmarking\BenchHelpers\CpuBenchHelper.cs" />
     <Compile Include="Benchmarking\BenchHelpers\PowerHelper.cs" />
     <Compile Include="Benchmarking\BenchmarkHandler.cs" />
     <Compile Include="Benchmarking\BenchHelpers\ClaymoreZcashBenchHelper.cs" />
-    <Compile Include="Devices\Algorithms\DefaultAlgorithms.cs" />
-    <Compile Include="Devices\ComputeDevice\AmdComputeDevice.cs" />
-    <Compile Include="Devices\ComputeDevice\ComputeDevice.cs" />
-    <Compile Include="Devices\ComputeDevice\CpuComputeDevice.cs" />
-    <Compile Include="Devices\ComputeDevice\CudaComputeDevice.cs" />
-    <Compile Include="Devices\Querying\AmdQuery.cs" />
-    <Compile Include="Devices\Querying\OpenCLJsonData.cs" />
-    <Compile Include="Devices\Querying\VideoControllerData.cs" />
     <Compile Include="IFTTT.cs" />
     <Compile Include="Forms\Form_DcriValues.cs">
       <SubType>Form</SubType>
@@ -128,15 +115,6 @@
     <Compile Include="Miners\XmrStak\XmrStak.cs" />
     <Compile Include="Miners\XmrStak\Configs\XmrStakConfig.cs" />
     <Compile Include="Miners\Xmrig.cs" />
-    <Compile Include="Utils\AlgorithmNiceHashNames.cs" />
-    <Compile Include="Devices\AmdGpuDevice.cs" />
-    <Compile Include="Devices\ComputeDeviceManager.cs" />
-    <Compile Include="Devices\CPUUtils.cs" />
-    <Compile Include="Devices\CudaDevice.cs" />
-    <Compile Include="Devices\CUDA_Unsupported.cs" />
-    <Compile Include="Devices\Algorithms\GroupAlgorithms.cs" />
-    <Compile Include="Devices\GroupNames.cs" />
-    <Compile Include="Devices\OpenCLDevice.cs" />
     <Compile Include="Forms\Components\AlgorithmsListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -207,11 +185,8 @@
     <Compile Include="Interfaces\IBenchmarkComunicator.cs" />
     <Compile Include="Interfaces\IListItemCheckColorSetter.cs" />
     <Compile Include="Interfaces\IMainFormRatesComunication.cs" />
-    <Compile Include="Interfaces\IMessageNotifier.cs" />
     <Compile Include="Interfaces\IMinerUpdateIndicator.cs" />
-    <Compile Include="International.cs" />
     <Compile Include="Utils\Extensions.cs" />
-    <Compile Include="Utils\Links.cs" />
     <Compile Include="Miners\ClaymoreBaseMiner.cs" />
     <Compile Include="Miners\ClaymoreCryptoNightMiner.cs" />
     <Compile Include="Miners\Equihash\ClaymoreZcashMiner.cs" />
@@ -233,13 +208,11 @@
     <Compile Include="Miners\ethminer\MinerEtherumCUDA.cs" />
     <Compile Include="Miners\ethminer\MinerEtherumOCL.cs" />
     <Compile Include="Miners\Parsing\MinerOption.cs" />
-    <Compile Include="Miners\Grouping\MinerPaths.cs" />
     <Compile Include="Miners\MinersApiPortsManager.cs" />
     <Compile Include="Miners\MinersManager.cs" />
     <Compile Include="Miners\Equihash\NhEqMiner.cs" />
     <Compile Include="Miners\MiningSession.cs" />
     <Compile Include="Miners\Parsing\MinerOptionPackage.cs" />
-    <Compile Include="PInvoke\NiceHashProcess.cs" />
     <Compile Include="Miners\Ccminer.cs" />
     <Compile Include="Forms\DriverVersionConfirmationDialog.cs">
       <SubType>Form</SubType>
@@ -248,7 +221,6 @@
       <DependentUpon>DriverVersionConfirmationDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Miners\ethminer\Ethereum.cs" />
-    <Compile Include="PInvoke\CPUID.cs" />
     <Compile Include="Miners\CpuMiner.cs" />
     <Compile Include="Forms\Form_Main.cs">
       <SubType>Form</SubType>
@@ -262,7 +234,6 @@
     <Compile Include="Forms\Form_Loading.Designer.cs">
       <DependentUpon>Form_Loading.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\WinHelpers.cs" />
     <Compile Include="Miners\Miner.cs" />
     <Compile Include="Forms\MinerFileNotFoundDialog.cs">
       <SubType>Form</SubType>
@@ -270,7 +241,6 @@
     <Compile Include="Forms\MinerFileNotFoundDialog.Designer.cs">
       <DependentUpon>MinerFileNotFoundDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="PInvoke\PInvokeHelpers.cs" />
     <Compile Include="Utils\ProfitabilityCalculator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -437,6 +407,10 @@
       <Project>{279a5b29-3799-43fa-9734-e462e046ba81}</Project>
       <Name>NiceHashMinerLegacy.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NiceHashMinerLegacy.Devices\NiceHashMinerLegacy.Devices.csproj">
+      <Project>{26a39327-6503-4ea1-8dd4-0d292b14a839}</Project>
+      <Name>NiceHashMinerLegacy.Devices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NiceHashMinerLegacy.Extensions\NiceHashMinerLegacy.Extensions.csproj">
       <Project>{200498ff-f28e-4c9c-9c6f-535feee099db}</Project>
       <Name>NiceHashMinerLegacy.Extensions</Name>
@@ -445,8 +419,15 @@
       <Project>{AB495249-FAF7-4283-BFEC-738BB2D6116B}</Project>
       <Name>NiceHashMinerLegacy.Web</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NiceHashMinerLegacy.Windows\NiceHashMinerLegacy.Windows.csproj">
+      <Project>{35be7330-da53-4cd7-9df5-88b32120abe0}</Project>
+      <Name>NiceHashMinerLegacy.Windows</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="3rdParty\" />
+    <Folder Include="Algorithms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

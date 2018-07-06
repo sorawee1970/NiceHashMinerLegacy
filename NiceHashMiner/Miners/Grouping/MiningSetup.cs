@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Devices;
 
 namespace NiceHashMiner.Miners.Grouping
 {

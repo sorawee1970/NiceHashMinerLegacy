@@ -7,10 +7,10 @@ using System.Globalization;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices.Algorithms;
 
 namespace NiceHashMiner.Miners
 {

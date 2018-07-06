@@ -1,10 +1,12 @@
-﻿using NiceHashMiner.Devices;
-using NiceHashMiner.Interfaces;
+﻿using NiceHashMiner.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Forms.Components
 {
@@ -193,7 +195,7 @@ namespace NiceHashMiner.Forms.Components
                         if (listViewDevices.FocusedItem.Tag is ComputeDevice cDevice)
                         {
                             var sameDevTypes =
-                                ComputeDeviceManager.Available.GetSameDevicesTypeAsDeviceWithUuid(cDevice.Uuid);
+                                Available.GetSameDevicesTypeAsDeviceWithUuid(cDevice.Uuid);
                             if (sameDevTypes.Count > 0)
                             {
                                 var copyBenchItem = new ToolStripMenuItem();
@@ -236,7 +238,7 @@ namespace NiceHashMiner.Forms.Components
         private void ToolStripMenuItem_Click(object sender, bool justTuning) {
             if (sender is ToolStripMenuItem item && item.Tag is string uuid
                 && listViewDevices.FocusedItem.Tag is ComputeDevice CDevice) {
-                var copyBenchCDev = ComputeDeviceManager.Available.GetDeviceWithUuid(uuid);
+                var copyBenchCDev = Available.GetDeviceWithUuid(uuid);
 
                 var result = MessageBox.Show(
                     string.Format(

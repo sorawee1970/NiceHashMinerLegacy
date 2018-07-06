@@ -1,8 +1,10 @@
-﻿using NiceHashMiner.Devices;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Miners.Grouping
 {

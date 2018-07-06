@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NiceHashMiner.Devices;
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Collections.Generic;
@@ -8,10 +7,11 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Devices.Algorithms;
 
 namespace NiceHashMiner.Miners
 {
@@ -174,7 +174,7 @@ namespace NiceHashMiner.Miners
             var ids = new List<string>();
             var intensities = new List<string>();
 
-            var amdDeviceCount = ComputeDeviceManager.Query.AmdDevices.Count;
+            var amdDeviceCount = Available.AvailAmdGpus;
             Helpers.ConsolePrint("ClaymoreIndexing", $"Found {amdDeviceCount} AMD devices");
 
             foreach (var mPair in sortedMinerPairs)

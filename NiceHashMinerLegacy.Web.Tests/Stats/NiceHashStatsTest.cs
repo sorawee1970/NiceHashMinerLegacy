@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NiceHashMiner.Devices;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Web.Stats;
 using NiceHashMinerLegacy.Web.Stats.Models;
+using System.Linq;
 
 namespace NiceHashMinerLegacy.Web.Tests.Stats
 {
@@ -55,7 +55,7 @@ namespace NiceHashMinerLegacy.Web.Tests.Stats
         [TestMethod]
         public void EnableDevicesShouldMatch()
         {
-            var devs = ComputeDeviceManager.Available.Devices;
+            var devs = Available.Devices;
             // Start all false
             foreach (var dev in devs)
             {

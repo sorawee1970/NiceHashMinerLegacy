@@ -1,4 +1,4 @@
-﻿using NiceHashMiner.Algorithms;
+﻿using NiceHashMinerLegacy.Devices.Algorithms;
 
 namespace NiceHashMiner.Miners
 {

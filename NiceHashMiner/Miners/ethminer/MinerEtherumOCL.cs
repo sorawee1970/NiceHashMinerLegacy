@@ -1,9 +1,9 @@
-﻿using NiceHashMiner.Devices;
-using NiceHashMiner.Miners.Parsing;
+﻿using NiceHashMiner.Miners.Parsing;
 using System.Collections.Generic;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Devices.Algorithms;
 
 namespace NiceHashMiner.Miners
 {
@@ -20,7 +20,7 @@ namespace NiceHashMiner.Miners
         public MinerEtherumOCL()
             : base("MinerEtherumOCL", "AMD OpenCL")
         {
-            _gpuPlatformNumber = ComputeDeviceManager.Available.AmdOpenCLPlatformNum;
+            _gpuPlatformNumber = Available.AmdOpenCLPlatformNum;
             MinerEtherumOclList.Add(this);
         }
 

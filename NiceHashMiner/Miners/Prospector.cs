@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NiceHashMiner.Devices;
 using SQLite.Net;
 using SQLite.Net.Attributes;
 using SQLite.Net.Platform.Win32;
@@ -12,11 +11,12 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Web.Switching;
 
 namespace NiceHashMiner.Miners
@@ -151,7 +151,7 @@ namespace NiceHashMiner.Miners
             {
                 // fallback
                 Helpers.ConsolePrint(MinerTag(), "Failed to get platforms, falling back");
-                if (ComputeDeviceManager.Available.HasNvidia && type != DeviceType.NVIDIA)
+                if (Available.HasNvidia && type != DeviceType.NVIDIA)
                     platform = 1;
             }
             return $"{platform}-{id}";

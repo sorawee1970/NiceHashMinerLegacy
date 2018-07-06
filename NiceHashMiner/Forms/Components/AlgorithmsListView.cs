@@ -1,10 +1,11 @@
-﻿using NiceHashMiner.Devices;
-using NiceHashMiner.Interfaces;
+﻿using NiceHashMiner.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Forms.Components
 {

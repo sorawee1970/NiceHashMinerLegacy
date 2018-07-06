@@ -1,6 +1,6 @@
-﻿using NiceHashMiner.Algorithms;
-using NiceHashMinerLegacy.Common;
+﻿using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Web.Switching;
 
 namespace NiceHashMiner.Miners

@@ -1,15 +1,15 @@
-﻿using NiceHashMiner.Devices;
-using NiceHashMiner.Miners.Parsing;
+﻿using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Web.Switching;
 
 namespace NiceHashMiner.Miners
@@ -22,7 +22,7 @@ namespace NiceHashMiner.Miners
         public Sgminer()
             : base("sgminer_AMD")
         {
-            _gpuPlatformNumber = ComputeDeviceManager.Available.AmdOpenCLPlatformNum;
+            _gpuPlatformNumber = Available.AmdOpenCLPlatformNum;
             IsKillAllUsedMinerProcs = true;
         }
 

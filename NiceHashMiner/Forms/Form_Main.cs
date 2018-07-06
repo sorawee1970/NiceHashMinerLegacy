@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Devices;
-using NiceHashMiner.Forms;
+﻿using NiceHashMiner.Forms;
 using NiceHashMiner.Forms.Components;
 using NiceHashMiner.Interfaces;
 using NiceHashMiner.Miners;
@@ -17,8 +16,11 @@ using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Web.Stats;
 using NiceHashMinerLegacy.Web.Switching;
+using NiceHashMinerLegacy.Windows;
+using NiceHashMinerLegacy.Windows.Querying;
 using SystemTimer = System.Timers.Timer;
 using Timer = System.Windows.Forms.Timer;
 
@@ -69,7 +71,7 @@ namespace NiceHashMiner
 
             InitLocalization();
 
-            ComputeDeviceManager.SystemSpecs.QueryAndLog();
+            ComputeDeviceManager.SystemSpecs = new NiceHashMinerLegacy.Windows.SystemSpecs();
 
             // Log the computer's amount of Total RAM and Page File Size
             var moc = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem").Get();
@@ -193,7 +195,7 @@ namespace NiceHashMiner
 
             if (_isDeviceDetectionInitialized)
             {
-                devicesListViewEnableControl1.ResetComputeDevices(ComputeDeviceManager.Available.Devices);
+                devicesListViewEnableControl1.ResetComputeDevices(Available.Devices);
             }
         }
 
@@ -278,16 +280,16 @@ namespace NiceHashMiner
             }
 
             // Query Available ComputeDevices
-            ComputeDeviceManager.Query.QueryDevices(_loadingScreen);
+            QueryManager.QueryDevices(_loadingScreen);
             _isDeviceDetectionInitialized = true;
 
             /////////////////////////////////////////////
             /////// from here on we have our devices and Miners initialized
-            ConfigManager.AfterDeviceQueryInitialization(ComputeDeviceManager.Available.Devices.Cast<IDevice>().ToList());
+            ConfigManager.AfterDeviceQueryInitialization(Available.Devices.Cast<IDevice>().ToList());
             _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_SaveConfig"));
 
             // All devices settup should be initialized in AllDevices
-            devicesListViewEnableControl1.ResetComputeDevices(ComputeDeviceManager.Available.Devices);
+            devicesListViewEnableControl1.ResetComputeDevices(Available.Devices);
             // set properties after
             devicesListViewEnableControl1.SaveToGeneralConfig = true;
 
@@ -319,7 +321,7 @@ namespace NiceHashMiner
             NiceHashStats.OnConnectionEstablished += ConnectionEstablishedCallback;
             NiceHashStats.OnVersionBurn += VersionBurnCallback;
             NiceHashStats.OnExchangeUpdate += ExchangeCallback;
-            NiceHashStats.StartConnection(Links.NhmSocketAddress, Application.ProductVersion, ComputeDeviceManager.GetDeviceStatus);
+            NiceHashStats.StartConnection(Links.NhmSocketAddress, Application.ProductVersion, MinersManager.GetDeviceStatus);
 
             // increase timeout
             if (Globals.IsFirstNetworkCheckTimeout)
@@ -521,7 +523,7 @@ namespace NiceHashMiner
 
         private static void ComputeDevicesCheckTimer_Tick(object sender, EventArgs e)
         {
-            if (ComputeDeviceManager.Query.CheckVideoControllersCountMismath())
+            if (QueryManager.CheckVideoControllersCountMismath())
             {
                 // less GPUs than before, ACT!
                 try
@@ -543,7 +545,7 @@ namespace NiceHashMiner
         {
             flowLayoutPanelRates.Controls.Clear();
             // add for every cdev a 
-            foreach (var cdev in ComputeDeviceManager.Available.Devices)
+            foreach (var cdev in Available.Devices)
             {
                 if (cdev.Enabled)
                 {
@@ -1117,7 +1119,7 @@ namespace NiceHashMiner
 
             // Check if there are unbenchmakred algorithms
             var isBenchInit = true;
-            foreach (var cdev in ComputeDeviceManager.Available.Devices)
+            foreach (var cdev in Available.Devices)
             {
                 if (cdev.Enabled)
                 {
@@ -1150,7 +1152,7 @@ namespace NiceHashMiner
                 else if (result == DialogResult.No)
                 {
                     // check devices without benchmarks
-                    foreach (var cdev in ComputeDeviceManager.Available.Devices)
+                    foreach (var cdev in Available.Devices)
                     {
                         if (cdev.Enabled)
                         {

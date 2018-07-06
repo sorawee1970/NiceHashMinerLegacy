@@ -1,6 +1,4 @@
-﻿using NiceHashMiner.Algorithms;
-using NiceHashMiner.Benchmarking.BenchHelpers;
-using NiceHashMiner.Devices;
+﻿using NiceHashMiner.Benchmarking.BenchHelpers;
 using NiceHashMiner.Interfaces;
 using NiceHashMiner.Miners;
 using NiceHashMiner.Miners.Grouping;
@@ -9,6 +7,9 @@ using System.Threading;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Benchmarking
 {

@@ -1,5 +1,6 @@
-﻿using NiceHashMiner.Algorithms;
-using NiceHashMiner.Devices;
+﻿using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Interfaces
 {

@@ -1,7 +1,8 @@
-﻿using NiceHashMiner.Algorithms;
-using NiceHashMiner.Devices;
-using NiceHashMiner.Miners.Equihash;
+﻿using NiceHashMiner.Miners.Equihash;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Miners
 {

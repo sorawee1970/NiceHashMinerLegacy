@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Web.Stats;
 
 namespace NiceHashMiner.Forms

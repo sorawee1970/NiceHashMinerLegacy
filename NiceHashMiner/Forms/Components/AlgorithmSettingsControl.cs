@@ -1,8 +1,9 @@
-﻿using NiceHashMiner.Devices;
-using System;
+﻿using System;
 using System.Windows.Forms;
-using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Utils;
+using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Forms.Components
 {
