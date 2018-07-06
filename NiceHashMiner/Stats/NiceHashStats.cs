@@ -15,6 +15,7 @@ using NiceHashMiner.Stats.Models;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 using WebSocketSharp;
 
 namespace NiceHashMiner.Stats

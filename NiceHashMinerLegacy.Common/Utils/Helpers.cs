@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using NiceHashMinerLegacy.Common.Configs;
 
-namespace NiceHashMinerLegacy.Common
+namespace NiceHashMinerLegacy.Common.Utils
 {
     class Helpers
     {

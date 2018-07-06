@@ -7,7 +7,7 @@ using log4net.Layout;
 using log4net.Repository.Hierarchy;
 using NiceHashMinerLegacy.Common.Configs;
 
-namespace NiceHashMinerLegacy.Common
+namespace NiceHashMinerLegacy.Common.Utils
 {
     public class Logger
     {

@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMinerLegacy.Common
 {

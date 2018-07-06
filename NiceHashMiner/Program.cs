@@ -14,6 +14,7 @@ using NiceHashMiner.Stats;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Interfaces;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner
 {

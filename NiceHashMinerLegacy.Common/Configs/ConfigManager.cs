@@ -3,6 +3,7 @@ using System.Reflection;
 using NiceHashMinerLegacy.Common.Configs.ConfigJsonFile;
 using NiceHashMinerLegacy.Common.Configs.Data;
 using NiceHashMinerLegacy.Common.Interfaces;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMinerLegacy.Common.Configs
 {

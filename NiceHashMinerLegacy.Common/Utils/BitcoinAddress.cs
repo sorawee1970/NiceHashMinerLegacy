@@ -2,9 +2,9 @@
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
-namespace NiceHashMinerLegacy.Common
+namespace NiceHashMinerLegacy.Common.Utils
 {
-    public class BitcoinAddress
+    public static class BitcoinAddress
     {
         public static bool ValidateBitcoinAddress(string address)
         {
@@ -27,7 +27,7 @@ namespace NiceHashMinerLegacy.Common
             return workername.Length <= 15 && IsAlphaNumeric(workername) && !workername.Contains(" ");
         }
 
-        public static bool IsAlphaNumeric(string strToCheck)
+        private static bool IsAlphaNumeric(string strToCheck)
         {
             var rg = new Regex(@"^[a-zA-Z0-9\s,]*$");
             return rg.IsMatch(strToCheck);

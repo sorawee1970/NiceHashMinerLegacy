@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Newtonsoft.Json;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMinerLegacy.Common.Configs.ConfigJsonFile
 {
