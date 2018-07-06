@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Management;
+using NiceHashMiner.Interfaces;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner
 {
-    public class WinHelpers : PInvokeHelpers
+    public class WinHelpers : PInvokeHelpers, IPInvokePasser
     {
         private static readonly bool Is64BitProcess = (IntPtr.Size == 8);
         public static bool Is64BitOperatingSystem = Is64BitProcess || InternalCheckIsWow64();
@@ -172,7 +173,7 @@ namespace NiceHashMiner
             }
         }
 
-        public static bool IsConnectedToInternet()
+        public bool IsConnectedToInternet()
         {
             bool returnValue;
             try

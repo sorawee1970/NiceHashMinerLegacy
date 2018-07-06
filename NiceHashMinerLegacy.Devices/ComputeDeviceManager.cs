@@ -12,6 +12,7 @@ using NiceHashMiner.Interfaces;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Device;
 using NiceHashMinerLegacy.Devices.Querying;
@@ -27,6 +28,9 @@ namespace NiceHashMinerLegacy.Devices
     public abstract class ComputeDeviceManager
     {
         public static SystemSpecs SystemSpecs;
+
+        public static ICpuAdjuster CpuAdjuster;
+
         public static void InitFakeDevs()
         {
             var r = new Random();

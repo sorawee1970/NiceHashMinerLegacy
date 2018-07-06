@@ -15,6 +15,7 @@ using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Interfaces;
+using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Web.Stats;
@@ -1188,7 +1189,7 @@ namespace NiceHashMiner
 
             var btcAdress = _demoMode ? Globals.DemoUser : textBoxBTCAddress.Text.Trim();
             var isMining = MinersManager.StartInitialize(this, Globals.MiningLocation[comboBoxLocation.SelectedIndex],
-                textBoxWorkerName.Text.Trim(), btcAdress);
+                textBoxWorkerName.Text.Trim(), btcAdress, new WinHelpers());
 
             if (!_demoMode) ConfigManager.GeneralConfigFileCommit();
 

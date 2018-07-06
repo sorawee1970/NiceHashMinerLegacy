@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using NiceHashMiner.Interfaces;
 
 namespace NiceHashMiner.PInvoke
 {
@@ -54,12 +55,12 @@ namespace NiceHashMiner.PInvoke
             SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_CONTINUOUS);
         }
 
-        public static void AllowMonitorPowerdownAndSleep()
+        public void AllowMonitorPowerdownAndSleep()
         {
             SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
         }
 
-        public static void PreventSleep()
+        public void PreventSleep()
         {
             // Prevent Idle-to-Sleep (monitor not affected) (see note above)
             SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_AWAYMODE_REQUIRED |

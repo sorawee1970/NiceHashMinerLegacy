@@ -2,12 +2,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
+using NiceHashMinerLegacy.Common.Interfaces;
+
 //ReSharper disable All
 #pragma warning disable
 
 namespace NiceHashMiner
 {
-    public class NiceHashProcess
+    public class NiceHashProcess : INHProcess
     {
         private const uint CREATE_NEW_CONSOLE = 0x00000010;
         private const uint NORMAL_PRIORITY_CLASS = 0x0020;
@@ -125,12 +127,12 @@ namespace NiceHashMiner
         // for SetConsoleCtrlHandler.
         private delegate bool HandlerRoutine(CtrlTypes CtrlType);
 
-        public delegate void ExitEventDelegate();
+        //public delegate void ExitEventDelegate();
 
-        public ProcessStartInfo StartInfo;
-        public ExitEventDelegate ExitEvent;
+        public ProcessStartInfo StartInfo { get; }
+        public Action ExitEvent { private get; set; }
         public uint ExitCode;
-        public int Id;
+        public int Id { get; private set; }
 
         private Thread _tHandle;
         private bool _bRunning;

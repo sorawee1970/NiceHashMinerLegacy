@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
-using NiceHashMinerLegacy.Windows;
 
 namespace NiceHashMiner.Forms.Components
 {
