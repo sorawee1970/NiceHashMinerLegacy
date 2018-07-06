@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Miners.Parsing;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
@@ -7,9 +6,10 @@ using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Parsing;
 using NiceHashMinerLegacy.Web.Switching;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public class Xmrig : Miner
     {

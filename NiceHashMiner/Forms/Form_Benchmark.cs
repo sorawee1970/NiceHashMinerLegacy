@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using NiceHashMiner.Benchmarking;
 using NiceHashMiner.Interfaces;
 using NiceHashMiner.Properties;
+using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;

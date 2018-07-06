@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NiceHashMiner;
-using NiceHashMiner.Interfaces;
-using NiceHashMinerLegacy.Common;
-using NiceHashMinerLegacy.Common.Configs;
-using NiceHashMinerLegacy.Common.Enums;
-using NiceHashMinerLegacy.Common.Interfaces;
-using NiceHashMinerLegacy.Common.Utils;
+﻿using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Devices.Device;
-using NiceHashMinerLegacy.Devices.Querying;
 using NiceHashMinerLegacy.Web.Stats;
 using NiceHashMinerLegacy.Web.Stats.Models;
+using System;
+using System.Linq;
 
 namespace NiceHashMinerLegacy.Devices
 {

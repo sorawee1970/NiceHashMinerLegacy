@@ -1,7 +1,6 @@
 ﻿using NiceHashMiner.Forms;
 using NiceHashMiner.Forms.Components;
 using NiceHashMiner.Interfaces;
-using NiceHashMiner.Miners;
 using NiceHashMiner.Utils;
 using System;
 using System.Diagnostics;
@@ -18,6 +17,7 @@ using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Miners;
 using NiceHashMinerLegacy.Web.Stats;
 using NiceHashMinerLegacy.Web.Switching;
 using NiceHashMinerLegacy.Windows;

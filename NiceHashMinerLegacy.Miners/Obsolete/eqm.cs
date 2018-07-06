@@ -1,10 +1,11 @@
-﻿using NiceHashMiner.Miners.Parsing;
-using NiceHashMinerLegacy.Common.Enums;
+﻿using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Miners.Equihash;
+using NiceHashMinerLegacy.Miners.Parsing;
 
 // Resharper disable All
 #pragma warning disable
 
-namespace NiceHashMiner.Miners {
+namespace NiceHashMinerLegacy.Miners.Obsolete {
     public class eqm : NhEqBase {
         public eqm()
             : base("eqm") {

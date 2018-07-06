@@ -1,11 +1,11 @@
-﻿using NiceHashMiner.Miners.Parsing;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Devices;
+using NiceHashMinerLegacy.Miners.Parsing;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners.Equihash
 {
     public class NhEqMiner : NhEqBase
     {

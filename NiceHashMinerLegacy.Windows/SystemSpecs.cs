@@ -16,8 +16,10 @@ namespace NiceHashMinerLegacy.Windows
 
             var searcher = new ManagementObjectSearcher(winQuery);
 
-            foreach (ManagementObject item in searcher.Get())
+            foreach (var i in searcher.Get())
             {
+                if (!(i is ManagementObject item)) continue;
+
                 if (item["FreePhysicalMemory"] != null)
                     ulong.TryParse(item["FreePhysicalMemory"].ToString(), out FreePhysicalMemory);
                 if (item["FreeSpaceInPagingFiles"] != null)

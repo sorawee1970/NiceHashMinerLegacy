@@ -6,6 +6,11 @@ namespace NiceHashMinerLegacy.Windows.Device
 {
     public class AmdComputeDevice : Devices.Device.AmdComputeDevice
     {
+        private readonly int _adapterIndex; // For ADL
+        private readonly int _adapterIndex2; // For ADL2
+        private readonly IntPtr _adlContext;
+        private bool _powerHasFailed;
+
         public override int FanSpeed
         {
             get
@@ -77,9 +82,9 @@ namespace NiceHashMinerLegacy.Windows.Device
         }
 
         internal AmdComputeDevice(AmdGpuDevice amdDevice, int gpuCount, bool isDetectionFallback, int adl2Index)
-            : base(amdDevice, gpuCount, isDetectionFallback, adl2Index)
+            : base(amdDevice, gpuCount, isDetectionFallback)
         {
-
+            _adapterIndex = amdDevice.AdapterIndex;
             ADL.ADL2_Main_Control_Create?.Invoke(ADL.ADL_Main_Memory_Alloc, 0, ref _adlContext);
             _adapterIndex2 = adl2Index;
         }

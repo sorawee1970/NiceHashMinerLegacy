@@ -1,12 +1,12 @@
 ﻿using System;
-using NiceHashMiner.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public static class MinersManager
     {

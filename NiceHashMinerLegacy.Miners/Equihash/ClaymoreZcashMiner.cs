@@ -1,6 +1,6 @@
 ﻿using NiceHashMinerLegacy.Devices.Algorithms;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners.Equihash
 {
     public class ClaymoreZcashMiner : ClaymoreBaseMiner
     {

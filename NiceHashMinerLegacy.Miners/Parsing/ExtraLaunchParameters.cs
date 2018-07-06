@@ -4,7 +4,7 @@ using NiceHashMinerLegacy.Common.Configs.ConfigJsonFile;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 
-namespace NiceHashMiner.Miners.Parsing
+namespace NiceHashMinerLegacy.Miners.Parsing
 {
     public class MinerOptionPackageFile : ConfigFile<MinerOptionPackage>
     {

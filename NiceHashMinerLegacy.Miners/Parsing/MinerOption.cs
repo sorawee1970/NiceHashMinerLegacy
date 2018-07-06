@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NiceHashMinerLegacy.Common.Enums;
 
-namespace NiceHashMiner.Miners.Parsing
+namespace NiceHashMinerLegacy.Miners.Parsing
 {
     public class MinerOption
     {

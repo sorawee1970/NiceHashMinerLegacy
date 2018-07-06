@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Miners.Grouping;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -11,8 +10,9 @@ using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Miners.Grouping;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners.ethminer
 {
     /// <summary>
     /// For now used only for daggerhashimoto

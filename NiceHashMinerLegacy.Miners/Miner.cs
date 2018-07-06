@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NiceHashMiner.Interfaces;
-using NiceHashMiner.Miners;
-using NiceHashMiner.Miners.Grouping;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -15,6 +10,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
@@ -22,10 +19,11 @@ using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Grouping;
 using NiceHashMinerLegacy.Web.Switching;
 using Timer = System.Timers.Timer;
 
-namespace NiceHashMiner
+namespace NiceHashMinerLegacy.Miners
 {
     // 
     public class MinerPidData

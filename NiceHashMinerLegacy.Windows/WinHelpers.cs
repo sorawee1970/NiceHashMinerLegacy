@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Management;
-using NiceHashMiner.Interfaces;
 using NiceHashMinerLegacy.Common;
+using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner
@@ -15,7 +15,7 @@ namespace NiceHashMiner
         private static readonly bool Is64BitProcess = (IntPtr.Size == 8);
         public static bool Is64BitOperatingSystem = Is64BitProcess || InternalCheckIsWow64();
 
-        public static bool InternalCheckIsWow64()
+        private static bool InternalCheckIsWow64()
         {
             if ((Environment.OSVersion.Version.Major == 5 && Environment.OSVersion.Version.Minor >= 1) ||
                 Environment.OSVersion.Version.Major >= 6)

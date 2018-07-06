@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using NiceHashMiner;
+using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Configs.Data;
 using NiceHashMinerLegacy.Common.Enums;
@@ -148,18 +148,17 @@ namespace NiceHashMinerLegacy.Devices.Device
         {
             foreach (var copyFromAlgo in copyTuningCDev.AlgorithmSettings.OfType<DualAlgorithm>())
             {
-                if (GetAlgorithm(copyFromAlgo) is DualAlgorithm setAlgo)
-                {
-                    setAlgo.IntensitySpeeds = new Dictionary<int, double>(copyFromAlgo.IntensitySpeeds);
-                    setAlgo.SecondaryIntensitySpeeds = new Dictionary<int, double>(copyFromAlgo.SecondaryIntensitySpeeds);
-                    setAlgo.TuningStart = copyFromAlgo.TuningStart;
-                    setAlgo.TuningEnd = copyFromAlgo.TuningEnd;
-                    setAlgo.TuningInterval = copyFromAlgo.TuningInterval;
-                    setAlgo.TuningEnabled = copyFromAlgo.TuningEnabled;
-                    setAlgo.IntensityPowers = new Dictionary<int, double>(copyFromAlgo.IntensityPowers);
-                    setAlgo.UseIntensityPowers = copyFromAlgo.UseIntensityPowers;
-                    setAlgo.IntensityUpToDate = false;
-                }
+                if (!(GetAlgorithm(copyFromAlgo) is DualAlgorithm setAlgo)) continue;
+
+                setAlgo.IntensitySpeeds = new Dictionary<int, double>(copyFromAlgo.IntensitySpeeds);
+                setAlgo.SecondaryIntensitySpeeds = new Dictionary<int, double>(copyFromAlgo.SecondaryIntensitySpeeds);
+                setAlgo.TuningStart = copyFromAlgo.TuningStart;
+                setAlgo.TuningEnd = copyFromAlgo.TuningEnd;
+                setAlgo.TuningInterval = copyFromAlgo.TuningInterval;
+                setAlgo.TuningEnabled = copyFromAlgo.TuningEnabled;
+                setAlgo.IntensityPowers = new Dictionary<int, double>(copyFromAlgo.IntensityPowers);
+                setAlgo.UseIntensityPowers = copyFromAlgo.UseIntensityPowers;
+                setAlgo.IntensityUpToDate = false;
             }
         }
 
@@ -378,7 +377,7 @@ namespace NiceHashMinerLegacy.Devices.Device
             return obj.GetType() == GetType() && Equals((ComputeDevice) obj);
         }
 
-        protected bool Equals(ComputeDevice other)
+        private bool Equals(ComputeDevice other)
         {
             return ID == other.ID && DeviceGroupType == other.DeviceGroupType && DeviceType == other.DeviceType;
         }

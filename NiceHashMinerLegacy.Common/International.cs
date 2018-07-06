@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 
-namespace NiceHashMiner
+namespace NiceHashMinerLegacy.Common
 {
-    public class International
+    public static class International
     {
         private class Language
         {

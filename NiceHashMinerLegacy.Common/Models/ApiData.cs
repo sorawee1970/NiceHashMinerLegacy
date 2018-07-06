@@ -1,5 +1,4 @@
-﻿using NiceHashMiner;
-using NiceHashMinerLegacy.Common.Enums;
+﻿using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMinerLegacy.Common.Models

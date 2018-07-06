@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Miners.Grouping;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NiceHashMinerLegacy.Common.Configs;
@@ -7,8 +6,9 @@ using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Miners.Grouping;
 
-namespace NiceHashMiner.Miners.Parsing
+namespace NiceHashMinerLegacy.Miners.Parsing
 {
     public static class ExtraLaunchParametersParser
     {

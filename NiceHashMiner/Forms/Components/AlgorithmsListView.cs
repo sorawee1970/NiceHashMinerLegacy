@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
 using NiceHashMinerLegacy.Windows;

@@ -1,14 +1,14 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using NiceHashMiner.Miners.Parsing;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Parsing;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public class CpuMiner : Miner
     {

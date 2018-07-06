@@ -1,9 +1,10 @@
-﻿using NiceHashMiner.Miners.Equihash;
-using NiceHashMinerLegacy.Common.Enums;
+﻿using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Miners.ethminer;
+using NiceHashMinerLegacy.Miners.Equihash;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public static class MinerFactory
     {

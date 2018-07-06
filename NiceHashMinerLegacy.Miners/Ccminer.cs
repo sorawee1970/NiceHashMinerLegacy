@@ -1,6 +1,4 @@
-﻿using NiceHashMiner.Miners.Grouping;
-using NiceHashMiner.Miners.Parsing;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -10,8 +8,9 @@ using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Parsing;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public class Ccminer : Miner
     {

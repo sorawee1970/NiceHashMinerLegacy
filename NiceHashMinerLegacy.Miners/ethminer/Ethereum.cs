@@ -2,7 +2,7 @@
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Web.Stats;
 
-namespace NiceHashMiner
+namespace NiceHashMinerLegacy.Miners.ethminer
 {
     //public class EthminerReader
     //{

@@ -1,5 +1,4 @@
-﻿using System;
-using NiceHashMiner;
+﻿using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Devices.Algorithms;
 
@@ -7,12 +6,7 @@ namespace NiceHashMinerLegacy.Devices.Device
 {
     public abstract class AmdComputeDevice : ComputeDevice
     {
-        protected readonly int _adapterIndex; // For ADL
-        protected int _adapterIndex2; // For ADL2
-        protected IntPtr _adlContext;
-        protected bool _powerHasFailed;
-
-        public AmdComputeDevice(AmdGpuDevice amdDevice, int gpuCount, bool isDetectionFallback, int adl2Index)
+        public AmdComputeDevice(AmdGpuDevice amdDevice, int gpuCount, bool isDetectionFallback)
             : base(amdDevice.DeviceID,
                 amdDevice.DeviceName,
                 true,
@@ -31,7 +25,6 @@ namespace NiceHashMinerLegacy.Devices.Device
             AlgorithmSettings = GroupAlgorithms.CreateForDeviceList(this);
             DriverDisableAlgos = amdDevice.DriverDisableAlgos;
             Index = ID + Available.AvailCpus + Available.AvailNVGpus;
-            _adapterIndex = amdDevice.AdapterIndex;
         }
     }
 }

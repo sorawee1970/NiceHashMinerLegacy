@@ -1,6 +1,6 @@
 ﻿using NiceHashMinerLegacy.Common.Models;
 
-namespace NiceHashMiner.Interfaces
+namespace NiceHashMinerLegacy.Common.Interfaces
 {
     public interface IMainFormRatesComunication
     {

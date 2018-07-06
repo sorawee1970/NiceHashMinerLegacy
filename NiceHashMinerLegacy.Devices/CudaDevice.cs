@@ -1,5 +1,5 @@
 ﻿using System;
-using NiceHashMiner;
+using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Device;
 

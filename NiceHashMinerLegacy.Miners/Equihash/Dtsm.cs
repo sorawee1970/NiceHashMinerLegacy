@@ -1,17 +1,17 @@
-﻿using Newtonsoft.Json;
-using NiceHashMiner.Miners.Parsing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Parsing;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners.Equihash
 {
     public class Dtsm : Miner
     {

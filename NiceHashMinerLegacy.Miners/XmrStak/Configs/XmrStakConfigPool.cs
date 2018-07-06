@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NiceHashMiner.Miners.XmrStak.Configs
+namespace NiceHashMinerLegacy.Miners.XmrStak.Configs
 {
     public class XmrStakConfigPool
     {

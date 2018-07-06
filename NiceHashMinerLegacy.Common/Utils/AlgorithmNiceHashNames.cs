@@ -1,7 +1,7 @@
 ﻿using System;
 using NiceHashMinerLegacy.Common.Enums;
 
-namespace NiceHashMiner
+namespace NiceHashMinerLegacy.Common.Utils
 {
     /// <summary>
     /// AlgorithmNiceHashNames class is just a data container for mapping NiceHash JSON API names to algo type

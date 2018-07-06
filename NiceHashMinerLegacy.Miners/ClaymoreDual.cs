@@ -5,7 +5,7 @@ using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Web.Switching;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public class ClaymoreDual : ClaymoreBaseMiner
     {

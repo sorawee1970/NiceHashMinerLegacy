@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using NiceHashMinerLegacy.Common.Configs;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public static class MinersApiPortsManager
     {

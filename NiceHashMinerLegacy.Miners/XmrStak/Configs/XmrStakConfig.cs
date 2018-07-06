@@ -1,4 +1,4 @@
-﻿namespace NiceHashMiner.Miners.XmrStak.Configs
+﻿namespace NiceHashMinerLegacy.Miners.XmrStak.Configs
 {
     public class XmrStakConfig
     {

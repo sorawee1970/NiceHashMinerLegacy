@@ -1,4 +1,4 @@
-﻿namespace NiceHashMiner.Interfaces
+﻿namespace NiceHashMinerLegacy.Common.Interfaces
 {
     /// <summary>
     /// IMessageNotifier interface is for message setting.

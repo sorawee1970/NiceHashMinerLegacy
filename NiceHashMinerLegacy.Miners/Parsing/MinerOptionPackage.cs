@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NiceHashMinerLegacy.Common.Enums;
 
-namespace NiceHashMiner.Miners.Parsing
+namespace NiceHashMinerLegacy.Miners.Parsing
 {
     public class MinerOptionPackage
     {

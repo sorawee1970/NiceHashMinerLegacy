@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Miners.Parsing;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
@@ -11,9 +10,10 @@ using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Parsing;
 using NiceHashMinerLegacy.Web.Switching;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     internal class Sgminer : Miner
     {

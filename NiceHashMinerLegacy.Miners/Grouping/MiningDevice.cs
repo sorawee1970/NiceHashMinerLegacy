@@ -5,7 +5,7 @@ using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
 
-namespace NiceHashMiner.Miners.Grouping
+namespace NiceHashMinerLegacy.Miners.Grouping
 {
     public class MiningDevice
     {

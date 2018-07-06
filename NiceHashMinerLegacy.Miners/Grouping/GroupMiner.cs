@@ -3,7 +3,7 @@ using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Web.Switching;
 
-namespace NiceHashMiner.Miners.Grouping
+namespace NiceHashMinerLegacy.Miners.Grouping
 {
     public class GroupMiner
     {

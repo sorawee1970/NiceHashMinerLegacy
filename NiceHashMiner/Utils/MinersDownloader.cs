@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Utils

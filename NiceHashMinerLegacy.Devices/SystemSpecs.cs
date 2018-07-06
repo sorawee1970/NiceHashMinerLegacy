@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NiceHashMinerLegacy.Devices
+﻿namespace NiceHashMinerLegacy.Devices
 {
     public class SystemSpecs
     {

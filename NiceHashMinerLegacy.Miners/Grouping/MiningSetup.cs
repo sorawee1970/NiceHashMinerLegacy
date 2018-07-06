@@ -2,7 +2,7 @@
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Devices;
 
-namespace NiceHashMiner.Miners.Grouping
+namespace NiceHashMinerLegacy.Miners.Grouping
 {
     public class MiningSetup {
         public List<MiningPair> MiningPairs { get; }

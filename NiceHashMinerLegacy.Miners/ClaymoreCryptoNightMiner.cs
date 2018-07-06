@@ -3,7 +3,7 @@ using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Web.Switching;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public class ClaymoreCryptoNightMiner : ClaymoreBaseMiner
     {

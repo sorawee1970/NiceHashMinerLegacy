@@ -1,12 +1,11 @@
-﻿using NiceHashMiner.Miners.Grouping;
-using NiceHashMiner.Miners.Parsing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NiceHashMinerLegacy.Common.Configs.ConfigJsonFile;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Parsing;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     public static class MinersSettingsManager
     {

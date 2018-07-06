@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
-using NiceHashMiner.Interfaces;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Querying;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using NiceHashMiner.Interfaces;
 
 namespace NiceHashMiner.PInvoke
 {

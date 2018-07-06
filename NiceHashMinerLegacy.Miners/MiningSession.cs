@@ -1,23 +1,24 @@
-﻿using NiceHashMiner.Interfaces;
-using NiceHashMiner.Miners.Grouping;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Models;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Miners.Grouping;
 using NiceHashMinerLegacy.Web.Stats;
 using NiceHashMinerLegacy.Web.Switching;
 using Timer = System.Timers.Timer;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners
 {
     using GroupedDevices = SortedSet<string>;
 

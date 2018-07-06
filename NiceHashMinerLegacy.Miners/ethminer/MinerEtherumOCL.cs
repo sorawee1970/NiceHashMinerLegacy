@@ -1,11 +1,11 @@
-﻿using NiceHashMiner.Miners.Parsing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
+using NiceHashMinerLegacy.Miners.Parsing;
 
-namespace NiceHashMiner.Miners
+namespace NiceHashMinerLegacy.Miners.ethminer
 {
     // TODO for NOW ONLY AMD
     // AMD or TODO it could be something else

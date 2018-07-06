@@ -1,6 +1,6 @@
 ﻿using NiceHashMinerLegacy.Common.Enums;
 
-namespace NiceHashMiner.Miners.Grouping
+namespace NiceHashMinerLegacy.Miners.Grouping
 {
     public static class GroupingLogic
     {

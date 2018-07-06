@@ -1,7 +1,4 @@
 ﻿using Microsoft.Win32;
-using NiceHashMiner.Miners;
-using NiceHashMiner.Miners.Grouping;
-using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,6 +11,9 @@ using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Miners.ethminer;
+using NiceHashMinerLegacy.Miners.Grouping;
+using NiceHashMinerLegacy.Miners.Parsing;
 using NiceHashMinerLegacy.Web.Stats;
 using NiceHashMinerLegacy.Windows;
 

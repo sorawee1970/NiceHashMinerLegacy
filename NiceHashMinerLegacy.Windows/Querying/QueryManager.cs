@@ -6,18 +6,16 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ManagedCuda.Nvml;
 using Newtonsoft.Json;
 using NiceHashMiner;
-using NiceHashMiner.Interfaces;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices;
-using NiceHashMinerLegacy.Devices.Device;
 using NiceHashMinerLegacy.Devices.Querying;
 
 namespace NiceHashMinerLegacy.Windows.Querying

@@ -1,14 +1,15 @@
 ﻿using NiceHashMiner.Benchmarking.BenchHelpers;
 using NiceHashMiner.Interfaces;
-using NiceHashMiner.Miners;
-using NiceHashMiner.Miners.Grouping;
 using System.Collections.Generic;
 using System.Threading;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Interfaces;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Devices.Algorithms;
 using NiceHashMinerLegacy.Devices.Device;
+using NiceHashMinerLegacy.Miners;
+using NiceHashMinerLegacy.Miners.Grouping;
 
 namespace NiceHashMiner.Benchmarking
 {

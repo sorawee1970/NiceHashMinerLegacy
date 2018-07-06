@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NiceHashMiner;
+using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMinerLegacy.Common.Utils;
 using NiceHashMinerLegacy.Web.Switching;
