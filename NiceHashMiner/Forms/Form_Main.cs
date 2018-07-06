@@ -17,6 +17,7 @@ using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Interfaces;
 using SystemTimer = System.Timers.Timer;
 using Timer = System.Windows.Forms.Timer;
 
@@ -281,7 +282,7 @@ namespace NiceHashMiner
 
             /////////////////////////////////////////////
             /////// from here on we have our devices and Miners initialized
-            ConfigManager.AfterDeviceQueryInitialization();
+            ConfigManager.AfterDeviceQueryInitialization(ComputeDeviceManager.Available.Devices.Cast<IDevice>().ToList());
             _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_SaveConfig"));
 
             // All devices settup should be initialized in AllDevices

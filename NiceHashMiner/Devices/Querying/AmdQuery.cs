@@ -216,7 +216,7 @@ namespace NiceHashMiner.Devices.Querying
                     var isDisabledGroupStr = isDisabledGroup ? " (AMD group disabled)" : "";
                     var etherumCapableStr = newAmdDev.IsEtherumCapable() ? "YES" : "NO";
 
-                    ComputeDeviceManager.Available.Devices.Add(
+                    ComputeDeviceManager.Available.Add(
                         new AmdComputeDevice(newAmdDev, ++ComputeDeviceManager.Query.GpuCount, false,
                             _busIdInfos[busID].Adl2Index));
                     // just in case 
@@ -284,7 +284,7 @@ namespace NiceHashMiner.Devices.Querying
                 var isDisabledGroupStr = isDisabledGroup ? " (AMD group disabled)" : "";
                 var etherumCapableStr = newAmdDev.IsEtherumCapable() ? "YES" : "NO";
 
-                ComputeDeviceManager.Available.Devices.Add(
+                ComputeDeviceManager.Available.Add(
                     new AmdComputeDevice(newAmdDev, ++ComputeDeviceManager.Query.GpuCount, true, -1));
                 // just in case 
                 try

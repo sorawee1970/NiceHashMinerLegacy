@@ -54,7 +54,7 @@ namespace NiceHashMiner
             };
 
             // #1 first initialize config
-            ConfigManager.InitializeConfig(ComputeDeviceManager.Available.Devices.Cast<IDevice>().ToList());
+            ConfigManager.InitializeConfig();
 
             // #2 check if multiple instances are allowed
             var startProgram = true;

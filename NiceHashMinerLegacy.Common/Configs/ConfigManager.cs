@@ -28,11 +28,10 @@ namespace NiceHashMinerLegacy.Common.Configs
         private static Dictionary<string, DeviceBenchmarkConfig> _benchmarkConfigsBackup =
             new Dictionary<string, DeviceBenchmarkConfig>();
 
-        private static IList<IDevice> Devices;
+        private static List<IDevice> Devices;
 
-        public static void InitializeConfig(IList<IDevice> devices)
+        public static void InitializeConfig()
         {
-            Devices = devices;
             // init defaults
             GeneralConfig.SetDefaults();
             //GeneralConfig.hwid = Helpers.GetCpuID();
@@ -147,8 +146,9 @@ namespace NiceHashMinerLegacy.Common.Configs
             }
         }
 
-        public static void AfterDeviceQueryInitialization()
+        public static void AfterDeviceQueryInitialization(List<IDevice> devs)
         {
+            Devices = devs;
             // extra check (probably will never happen but just in case)
             {
                 var invalidDevices = new List<IDevice>();
