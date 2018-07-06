@@ -70,7 +70,8 @@ namespace NiceHashMinerLegacy.Web.Stats
         public static event EventHandler OnConnectionEstablished;
         public static event EventHandler<SocketEventArgs> OnVersionBurn;
         public static event EventHandler OnExchangeUpdate;
-        public static event EventHandler<SocketEventArgs> OnSetDeviceEnabled;
+
+        public static Action<string, bool> SetDevicesEnabled; 
 
         private static NiceHashSocket _socket;
         
@@ -279,16 +280,6 @@ namespace NiceHashMinerLegacy.Web.Stats
             {
                 Helpers.ConsolePrint("SOCKET", e.ToString());
             }
-        }
-
-        private static void SetDevicesEnabled(string devs, bool enabled)
-        {
-            var args = new SocketEventArgs(devs)
-            {
-                Enabled = enabled
-            };
-            OnSetDeviceEnabled?.Invoke(null, args);
-
         }
 
         #endregion

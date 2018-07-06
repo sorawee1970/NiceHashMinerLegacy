@@ -17,6 +17,11 @@ namespace NiceHashMinerLegacy.Devices
 
         public static ICpuAdjuster CpuAdjuster;
 
+        static ComputeDeviceManager()
+        {
+            NiceHashStats.SetDevicesEnabled = OnSetDeviceEnabled;
+        }
+
         public static void InitFakeDevs()
         {
             var r = new Random();
@@ -26,7 +31,7 @@ namespace NiceHashMinerLegacy.Devices
             }
         }
 
-        public static void OnSetDeviceEnabled(object sender, SocketEventArgs e)
+        public static void OnSetDeviceEnabled(string devs, bool enabled)
         {
             var found = false;
             if (!Available.Devices.Any())
@@ -34,9 +39,9 @@ namespace NiceHashMinerLegacy.Devices
 
             foreach (var dev in Available.Devices)
             {
-                if (e.Message != "*" && dev.B64Uuid != e.Message) continue;
+                if (devs != "*" && dev.B64Uuid != devs) continue;
                 found = true;
-                dev.Enabled = e.Enabled;
+                dev.Enabled = enabled;
             }
 
             if (!found)
