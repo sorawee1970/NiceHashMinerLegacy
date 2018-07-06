@@ -6,6 +6,7 @@ using System.Linq;
 using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners.Parsing
 {

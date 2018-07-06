@@ -105,7 +105,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint("ERROR", ex.Message);
+                WinHelpers.ConsolePrint("ERROR", ex.Message);
             }
 
             if (resp != null && resp.error == null)

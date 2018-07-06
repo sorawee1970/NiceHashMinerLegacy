@@ -4,7 +4,7 @@ using NiceHashMinerLegacy.Common.Configs;
 
 namespace NiceHashMinerLegacy.Common.Utils
 {
-    class Helpers
+    public class Helpers
     {
         public static void ConsolePrint(string grp, string text)
         {
@@ -23,6 +23,11 @@ namespace NiceHashMinerLegacy.Common.Utils
                     Logger.Log.Info("[" + grp + "] " + text);
             }
             catch { }  // Not gonna recursively call here in case something is seriously wrong
+        }
+
+        public static void ConsolePrint(string grp, string text, params object[] arg)
+        {
+            ConsolePrint(grp, string.Format(text, arg));
         }
     }
 }

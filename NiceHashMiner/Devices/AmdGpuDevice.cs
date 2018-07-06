@@ -1,4 +1,5 @@
 ﻿using System;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Devices
 {

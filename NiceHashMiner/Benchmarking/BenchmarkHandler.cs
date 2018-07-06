@@ -85,7 +85,7 @@ namespace NiceHashMiner.Benchmarking
                     _claymoreZcashStatus.SetSpeed(_currentAlgorithm.BenchmarkSpeed);
                     _claymoreZcashStatus.SetNext();
                     _currentAlgorithm.ExtraLaunchParameters = _claymoreZcashStatus.GetTestExtraParams();
-                    Helpers.ConsolePrint("ClaymoreAMD_Equihash", _currentAlgorithm.ExtraLaunchParameters);
+                    WinHelpers.ConsolePrint("ClaymoreAMD_Equihash", _currentAlgorithm.ExtraLaunchParameters);
                     _currentMiner.InitBenchmarkSetup(new MiningPair(Device, _currentAlgorithm));
                 }
 

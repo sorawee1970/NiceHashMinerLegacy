@@ -251,7 +251,7 @@ namespace NiceHashMiner.Forms
 
         private void CopyBenchmarks()
         {
-            Helpers.ConsolePrint("CopyBenchmarks", "Checking for benchmarks to copy");
+            WinHelpers.ConsolePrint("CopyBenchmarks", "Checking for benchmarks to copy");
             foreach (var cDev in ComputeDeviceManager.Available.Devices)
                 // check if copy
                 if (!cDev.Enabled && cDev.BenchmarkCopyUuid != null)
@@ -259,7 +259,7 @@ namespace NiceHashMiner.Forms
                     var copyCdevSettings = ComputeDeviceManager.Available.GetDeviceWithUuid(cDev.BenchmarkCopyUuid);
                     if (copyCdevSettings != null)
                     {
-                        Helpers.ConsolePrint("CopyBenchmarks", $"Copy from {cDev.Uuid} to {cDev.BenchmarkCopyUuid}");
+                        WinHelpers.ConsolePrint("CopyBenchmarks", $"Copy from {cDev.Uuid} to {cDev.BenchmarkCopyUuid}");
                         cDev.CopyBenchmarkSettingsFrom(copyCdevSettings);
                     }
                 }
@@ -347,7 +347,7 @@ namespace NiceHashMiner.Forms
         {
             _benchmarkingTimer.Stop();
             InBenchmark = false;
-            Helpers.ConsolePrint("FormBenchmark", "StopButonClick() benchmark routine stopped");
+            WinHelpers.ConsolePrint("FormBenchmark", "StopButonClick() benchmark routine stopped");
             //// copy benchmarked
             //CopyBenchmarks();
             lock (_runningBenchmarkThreads)
@@ -455,7 +455,7 @@ namespace NiceHashMiner.Forms
             {
                 _benchmarkingTimer.Stop();
                 InBenchmark = false;
-                Helpers.ConsolePrint("FormBenchmark", "EndBenchmark() benchmark routine finished");
+                WinHelpers.ConsolePrint("FormBenchmark", "EndBenchmark() benchmark routine finished");
 
                 //CopyBenchmarks();
 

@@ -90,7 +90,7 @@ namespace NiceHashMiner.Forms
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint("SETTINGS", e.ToString());
+                WinHelpers.ConsolePrint("SETTINGS", e.ToString());
             }
         }
 
@@ -761,7 +761,7 @@ namespace NiceHashMiner.Forms
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint("REGISTRY", e.ToString());
+                WinHelpers.ConsolePrint("REGISTRY", e.ToString());
             }
 
             return startVal == Application.ExecutablePath;
@@ -777,23 +777,23 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.WorkerName = textBox_WorkerName.Text.Trim();
             
             ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Upper =
-                Helpers.ParseInt(textBox_SwitchMaxSeconds.Text);
-            ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Lower = Helpers.ParseInt(textBox_SwitchMinSeconds.Text);
-            ConfigManager.GeneralConfig.MinerAPIQueryInterval = Helpers.ParseInt(textBox_MinerAPIQueryInterval.Text);
-            ConfigManager.GeneralConfig.MinerRestartDelayMS = Helpers.ParseInt(textBox_MinerRestartDelayMS.Text);
-            ConfigManager.GeneralConfig.MinIdleSeconds = Helpers.ParseInt(textBox_MinIdleSeconds.Text);
-            ConfigManager.GeneralConfig.LogMaxFileSize = Helpers.ParseLong(textBox_LogMaxFileSize.Text);
+                WinHelpers.ParseInt(textBox_SwitchMaxSeconds.Text);
+            ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Lower = WinHelpers.ParseInt(textBox_SwitchMinSeconds.Text);
+            ConfigManager.GeneralConfig.MinerAPIQueryInterval = WinHelpers.ParseInt(textBox_MinerAPIQueryInterval.Text);
+            ConfigManager.GeneralConfig.MinerRestartDelayMS = WinHelpers.ParseInt(textBox_MinerRestartDelayMS.Text);
+            ConfigManager.GeneralConfig.MinIdleSeconds = WinHelpers.ParseInt(textBox_MinIdleSeconds.Text);
+            ConfigManager.GeneralConfig.LogMaxFileSize = WinHelpers.ParseLong(textBox_LogMaxFileSize.Text);
             ConfigManager.GeneralConfig.ethminerDefaultBlockHeight =
-                Helpers.ParseInt(textBox_ethminerDefaultBlockHeight.Text);
-            ConfigManager.GeneralConfig.ApiBindPortPoolStart = Helpers.ParseInt(textBox_APIBindPortStart.Text);
+                WinHelpers.ParseInt(textBox_ethminerDefaultBlockHeight.Text);
+            ConfigManager.GeneralConfig.ApiBindPortPoolStart = WinHelpers.ParseInt(textBox_APIBindPortStart.Text);
             // min profit
-            ConfigManager.GeneralConfig.MinimumProfit = Helpers.ParseDouble(textBox_MinProfit.Text);
+            ConfigManager.GeneralConfig.MinimumProfit = WinHelpers.ParseDouble(textBox_MinProfit.Text);
             ConfigManager.GeneralConfig.SwitchProfitabilityThreshold =
-                Helpers.ParseDouble(textBox_SwitchProfitabilityThreshold.Text);
+                WinHelpers.ParseDouble(textBox_SwitchProfitabilityThreshold.Text);
 
             ConfigManager.GeneralConfig.IFTTTKey = textBox_IFTTTKey.Text.Trim();
 
-            ConfigManager.GeneralConfig.KwhPrice = Helpers.ParseDouble(textBox_ElectricityCost.Text);
+            ConfigManager.GeneralConfig.KwhPrice = WinHelpers.ParseDouble(textBox_ElectricityCost.Text);
 
             // Fix bounds
             ConfigManager.GeneralConfig.FixSettingBounds();
@@ -995,7 +995,7 @@ namespace NiceHashMiner.Forms
                     }
                     catch (Exception er)
                     {
-                        Helpers.ConsolePrint("REGISTRY", er.ToString());
+                        WinHelpers.ConsolePrint("REGISTRY", er.ToString());
                     }
                 }
             }

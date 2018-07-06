@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Text;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner
 {

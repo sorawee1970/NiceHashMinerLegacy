@@ -114,7 +114,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            Helpers.ConsolePrint(MinerTag(), outdata);
+            WinHelpers.ConsolePrint(MinerTag(), outdata);
             return false;
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Utils
 {

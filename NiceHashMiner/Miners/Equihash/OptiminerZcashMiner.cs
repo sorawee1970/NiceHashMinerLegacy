@@ -104,7 +104,7 @@ namespace NiceHashMiner.Miners.Equihash
                 }
                 catch (Exception ex)
                 {
-                    Helpers.ConsolePrint("OptiminerZcashMiner", "GetSummary exception: " + ex.Message);
+                    WinHelpers.ConsolePrint("OptiminerZcashMiner", "GetSummary exception: " + ex.Message);
                 }
 
                 if (resp?.solution_rate != null)
@@ -161,7 +161,7 @@ namespace NiceHashMiner.Miners.Equihash
                 if (ar.Length >= 4)
                 {
                     // gets sols/s
-                    BenchmarkAlgorithm.BenchmarkSpeed = Helpers.ParseDouble(ar[2]);
+                    BenchmarkAlgorithm.BenchmarkSpeed = WinHelpers.ParseDouble(ar[2]);
                     return true;
                 }
             }

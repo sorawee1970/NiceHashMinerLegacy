@@ -133,7 +133,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint(MinerTag(), e.Message);
+                WinHelpers.ConsolePrint(MinerTag(), e.Message);
             }
 
             if (resp?.result != null)

@@ -111,7 +111,7 @@ namespace NiceHashMiner.Stats
                 }
             } catch (Exception er)
             {
-                Helpers.ConsolePrint("SOCKET", er.ToString());
+                WinHelpers.ConsolePrint("SOCKET", er.ToString());
                 if (isRpc)
                 {
                     // TODO report RPC error?
@@ -121,7 +121,7 @@ namespace NiceHashMiner.Stats
 
         internal static bool ProcessData(string data)
         {
-            Helpers.ConsolePrint("SOCKET", "Received: " + data);
+            WinHelpers.ConsolePrint("SOCKET", "Received: " + data);
             dynamic message = JsonConvert.DeserializeObject(data);
             switch (message.method.Value)
             {
@@ -217,7 +217,7 @@ namespace NiceHashMiner.Stats
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint("SOCKET", e.ToString());
+                WinHelpers.ConsolePrint("SOCKET", e.ToString());
             }
         }
 
@@ -239,7 +239,7 @@ namespace NiceHashMiner.Stats
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint("SOCKET", e.ToString());
+                WinHelpers.ConsolePrint("SOCKET", e.ToString());
             }
         }
 
@@ -272,7 +272,7 @@ namespace NiceHashMiner.Stats
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint("SOCKET", e.ToString());
+                WinHelpers.ConsolePrint("SOCKET", e.ToString());
             }
         }
 
@@ -335,7 +335,7 @@ namespace NiceHashMiner.Stats
 
                     deviceList.Add(array);
                 }
-                catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
+                catch (Exception e) { WinHelpers.ConsolePrint("SOCKET", e.ToString()); }
             }
             var data = new NicehashDeviceStatus
             {
@@ -383,7 +383,7 @@ namespace NiceHashMiner.Stats
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint("NICEHASH", ex.Message);
+                WinHelpers.ConsolePrint("NICEHASH", ex.Message);
                 return null;
             }
 

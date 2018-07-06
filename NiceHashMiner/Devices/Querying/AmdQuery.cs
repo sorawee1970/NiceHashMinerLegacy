@@ -29,13 +29,13 @@ namespace NiceHashMiner.Devices.Querying
 
         public List<OpenCLDevice> QueryAmd(bool openCLSuccess, IEnumerable<OpenCLJsonData> openCLData)
         {
-            Helpers.ConsolePrint(Tag, "QueryAMD START");
+            WinHelpers.ConsolePrint(Tag, "QueryAMD START");
 
             DriverCheck();
 
             var amdDevices = openCLSuccess ? ProcessDevices(openCLData) : new List<OpenCLDevice>();
 
-            Helpers.ConsolePrint(Tag, "QueryAMD END");
+            WinHelpers.ConsolePrint(Tag, "QueryAMD END");
 
             return amdDevices;
         }
@@ -47,7 +47,7 @@ namespace NiceHashMiner.Devices.Querying
 
             foreach (var vidContrllr in _availableControllers)
             {
-                Helpers.ConsolePrint(Tag,
+                WinHelpers.ConsolePrint(Tag,
                     $"Checking AMD device (driver): {vidContrllr.Name} ({vidContrllr.DriverVersion})");
 
                 _driverOld[vidContrllr.Name] = false;
@@ -66,7 +66,7 @@ namespace NiceHashMiner.Devices.Querying
                     if (greaterOrEqual)
                     {
                         _noNeoscryptLyra2[vidContrllr.Name] = true;
-                        Helpers.ConsolePrint(Tag,
+                        WinHelpers.ConsolePrint(Tag,
                             "Driver version seems to be " + sgminerNoNeoscryptLyra2RE +
                             " or higher. NeoScrypt and Lyra2REv2 will be removed from list");
                     }
@@ -77,7 +77,7 @@ namespace NiceHashMiner.Devices.Querying
 
                 showWarningDialog = true;
                 _driverOld[vidContrllr.Name] = true;
-                Helpers.ConsolePrint(Tag,
+                WinHelpers.ConsolePrint(Tag,
                     "WARNING!!! Old AMD GPU driver detected! All optimized versions disabled, mining " +
                     "speed will not be optimal. Consider upgrading AMD GPU driver. Recommended AMD GPU driver version is 15.7.1.");
             }
@@ -103,7 +103,7 @@ namespace NiceHashMiner.Devices.Querying
                 var amdOpenCLPlatformStringKey = oclEl.PlatformName;
                 ComputeDeviceManager.Available.AmdOpenCLPlatformNum = oclEl.PlatformNum;
                 amdOclDevices = oclEl.Devices;
-                Helpers.ConsolePrint(Tag,
+                WinHelpers.ConsolePrint(Tag,
                     $"AMD platform found: Key: {amdOpenCLPlatformStringKey}, Num: {ComputeDeviceManager.Available.AmdOpenCLPlatformNum}");
                 break;
             }
@@ -123,12 +123,12 @@ namespace NiceHashMiner.Devices.Querying
 
             if (amdDevices.Count == 0)
             {
-                Helpers.ConsolePrint(Tag, "AMD GPUs count is 0");
+                WinHelpers.ConsolePrint(Tag, "AMD GPUs count is 0");
                 return amdDevices;
             }
 
-            Helpers.ConsolePrint(Tag, "AMD GPUs count : " + amdDevices.Count);
-            Helpers.ConsolePrint(Tag, "AMD Getting device name and serial from ADL");
+            WinHelpers.ConsolePrint(Tag, "AMD GPUs count : " + amdDevices.Count);
+            WinHelpers.ConsolePrint(Tag, "AMD Getting device name and serial from ADL");
             // ADL
             var isAdlInit = true;
             try
@@ -137,7 +137,7 @@ namespace NiceHashMiner.Devices.Querying
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint(Tag, "AMD ADL exception: " + ex.Message);
+                WinHelpers.ConsolePrint(Tag, "AMD ADL exception: " + ex.Message);
                 isAdlInit = false;
             }
 
@@ -170,7 +170,7 @@ namespace NiceHashMiner.Devices.Querying
                 isBusIDOk = isBusIDOk && busIDs.Count == amdDevices.Count;
             }
             // print BUS id status
-            Helpers.ConsolePrint(Tag,
+            WinHelpers.ConsolePrint(Tag,
                 isBusIDOk
                     ? "AMD Bus IDs are unique and valid. OK"
                     : "AMD Bus IDs IS INVALID. Using fallback AMD detection mode");
@@ -187,8 +187,8 @@ namespace NiceHashMiner.Devices.Querying
 
         private List<OpenCLDevice> AmdDeviceCreationPrimary(List<OpenCLDevice> amdDevices)
         {
-            Helpers.ConsolePrint(Tag, "Using AMD device creation DEFAULT Reliable mappings");
-            Helpers.ConsolePrint(Tag,
+            WinHelpers.ConsolePrint(Tag, "Using AMD device creation DEFAULT Reliable mappings");
+            WinHelpers.ConsolePrint(Tag,
                 amdDevices.Count == _amdDeviceUuid.Count
                     ? "AMD OpenCL and ADL AMD query COUNTS GOOD/SAME"
                     : "AMD OpenCL and ADL AMD query COUNTS DIFFERENT/BAD");
@@ -241,14 +241,14 @@ namespace NiceHashMiner.Devices.Querying
                 }
             }
 
-            Helpers.ConsolePrint(Tag, stringBuilder.ToString());
+            WinHelpers.ConsolePrint(Tag, stringBuilder.ToString());
 
             return amdDevices;
         }
 
         private List<OpenCLDevice> AmdDeviceCreationFallback(List<OpenCLDevice> amdDevices)
         {
-            Helpers.ConsolePrint(Tag, "Using AMD device creation FALLBACK UnReliable mappings");
+            WinHelpers.ConsolePrint(Tag, "Using AMD device creation FALLBACK UnReliable mappings");
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("");
             stringBuilder.AppendLine("QueryAMD [FALLBACK query] devices: ");
@@ -303,7 +303,7 @@ namespace NiceHashMiner.Devices.Querying
                 }
             }
 
-            Helpers.ConsolePrint(Tag, stringBuilder.ToString());
+            WinHelpers.ConsolePrint(Tag, stringBuilder.ToString());
 
             return amdDevices;
         }
@@ -324,7 +324,7 @@ namespace NiceHashMiner.Devices.Querying
             if (ADL.ADL_SUCCESS == adlRet)
             {
                 ADL.ADL_Adapter_NumberOfAdapters_Get?.Invoke(ref numberOfAdapters);
-                Helpers.ConsolePrint(Tag, "Number Of Adapters: " + numberOfAdapters);
+                WinHelpers.ConsolePrint(Tag, "Number Of Adapters: " + numberOfAdapters);
 
                 if (0 < numberOfAdapters)
                 {
@@ -414,12 +414,12 @@ namespace NiceHashMiner.Devices.Querying
 
                                 try
                                 {
-                                    Helpers.ConsolePrint(Tag,
+                                    WinHelpers.ConsolePrint(Tag,
                                         $"ADL device added BusNumber:{budId}  NAME:{devName}  UUID:{uuid}");
                                 }
                                 catch (Exception e)
                                 {
-                                    Helpers.ConsolePrint(Tag, e.Message);
+                                    WinHelpers.ConsolePrint(Tag, e.Message);
                                 }
 
                                 _amdDeviceUuid.Add(uuid);
@@ -450,7 +450,7 @@ namespace NiceHashMiner.Devices.Querying
                         }
                         else
                         {
-                            Helpers.ConsolePrint(Tag,
+                            WinHelpers.ConsolePrint(Tag,
                                 "ADL_Adapter_AdapterInfo_Get() returned error code " +
                                 adlRet);
                             isAdlInit = false;
@@ -475,9 +475,9 @@ namespace NiceHashMiner.Devices.Querying
             else
             {
                 // TODO
-                Helpers.ConsolePrint(Tag,
+                WinHelpers.ConsolePrint(Tag,
                     "ADL_Main_Control_Create() returned error code " + adlRet);
-                Helpers.ConsolePrint(Tag, "Check if ADL is properly installed!");
+                WinHelpers.ConsolePrint(Tag, "Check if ADL is properly installed!");
                 isAdlInit = false;
             }
 

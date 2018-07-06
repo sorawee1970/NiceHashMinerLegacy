@@ -271,7 +271,7 @@
     <Compile Include="Forms\Form_Loading.Designer.cs">
       <DependentUpon>Form_Loading.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Helpers.cs" />
+    <Compile Include="Utils\WinHelpers.cs" />
     <Compile Include="Miners\Miner.cs" />
     <Compile Include="Forms\MinerFileNotFoundDialog.cs">
       <SubType>Form</SubType>

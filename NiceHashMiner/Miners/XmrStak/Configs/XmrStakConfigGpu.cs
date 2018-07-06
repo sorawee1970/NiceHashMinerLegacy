@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner.Miners.XmrStak.Configs
 {

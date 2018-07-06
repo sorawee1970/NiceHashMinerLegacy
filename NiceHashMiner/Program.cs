@@ -93,17 +93,17 @@ namespace NiceHashMiner
                 // #2 then parse args
                 var commandLineArgs = new CommandLineParser(argv);
 
-                Helpers.ConsolePrint("NICEHASH", "Starting up NiceHashMiner v" + Application.ProductVersion);
+                WinHelpers.ConsolePrint("NICEHASH", "Starting up NiceHashMiner v" + Application.ProductVersion);
 
                 if (!pathSet)
                 {
-                    Helpers.ConsolePrint("NICEHASH", "Path not set to executable");
+                    WinHelpers.ConsolePrint("NICEHASH", "Path not set to executable");
                 }
 
                 var tosChecked = ConfigManager.GeneralConfig.agreedWithTOS == Globals.CurrentTosVer;
                 if (!tosChecked || !ConfigManager.GeneralConfigIsFileExist() && !commandLineArgs.IsLang)
                 {
-                    Helpers.ConsolePrint("NICEHASH",
+                    WinHelpers.ConsolePrint("NICEHASH",
                         "No config file found. Running NiceHash Miner Legacy for the first time. Choosing a default language.");
                     Application.Run(new Form_ChooseLanguage());
                 }
@@ -113,13 +113,13 @@ namespace NiceHashMiner
 
                 if (commandLineArgs.IsLang)
                 {
-                    Helpers.ConsolePrint("NICEHASH", "Language is overwritten by command line parameter (-lang).");
+                    WinHelpers.ConsolePrint("NICEHASH", "Language is overwritten by command line parameter (-lang).");
                     International.Initialize(commandLineArgs.LangValue);
                     ConfigManager.GeneralConfig.Language = commandLineArgs.LangValue;
                 }
 
                 // check WMI
-                if (Helpers.IsWmiEnabled())
+                if (WinHelpers.IsWmiEnabled())
                 {
                     if (ConfigManager.GeneralConfig.agreedWithTOS == Globals.CurrentTosVer)
                     {

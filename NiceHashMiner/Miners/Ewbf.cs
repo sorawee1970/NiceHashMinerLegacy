@@ -67,11 +67,11 @@ namespace NiceHashMiner.Miners
                 try
                 {
                     File.Copy(vcp, vcpPath, true);
-                    Helpers.ConsolePrint(MinerTag(), $"Copy from {vcp} to {vcpPath} done");
+                    WinHelpers.ConsolePrint(MinerTag(), $"Copy from {vcp} to {vcpPath} done");
                 }
                 catch (Exception e)
                 {
-                    Helpers.ConsolePrint(MinerTag(), "Copy msvcp.dll failed: " + e.Message);
+                    WinHelpers.ConsolePrint(MinerTag(), "Copy msvcp.dll failed: " + e.Message);
                 }
             }
 
@@ -109,7 +109,7 @@ namespace NiceHashMiner.Miners
             foreach (var process in Process.GetProcessesByName(exeName))
             {
                 try { process.Kill(); }
-                catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
+                catch (Exception e) { WinHelpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
         }
 
@@ -136,8 +136,8 @@ namespace NiceHashMiner.Miners
 
             try
             {
-                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
-                Helpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + _benchmarkTimeWait + " seconds");
+                WinHelpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                WinHelpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + _benchmarkTimeWait + " seconds");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
                 BenchmarkHandle.WaitForExit(_benchmarkTimeWait + 2);
                 var benchmarkTimer = new Stopwatch();
@@ -223,12 +223,12 @@ namespace NiceHashMiner.Miners
                             {
                                 lines = File.ReadAllLines(WorkingDirectory + latestLogFile);
                                 read = true;
-                                Helpers.ConsolePrint(MinerTag(),
+                                WinHelpers.ConsolePrint(MinerTag(),
                                     "Successfully read log after " + iteration + " iterations");
                             }
                             catch (Exception ex)
                             {
-                                Helpers.ConsolePrint(MinerTag(), ex.Message);
+                                WinHelpers.ConsolePrint(MinerTag(), ex.Message);
                                 Thread.Sleep(1000);
                             }
 
@@ -237,7 +237,7 @@ namespace NiceHashMiner.Miners
                         else
                         {
                             read = true; // Give up after 10s
-                            Helpers.ConsolePrint(MinerTag(), "Gave up on iteration " + iteration);
+                            WinHelpers.ConsolePrint(MinerTag(), "Gave up on iteration " + iteration);
                         }
                     }
 
@@ -274,7 +274,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            Helpers.ConsolePrint("BENCHMARK", outdata);
+            WinHelpers.ConsolePrint("BENCHMARK", outdata);
             return false;
         }
 
@@ -310,7 +310,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint("GetNumber",
+                WinHelpers.ConsolePrint("GetNumber",
                     ex.Message + " | args => " + outdata + " | " + lookForEnd + " | " + lookForStart);
             }
 
@@ -336,7 +336,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint(MinerTag(), ex.Message);
+                WinHelpers.ConsolePrint(MinerTag(), ex.Message);
             }
 
             if (resp != null && resp.error == null)

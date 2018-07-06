@@ -1,5 +1,6 @@
 ﻿using NiceHashMiner.Stats;
 using NiceHashMinerLegacy.Common.Configs;
+using NiceHashMinerLegacy.Common.Utils;
 
 namespace NiceHashMiner
 {

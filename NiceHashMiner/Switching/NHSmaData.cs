@@ -47,7 +47,7 @@ namespace NiceHashMiner.Switching
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint(Tag, e.ToString());
+                WinHelpers.ConsolePrint(Tag, e.ToString());
             }
 
             // _recentPaying = new Dictionary<AlgorithmType, List<double>>();
@@ -110,7 +110,7 @@ namespace NiceHashMiner.Switching
                     }
                     catch (Exception e)
                     {
-                        Helpers.ConsolePrint(Tag, e.ToString());
+                        WinHelpers.ConsolePrint(Tag, e.ToString());
                     }
                 }
             }
@@ -170,7 +170,7 @@ namespace NiceHashMiner.Switching
             {
                 sb.AppendLine("\tNone changed");
             }
-            Helpers.ConsolePrint(Tag, sb.ToString());
+            WinHelpers.ConsolePrint(Tag, sb.ToString());
         }
 
         #endregion

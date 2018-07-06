@@ -59,7 +59,7 @@ namespace NiceHashMiner.Miners.XmrStak
         {
             if (!IsInit)
             {
-                Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
+                WinHelpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
 
@@ -255,11 +255,11 @@ namespace NiceHashMiner.Miners.XmrStak
             }
             catch (FileNotFoundException)
             {
-                Helpers.ConsolePrint(MinerTag(), $"Config file {filename} not found, attempting to generate");
+                WinHelpers.ConsolePrint(MinerTag(), $"Config file {filename} not found, attempting to generate");
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint(MinerTag(), e.ToString());
+                WinHelpers.ConsolePrint(MinerTag(), e.ToString());
             }
 
             if (json == null)
@@ -325,8 +325,8 @@ namespace NiceHashMiner.Miners.XmrStak
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint(MinerTag(), e.ToString());
-                Helpers.ConsolePrint(MinerTag(),
+                WinHelpers.ConsolePrint(MinerTag(), e.ToString());
+                WinHelpers.ConsolePrint(MinerTag(),
                     $"Config {filename} was unable to write for xmr-stak, mining may not work");
             }
 

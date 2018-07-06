@@ -104,7 +104,7 @@ namespace NiceHashMiner.Switching
 
             if (_hasStarted)
             {
-                Helpers.ConsolePrint(Tag, sb.ToString());
+                WinHelpers.ConsolePrint(Tag, sb.ToString());
             }
             else
             {

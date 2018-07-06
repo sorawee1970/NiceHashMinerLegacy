@@ -202,7 +202,7 @@ namespace NiceHashMiner.Algorithms
             }
             if (BenchmarkSpeed > 0)
             {
-                return Helpers.FormatDualSpeedOutput(BenchmarkSpeed, 0, NiceHashID);
+                return WinHelpers.FormatDualSpeedOutput(BenchmarkSpeed, 0, NiceHashID);
             }
             if (!IsPendingString() && !string.IsNullOrEmpty(BenchmarkStatus))
             {
