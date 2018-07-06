@@ -14,6 +14,8 @@ namespace NiceHashMinerLegacy.Miners
 
         public static IPInvokePasser PInvoker;
 
+        public static Func<INHProcess> ProcessFactory;
+
         public static void StopAllMiners()
         {
             _curMiningSession?.StopAllMiners();
@@ -42,11 +44,12 @@ namespace NiceHashMinerLegacy.Miners
         }
 
         public static bool StartInitialize(IMainFormRatesComunication mainFormRatesComunication,
-            string miningLocation, string worker, string btcAdress, IPInvokePasser pInvoker)
+            string miningLocation, string worker, string btcAdress, IPInvokePasser pInvoker, Func<INHProcess> procFact)
         {
             _curMiningSession = new MiningSession(Available.Devices,
                 mainFormRatesComunication, miningLocation, worker, btcAdress);
             PInvoker = pInvoker;
+            ProcessFactory = procFact;
 
             return _curMiningSession.IsMiningEnabled;
         }

@@ -303,5 +303,10 @@ namespace NiceHashMiner
                 }
             }
         }
+
+        public static INHProcess CreateNew()
+        {
+            return new NiceHashProcess();
+        }
     }
 }

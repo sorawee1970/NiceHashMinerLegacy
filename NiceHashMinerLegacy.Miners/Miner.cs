@@ -123,8 +123,6 @@ namespace NiceHashMinerLegacy.Miners
 
         protected bool IsMultiType;
 
-        public Func<INHProcess> ProcessFactory;
-
         protected Miner(string minerDeviceName)
         {
             ConectionType = NhmConectionType.STRATUM_TCP;
@@ -914,7 +912,7 @@ namespace NiceHashMinerLegacy.Miners
             PreviousTotalMH = 0.0;
             if (LastCommandLine.Length == 0) return null;
 
-            var P = ProcessFactory();
+            var P = MinersManager.ProcessFactory();
 
             if (WorkingDirectory.Length > 1)
             {

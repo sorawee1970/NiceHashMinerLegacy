@@ -1189,7 +1189,7 @@ namespace NiceHashMiner
 
             var btcAdress = _demoMode ? Globals.DemoUser : textBoxBTCAddress.Text.Trim();
             var isMining = MinersManager.StartInitialize(this, Globals.MiningLocation[comboBoxLocation.SelectedIndex],
-                textBoxWorkerName.Text.Trim(), btcAdress, new WinHelpers());
+                textBoxWorkerName.Text.Trim(), btcAdress, new WinHelpers(), NiceHashProcess.CreateNew);
 
             if (!_demoMode) ConfigManager.GeneralConfigFileCommit();
 
