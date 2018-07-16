@@ -21,7 +21,7 @@ namespace NiceHashMiner.Stats
 
         public static Task LogStartMining(int numDevs)
         {
-            return LogEventImpl(Events.MiningStart, "", numDevs.ToString());
+            return LogEventImpl(Events.MiningStart, "{Version:\"NHML\"}", numDevs.ToString());
         }
 
         public static Task LogAddWallet(string address)
@@ -36,7 +36,7 @@ namespace NiceHashMiner.Stats
 
         private static async Task LogEventImpl(Events name, string eventText, string eventValue)
         {
-            var id = "";  // TODO
+            var id = "30.1427915758.1531757676537.-483558df";  // TODO
             var ts = DateTime.Now.GetUnixTime();
 
             try
@@ -62,12 +62,15 @@ namespace NiceHashMiner.Stats
 
                 Helpers.ConsolePrint("Fospha", finalReq);
 
-                //var wr = (HttpWebRequest)WebRequest.Create(finalReq);
-                //wr.Timeout = 30 * 1000;
-                //using (var response = await wr.GetResponseAsync())
-                //{
-                //    Helpers.ConsolePrint("Fospha", response.ContentType);
-                //}
+                if (name != Events.MiningStart) return;
+
+                var wr = (HttpWebRequest)WebRequest.Create(finalReq);
+                wr.Timeout = 30 * 1000;
+                using (var response = await wr.GetResponseAsync().ConfigureAwait(false))
+                {
+                    if (response.ContentType != "image/gif")
+                        throw new WebException("Response not expected content type");
+                }
             }
             catch (Exception e)
             {
