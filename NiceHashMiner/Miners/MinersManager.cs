@@ -43,7 +43,7 @@ namespace NiceHashMiner.Miners
         public static async Task<bool> StartInitialize(IMainFormRatesComunication mainFormRatesComunication,
             string miningLocation, string worker, string btcAdress)
         {
-            await Fospha.LogStartMining(ComputeDeviceManager.Available.Devices.Count);
+            await Fospha.LogStartMining(ComputeDeviceManager.Available.AvailGpus);
 
             _curMiningSession = new MiningSession(ComputeDeviceManager.Available.Devices,
                 mainFormRatesComunication, miningLocation, worker, btcAdress);

@@ -935,20 +935,10 @@ namespace NiceHashMiner.Devices
             public static bool HasCpu = false;
             public static int CpusCount = 0;
 
-            public static int AvailCpus
-            {
-                get { return Devices.Count(d => d.DeviceType == DeviceType.CPU); }
-            }
-
-            public static int AvailNVGpus
-            {
-                get { return Devices.Count(d => d.DeviceType == DeviceType.NVIDIA); }
-            }
-
-            public static int AvailAmdGpus
-            {
-                get { return Devices.Count(d => d.DeviceType == DeviceType.AMD); }
-            }
+            public static int AvailCpus => Devices.Count(d => d.DeviceType == DeviceType.CPU);
+            public static int AvailNVGpus => Devices.Count(d => d.DeviceType == DeviceType.NVIDIA);
+            public static int AvailAmdGpus => Devices.Count(d => d.DeviceType == DeviceType.AMD);
+            public static int AvailGpus => AvailNVGpus + AvailAmdGpus;
 
             public static int AvailGpUs => AvailAmdGpus + AvailNVGpus;
             public static int AmdOpenCLPlatformNum = -1;
