@@ -68,6 +68,9 @@ namespace NiceHashMiner.Stats
                 wr.Timeout = 30 * 1000;
                 using (var response = await wr.GetResponseAsync().ConfigureAwait(false))
                 {
+                    var ret = ((HttpWebResponse) response).StatusCode;
+                    if (ret != HttpStatusCode.OK)
+                        throw new WebException($"Return code: {ret}");
                     if (response.ContentType != "image/gif")
                         throw new WebException("Response not expected content type");
                 }
@@ -98,7 +101,17 @@ namespace NiceHashMiner.Stats
 
         internal static string GetDParam(Events eventName, string id, ulong ts, string eventText, string eventValue)
         {
-            const string trig = "https://minergoalevent.nicehash.com?";
+            var c = new CampaignData
+            {
+                campaignSource = "dillon",
+                campaignMedium = "testing",
+                campaignContent = "NHML-Testing"
+            };
+            var utmSource = $"campaignSource={c.campaignSource}";
+            var utmMedium = $"&campaignMedium={c.campaignMedium}";
+            var utmContent = $"&campaignContent={c.campaignContent}";
+
+            var trig = "https://minergoalevent.nicehash.com?" + utmSource + utmMedium + utmContent;
 
             //var eventText = eventName == Events.AddWallet ? ConfigManager.GeneralConfig.BitcoinAddress : "";
             //var eventValue = eventName == Events.MiningStart
@@ -129,8 +142,7 @@ namespace NiceHashMiner.Stats
             vals.Add("o.p");
 
             // Trigger URL
-            var camp = JsonConvert.SerializeObject(new CampaignData()) ?? "";
-            vals.Add(trig + camp);
+            vals.Add(trig);
 
             // Software data
             var soft = JsonConvert.SerializeObject(new ClientSoftwareData()) ?? "";
@@ -145,6 +157,7 @@ namespace NiceHashMiner.Stats
             vals.Add(ed);
 
             // Campaign data
+            var camp = JsonConvert.SerializeObject(c) ?? "";
             vals.Add(camp);
 
             var base64 = vals.Select(v => Convert.ToBase64String(Encoding.UTF8.GetBytes(v)).Replace('=', '_'));
