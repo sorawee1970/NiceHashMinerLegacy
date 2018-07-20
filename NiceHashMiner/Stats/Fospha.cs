@@ -14,7 +14,7 @@ namespace NiceHashMiner.Stats
     {
         private const string Endpoint = "https://uktc.fospha.com/nicehash/track.gif";
         private const string V = "14.0";
-        private const string F = "toycwpgij";
+        private const string F = "toycwpgijh";
         private const string T = "0";
 
         private static readonly Random R = new Random();
@@ -36,7 +36,7 @@ namespace NiceHashMiner.Stats
 
         private static async Task LogEventImpl(Events name, string eventText, string eventValue)
         {
-            var id = "30.1427915758.1531757676537.-483558df";  // TODO
+            var id = "30.1427915758.1531757676537.483558df";  // TODO
             var ts = DateTime.Now.GetUnixTime();
 
             try
@@ -66,7 +66,7 @@ namespace NiceHashMiner.Stats
 
                 var wr = (HttpWebRequest)WebRequest.Create(finalReq);
                 wr.Timeout = 30 * 1000;
-                using (var response = await wr.GetResponseAsync().ConfigureAwait(false))
+                using (var response = wr.GetResponse())
                 {
                     var ret = ((HttpWebResponse) response).StatusCode;
                     if (ret != HttpStatusCode.OK)
@@ -162,7 +162,7 @@ namespace NiceHashMiner.Stats
 
             var base64 = vals.Select(v => Convert.ToBase64String(Encoding.UTF8.GetBytes(v)).Replace('=', '_'));
 
-            return string.Join("*", base64);
+            return string.Join("*", base64) + "*";
         }
 
         internal static string GenChecksum(string data)

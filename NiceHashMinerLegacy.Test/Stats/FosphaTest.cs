@@ -13,6 +13,8 @@ namespace NiceHashMinerLegacy.Tests.Stats
 
         private const string WholeQuery = "v=14.0&i=1.1.1520438617336.1396536818.1382debe&t=toycwpgij&d=c3MxNTIwNDM4NjE3MzMycjMwNS4x*MQ__*ZXZlbnQ_*My43NjYzMTEwMC4xNTIwMzQ2MTI3MDgyLjU1OTMwMTk1*by5w*aHR0cHM6Ly9taW5lcmdvYWxldmVudC5uaWNlaGFzaC5jb20_*eyJ0eiI6LCJsYW5ndWFnZSI6IiIsImVuY29kaW5nIjoiIiwic2NyZWVuQ29sb3JzIjosInNjcmVlblJlc29sdXRpb24iOiIifQ__*eyJ0aXRsZSI6IiBOaWNlSGFzaCBNaW5lciBPbmxpbmUgQWN0aXZpdHkgIn0_*eyJldmVudENhdGVnb3J5IjoiZ29hbCIsImV2ZW50QWN0aW9uIjoiYWNoaWV2ZWQiLCJldmVudExhYmVsIjoibWluZXIgb25saW5lIiwiZXZlbnRDYXRMYWJlbCI6ImdvYWwiLCJldmVudEl0ZW1JZCI6Im1pbmVyIG9ubGluZSJ9&t=0";
 
+        private const string WholeQuery2 = "v=14.0&i=1.1.1531983897090.1927744805.1.1771742124.1522055603348.3f72c666&f=toycwpgijh&d=anMxNTMxOTgzODk3MDkxcjQwMy43*MQ__*ZXZlbnQ_*MS4xNzcxNzQyMTI0LjE1MjIwNTU2MDMzNDguM2Y3MmM2NjY_*by5w*aHR0cHM6Ly9taW5lcmdvYWxldmVudC5uaWNlaGFzaC5jb20%2FY2FtcGFpZ25Tb3VyY2U9JmNhbXBhaWduTWVkaXVtPSZjYW1wYWlnbk5hbWU9JmNhbXBhaWduS2V5d29yZD0mY2FtcGFpZ25Db250ZW50PSZjYW1wYWlnbkxwPSZjYW1wYWlnbkFkaWQ9*eyJ0eiI6IiIsImxhbmd1YWdlIjoiIiwiZW5jb2RpbmciOiIiLCJzY3JlZW5Db2xvcnMiOiIiLCJzY3JlZW5SZXNvbHV0aW9uIjoiIn0_*eyJ0aXRsZSI6Ik5pY2VIYXNoIE1pbmVyIE9ubGluZSBBY3Rpdml0eSJ9*eyJldmVudENhdGVnb3J5IjoiZ29hbCIsImV2ZW50Q2F0TGFiZWwiOiJnb2FsIiwiZXZlbnRBY3Rpb24iOiJhY2hpZXZlZCIsImV2ZW50TGFiZWwiOiJBZGRXYWxsZXQiLCJldmVudEl0ZW1JZCI6IkFkZFdhbGxldCIsImV2ZW50VGV4dCI6IjM3b1BQOXJCeXpCZXoycmtCeGNMOUZWR0hXeFczMUpDeXgiLCJldmVudFZhbHVlIjoiIn0_*eyJjYW1wYWlnblNvdXJjZSI6IiIsImNhbXBhaWduTWVkaXVtIjoiIiwiY2FtcGFpZ25OYW1lIjoiIiwiY2FtcGFpZ25LZXl3b3JkIjoiIiwiY2FtcGFpZ25Db250ZW50IjoiIiwiY2FtcGFpZ25McCI6IiIsImNhbXBhaWduQWRpZCI6IiJ9*&t=0";
+
         private const string TestD = "anMxNTIwNDM4NjE3MzMycjUwMC4w*MQ__*ZXZlbnQ_*My43NjYzMTEwMC4xNTIwMzQ2MTI3MDgyLjU1OTMwMTk1*by5w*aHR0cHM6Ly9taW5lcmdvYWxldmVudC5uaWNlaGFzaC5jb20/eyJjYW1wYWlnblNvdXJjZSI6IiIsImNhbXBhaWduTWVkaXVtIjoiIiwiY2FtcGFpZ25OYW1lIjoiIiwiY2FtcGFpZ25LZXl3b3JkIjoiIiwiY2FtcGFpZ25Db250ZW50IjoiIiwiY2FtcGFpZ25McCI6IiIsImNhbXBhaWduQWRpZCI6IiJ9*eyJ0eiI6IiIsImxhbmd1YWdlIjoiIiwiZW5jb2RpbmciOiIiLCJzY3JlZW5Db2xvcnMiOiIiLCJzY3JlZW5SZXNvbHV0aW9uIjoiIn0_*eyJ0aXRsZSI6Ik5pY2VIYXNoIE1pbmVyIE9ubGluZSBBY3Rpdml0eSJ9*eyJldmVudENhdGVnb3J5IjoiZ29hbCIsImV2ZW50Q2F0TGFiZWwiOiJnb2FsIiwiZXZlbnRBY3Rpb24iOiJhY2hpZXZlZCIsImV2ZW50TGFiZWwiOiJMYXVuY2giLCJldmVudEl0ZW1JZCI6IkxhdW5jaCIsImV2ZW50VGV4dCI6IiIsImV2ZW50VmFsdWUiOiIifQ__*eyJjYW1wYWlnblNvdXJjZSI6IiIsImNhbXBhaWduTWVkaXVtIjoiIiwiY2FtcGFpZ25OYW1lIjoiIiwiY2FtcGFpZ25LZXl3b3JkIjoiIiwiY2FtcGFpZ25Db250ZW50IjoiIiwiY2FtcGFpZ25McCI6IiIsImNhbXBhaWduQWRpZCI6IiJ9";
 
         [TestMethod]
@@ -41,6 +43,11 @@ namespace NiceHashMinerLegacy.Tests.Stats
             var chk = Fospha.GenChecksum(WholeQuery);
 
             Assert.AreEqual(goodChk, chk);
+
+            const string goodChk2 = "5a5840fa";
+            var chk2 = Fospha.GenChecksum(WholeQuery2);
+
+            Assert.AreEqual(goodChk2, chk2);
         }
 
         [TestMethod]
